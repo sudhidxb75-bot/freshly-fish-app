@@ -1,0 +1,311 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Freshly Fish Delivery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f5f8f7;
+}
+
+header{
+background:linear-gradient(
+rgba(0,77,64,.8),
+rgba(0,77,64,.8)),
+url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200');
+background-size:cover;
+background-position:center;
+padding:50px 20px;
+color:#fff;
+text-align:center;
+}
+
+header h1{
+font-size:42px;
+}
+
+header p{
+margin-top:10px;
+font-size:18px;
+}
+
+.delivery{
+background:#ffca28;
+display:inline-block;
+padding:10px 20px;
+border-radius:30px;
+margin-top:20px;
+font-weight:600;
+color:#222;
+}
+
+.container{
+padding:30px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#fff;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.content{
+padding:20px;
+}
+
+.price{
+font-size:22px;
+font-weight:700;
+color:#009688;
+margin:10px 0;
+}
+
+.stock{
+font-size:14px;
+margin-bottom:15px;
+}
+
+button{
+width:100%;
+background:#009688;
+color:#fff;
+border:none;
+padding:14px;
+border-radius:12px;
+font-size:16px;
+cursor:pointer;
+}
+
+.cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+width:70px;
+height:70px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+cursor:pointer;
+box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Freshly</h1>
+
+<p>
+Premium Kerala Seafood Delivery
+</p>
+
+<div class="delivery">
+🚚 Delivery: 4 PM – 7 PM
+</div>
+
+</header>
+
+<div class="container">
+
+<h2>
+Today's Fresh Catch
+</h2>
+
+<br>
+
+<div id="fishContainer"
+class="grid">
+Loading fish...
+</div>
+
+</div>
+
+<div class="cart"
+onclick="placeOrder()">
+🟢
+</div>
+
+<script>
+
+const CSV_URL =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?output=csv';
+
+let cart = [];
+
+async function loadFish(){
+
+const response =
+await fetch(CSV_URL);
+
+const csv =
+await response.text();
+
+const rows =
+csv.split('\n').slice(1);
+
+const container =
+document.getElementById(
+'fishContainer'
+);
+
+container.innerHTML='';
+
+rows.forEach((row,index)=>{
+
+const cols =
+row.split(',');
+
+if(cols.length < 5) return;
+
+const name =
+cols[0]?.trim();
+
+const malayalam =
+cols[1]?.trim();
+
+const price =
+cols[2]?.trim();
+
+const stock =
+cols[3]?.trim();
+
+const image =
+cols[4]?.trim();
+
+container.innerHTML += `
+<div class="card">
+
+<img src="${image}">
+
+<div class="content">
+
+<h3>${name}</h3>
+
+<p>${malayalam}</p>
+
+<div class="price">
+₹${price}/Kg
+</div>
+
+<div class="stock"
+style="color:
+${stock==='true'
+?'green':'red'}">
+
+${stock==='true'
+?'In Stock'
+:'Out Of Stock'}
+
+</div>
+
+<button
+onclick=
+"addToCart(
+'${name}',
+'${price}'
+)">
+Add To Cart
+</button>
+
+</div>
+</div>
+`;
+
+});
+
+}
+
+function addToCart(
+name,
+price
+){
+
+cart.push({
+name,
+price
+});
+
+alert(
+name +
+' added to cart'
+);
+
+}
+
+function placeOrder(){
+
+if(cart.length===0){
+
+alert(
+'Cart is empty'
+);
+
+return;
+}
+
+let message =
+'Freshly Fish Order%0A%0A';
+
+cart.forEach(item=>{
+
+message +=
+`${item.name}
+- ₹${item.price}%0A`;
+
+});
+
+message +=
+'%0APayment: UPI sudime-1@okaxis';
+
+window.open(
+'https://wa.me/918921696649?text='
++ message
+);
+
+}
+
+loadFish();
+
+</script>
+
+</body>
+</html>
+```
