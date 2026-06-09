@@ -1,0 +1,166 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Freshly - Premium Kerala Fish Delivery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="hero">
+    <div class="overlay">
+      <div class="top-bar">
+        <div>
+          <h1 class="logo">Freshly</h1>
+          <p id="tagline">Premium Kerala Seafood Delivery</p>
+        </div>
+
+        <button id="langToggle" class="lang-btn">
+          മലയാളം
+        </button>
+      </div>
+
+      <div class="hero-content">
+        <h2 id="heroTitle">Fresh Catch Delivered Today</h2>
+        <p id="heroSub">
+          Premium Kerala fish delivered fresh to your doorstep
+        </p>
+
+        <div class="delivery-badge">
+          🚚 Delivery Slot: 4 PM – 7 PM
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Offer Banner -->
+  <section class="offer-banner">
+    <h3 id="offerText">
+      Same Day Delivery Available
+    </h3>
+  </section>
+
+  <!-- Fish Section -->
+  <section class="fish-section">
+    <div class="section-header">
+      <h2 id="todayCatch">Today's Fresh Catch</h2>
+    </div>
+
+    <div id="fishContainer" class="fish-grid">
+      <!-- Dynamic Fish Cards -->
+    </div>
+  </section>
+
+  <!-- Cart Floating Button -->
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 <span id="cartCount">0</span>
+  </button>
+
+  <!-- Cart Sidebar -->
+  <aside id="cartSidebar" class="cart-sidebar">
+
+    <div class="cart-header">
+      <h2 id="cartTitle">Your Cart</h2>
+      <button onclick="toggleCart()">✖</button>
+    </div>
+
+    <div id="cartItems" class="cart-items">
+    </div>
+
+    <div class="cart-footer">
+
+      <h3>
+        Total: ₹<span id="cartTotal">0</span>
+      </h3>
+
+      <div class="delivery-section">
+
+        <label id="slotLabel">
+          Delivery Slot
+        </label>
+
+        <select id="deliverySlot">
+          <option>4 PM - 7 PM</option>
+        </select>
+
+      </div>
+
+      <div class="payment-section">
+
+        <h3 id="paymentTitle">
+          Payment Method
+        </h3>
+
+        <label class="radio-option">
+          <input type="radio" name="payment" value="UPI" checked>
+          UPI Payment
+        </label>
+
+        <label class="radio-option">
+          <input type="radio" name="payment" value="COD">
+          Cash On Delivery
+        </label>
+
+      </div>
+
+      <div class="upi-box">
+        <p>
+          Pay UPI:
+          <strong>sudime-1@okaxis</strong>
+        </p>
+      </div>
+
+      <div class="customer-form">
+
+        <input
+          type="text"
+          id="customerName"
+          placeholder="Your Name"
+        />
+
+        <input
+          type="text"
+          id="customerPhone"
+          placeholder="Phone Number"
+        />
+
+        <textarea
+          id="customerAddress"
+          placeholder="Delivery Address"
+        ></textarea>
+
+      </div>
+
+      <button class="whatsapp-btn" onclick="placeOrder()">
+        Order on WhatsApp
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Freshly</h3>
+    <p id="footerText">
+      Fresh Fish Delivered Across Kerala
+    </p>
+
+    <a href="admin.html" class="admin-link">
+      Admin Panel
+    </a>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+```
