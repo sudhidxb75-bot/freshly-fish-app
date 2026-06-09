@@ -1,0 +1,43 @@
+```json id="4vjj3m"
+[
+  {
+    "name": "Neymeen",
+    "malayalam": "നെയ്മീൻ",
+    "price": 850,
+    "stock": true,
+    "image": "https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=800"
+  },
+
+  {
+    "name": "Mathi",
+    "malayalam": "മത്തി",
+    "price": 180,
+    "stock": true,
+    "image": "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=800"
+  },
+
+  {
+    "name": "Ayala",
+    "malayalam": "അയല",
+    "price": 280,
+    "stock": true,
+    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800"
+  },
+
+  {
+    "name": "Chemmeen",
+    "malayalam": "ചെമ്മീൻ",
+    "price": 420,
+    "stock": true,
+    "image": "https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=800"
+  },
+
+  {
+    "name": "Karimeen",
+    "malayalam": "കരിമീൻ",
+    "price": 650,
+    "stock": false,
+    "image": "https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=800"
+  }
+]
+```
