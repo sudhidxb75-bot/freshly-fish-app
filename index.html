@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Freshly - Fresh Fish Delivery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fa;
+color:#222;
+}
+
+header{
+background:linear-gradient(135deg,#009688,#00695c);
+padding:20px;
+text-align:center;
+color:#fff;
+border-radius:0 0 25px 25px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+header h1{
+font-size:34px;
+font-weight:700;
+}
+
+header p{
+font-size:14px;
+margin-top:5px;
+}
+
+.banner{
+padding:18px;
+margin:20px;
+background:#fff;
+border-radius:20px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.banner h2{
+color:#009688;
+margin-bottom:10px;
+}
+
+.container{
+padding:20px;
+}
+
+.section-title{
+font-size:24px;
+font-weight:600;
+margin-bottom:15px;
+color:#00695c;
+}
+
+.fish-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:15px;
+}
+
+.card{
+background:#fff;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.card-content{
+padding:15px;
+}
+
+.card h3{
+font-size:18px;
+margin-bottom:5px;
+}
+
+.price{
+color:#009688;
+font-weight:600;
+margin-bottom:10px;
+}
+
+select,input,textarea{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+margin-top:8px;
+margin-bottom:12px;
+outline:none;
+}
+
+.order-box{
+margin-top:25px;
+background:#fff;
+padding:20px;
+border-radius:20px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+button{
+width:100%;
+background:#25D366;
+color:#fff;
+border:none;
+padding:16px;
+font-size:18px;
+border-radius:12px;
+cursor:pointer;
+font-weight:600;
+}
+
+button:hover{
+background:#1ebc57;
+}
+
+.footer{
+text-align:center;
+padding:25px;
+font-size:13px;
+color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Freshly</h1>
+<p>Fresh Fish Delivery | പുതിയ മീൻ വീട്ടിലെത്തും</p>
+</header>
+
+<div class="banner">
+<h2>Today's Fresh Catch 🐟</h2>
+<p>Fresh Sea Fish Delivered Same Day</p>
+<p>പുതിയ മീൻ അതേ ദിവസം ഡെലിവറി</p>
+</div>
+
+<div class="container">
+
+<h2 class="section-title">Choose Fish | മീൻ തിരഞ്ഞെടുക്കുക</h2>
+
+<div class="fish-grid">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=500" alt="">
+<div class="card-content">
+<h3>Neymeen</h3>
+<p>നെയ്മീൻ</p>
+<p class="price">₹850 / Kg</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=500" alt="">
+<div class="card-content">
+<h3>Mathi</h3>
+<p>മത്തി</p>
+<p class="price">₹180 / Kg</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=500" alt="">
+<div class="card-content">
+<h3>Chemmeen</h3>
+<p>ചെമ്മീൻ</p>
+<p class="price">₹420 / Kg</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500" alt="">
+<div class="card-content">
+<h3>Ayala</h3>
+<p>അയല</p>
+<p class="price">₹280 / Kg</p>
+</div>
+</div>
+
+</div>
+
+<div class="order-box">
+
+<h2>Place Order | ഓർഡർ ചെയ്യുക</h2>
+
+<input type="text" id="name" placeholder="Your Name | പേര്">
+
+<input type="text" id="location" placeholder="Delivery Address | അഡ്രസ്">
+
+<select id="fish">
+<option value="">Select Fish | മീൻ തിരഞ്ഞെടുക്കുക</option>
+<option>Neymeen - ₹850/Kg</option>
+<option>Mathi - ₹180/Kg</option>
+<option>Chemmeen - ₹420/Kg</option>
+<option>Ayala - ₹280/Kg</option>
+</select>
+
+<input type="number" id="qty" placeholder="Quantity in Kg | കിലോ">
+
+<select id="clean">
+<option>No Cleaning</option>
+<option>Clean & Cut Required</option>
+</select>
+
+<textarea id="note" placeholder="Extra Notes | അധിക വിവരങ്ങൾ"></textarea>
+
+<button onclick="sendWhatsApp()">
+Order on WhatsApp
+</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+Freshly © 2026 | Fresh Fish Kerala
+</div>
+
+<script>
+function sendWhatsApp(){
+
+let name=document.getElementById("name").value;
+let location=document.getElementById("location").value;
+let fish=document.getElementById("fish").value;
+let qty=document.getElementById("qty").value;
+let clean=document.getElementById("clean").value;
+let note=document.getElementById("note").value;
+
+if(name==="" || location==="" || fish==="" || qty===""){
+alert("Please fill all required fields");
+return;
+}
+
+let message =
+`🐟 *Freshly Fish Order* %0A%0A
+👤 Name: ${name}%0A
+📍 Address: ${location}%0A
+🐠 Fish: ${fish}%0A
+⚖ Quantity: ${qty} Kg%0A
+🔪 Cleaning: ${clean}%0A
+📝 Notes: ${note}%0A%0A
+Please confirm my order`;
+
+window.open(`https://wa.me/918921696649?text=${message}`,'_blank');
+}
+</script>
+
+</body>
+</html>
