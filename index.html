@@ -480,7 +480,7 @@ Please confirm my order.`;
 function submitPartner(){
   const formData = new URLSearchParams();
 
-  formData.append("type", "partner");
+  formData.append("leadType", "partner");
   formData.append("name", document.getElementById("partnerName").value.trim());
   formData.append("phone", document.getElementById("partnerPhone").value.trim());
   formData.append("city", document.getElementById("partnerCity").value.trim());
@@ -500,7 +500,7 @@ function submitPartner(){
 function submitAreaRequest(){
   const formData = new URLSearchParams();
 
-  formData.append("type", "area");
+  formData.append("leadType", "area");
   formData.append("name", document.getElementById("areaName").value.trim());
   formData.append("phone", document.getElementById("areaPhone").value.trim());
   formData.append("city", document.getElementById("areaCity").value.trim());
@@ -519,7 +519,7 @@ function submitAreaRequest(){
 function submitReferral(){
   const formData = new URLSearchParams();
 
-  formData.append("type", "referral");
+  formData.append("leadType", "referral");
   formData.append("customerName", document.getElementById("refCustomerName").value.trim());
   formData.append("customerPhone", document.getElementById("refCustomerPhone").value.trim());
   formData.append("friendName", document.getElementById("refFriendName").value.trim());
