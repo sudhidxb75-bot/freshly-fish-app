@@ -10,8 +10,8 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f4f8f7;color:#222}
 header{background:#00695c;color:white;text-align:center;padding:30px 15px}
-header h1{font-size:40px}
 header p{margin-top:8px}
+.logo{width:320px;max-width:95%;display:block;margin:0 auto 15px auto}
 .badge{background:#ffca28;color:#222;display:inline-block;margin-top:15px;padding:10px 18px;border-radius:25px;font-weight:bold}
 .cutoff{margin-top:10px;font-weight:bold;color:#ffeb3b}
 .container{padding:20px;max-width:1100px;margin:auto}
@@ -40,34 +40,16 @@ input,textarea,select{width:100%;padding:13px;margin:8px 0;border:1px solid #ccc
 .program-card h3{color:#00695c;margin-bottom:8px}
 .small-note{font-size:13px;color:#555;margin-top:4px}
 footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:30px}
-  .logo{
-width:320px;
-max-width:95%;
-display:block;
-margin:0 auto 15px auto;
-}
 </style>
 </head>
 
 <body>
 
 <header>
-
-<img
-src="images/freshly-logo.png"
-alt="Freshly Logo"
-class="logo">
-
+<img src="images/freshly-logo.png" alt="Freshly Logo" class="logo">
 <p>Premium Kerala Seafood Delivery</p>
-
-<div class="badge">
-Delivery 4 PM - 7 PM
-</div>
-
-<p class="cutoff">
-Order cut-off time: Before 3 PM for same-day delivery
-</p>
-
+<div class="badge">Delivery 4 PM - 7 PM</div>
+<p class="cutoff">Order cut-off time: Before 3 PM for same-day delivery</p>
 </header>
 
 <div class="container">
@@ -79,7 +61,6 @@ Order cut-off time: Before 3 PM for same-day delivery
 
 <h2 id="title">Today's Fresh Catch</h2>
 <br>
-
 <div id="fishContainer" class="grid">Loading...</div>
 
 <div class="cart-box">
@@ -164,7 +145,6 @@ Order cut-off time: Before 3 PM for same-day delivery
 
 <footer>Freshly © 2026 | Fresh Fish Kerala</footer>
 
-```html
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?output=csv";
 
@@ -172,7 +152,8 @@ const ORDER_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzP12x-LLYQPqP
 
 const WHATSAPP_NUMBER = "918921696649";
 
-const DELIVERY_AREAS_CSV_URL = "https://docs.google.com/spreadsheets/d/19TYsoYy8pFgDPJ3R55uBeifEgp_2Y4tmo0Mk4llmRWM/edit?usp=sharing";
+/* Replace this with your published DeliveryAreas CSV link */
+const DELIVERY_AREAS_CSV_URL = "PASTE_DELIVERY_AREAS_CSV_LINK_HERE";
 
 let fishData = [];
 let cart = [];
@@ -186,6 +167,11 @@ function isBeforeCutoff(){
 }
 
 async function isDeliveryAvailable(pincode){
+  if(!DELIVERY_AREAS_CSV_URL || DELIVERY_AREAS_CSV_URL.includes("PASTE_DELIVERY_AREAS")){
+    alert("Delivery area CSV link is not configured.");
+    return false;
+  }
+
   try{
     const response = await fetch(DELIVERY_AREAS_CSV_URL);
     const csv = await response.text();
@@ -257,6 +243,11 @@ async function loadFish(){
 
     fishData = parseCSV(csv);
     box.innerHTML = "";
+
+    if(fishData.length === 0){
+      box.innerHTML = "No fish items found. Please check FishData sheet.";
+      return;
+    }
 
     fishData.forEach((fish,i)=>{
       box.innerHTML += `
@@ -559,7 +550,6 @@ window.onload = function(){
   loadFish();
 };
 </script>
-```
 
 </body>
 </html>
