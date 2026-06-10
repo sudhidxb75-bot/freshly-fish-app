@@ -164,6 +164,7 @@ Order cut-off time: Before 3 PM for same-day delivery
 
 <footer>Freshly © 2026 | Fresh Fish Kerala</footer>
 
+```html
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?output=csv";
 
@@ -171,11 +172,12 @@ const ORDER_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzP12x-LLYQPqP
 
 const WHATSAPP_NUMBER = "918921696649";
 
+const DELIVERY_AREAS_CSV_URL = "PASTE_DELIVERY_AREAS_CSV_LINK_HERE";
+
 let fishData = [];
 let cart = [];
 let ml = false;
-const DELIVERY_AREAS_CSV_URL =
-"https://YOUR_DELIVERY_AREAS_CSV_LINK_HERE";
+
 function isBeforeCutoff(){
   const now = new Date();
   const cutoff = new Date();
@@ -183,53 +185,35 @@ function isBeforeCutoff(){
   return now <= cutoff;
 }
 
-function getLocation(){
-  if(!navigator.geolocation){
-    alert("Location is not supported on this device.");
-    return;
-  }
 async function isDeliveryAvailable(pincode){
-
   try{
+    const response = await fetch(DELIVERY_AREAS_CSV_URL);
+    const csv = await response.text();
+    const rows = csv.trim().split(/\r?\n/);
 
-    const response =
-      await fetch(DELIVERY_AREAS_CSV_URL);
-
-    const csv =
-      await response.text();
-
-    const rows =
-      csv.trim().split(/\r?\n/);
-
-    for(let i=1;i<rows.length;i++){
-
+    for(let i = 1; i < rows.length; i++){
       const cols = rows[i].split(",");
+      const areaPin = cols[0]?.trim();
+      const available = cols[3]?.trim().toLowerCase();
 
-      const areaPin =
-        cols[0]?.trim();
-
-      const available =
-        cols[3]?.trim().toLowerCase();
-
-      if(
-        areaPin === pincode &&
-        available === "yes"
-      ){
+      if(areaPin === pincode && available === "yes"){
         return true;
       }
     }
 
     return false;
-
   }catch(error){
-
-    alert(
-      "Unable to verify delivery area."
-    );
-
+    alert("Unable to verify delivery area. Please try again.");
     return false;
   }
 }
+
+function getLocation(){
+  if(!navigator.geolocation){
+    alert("Location is not supported on this device.");
+    return;
+  }
+
   document.getElementById("address").value = "Getting current location...";
 
   navigator.geolocation.getCurrentPosition(
@@ -429,8 +413,15 @@ async function placeOrder(){
   const payment = document.getElementById("payment").value;
   const slot = "4 PM - 7 PM";
 
-  if(!name || !phone || !city || !pincode || !address){
-    alert("Please fill name, phone, city, pin code and address");
+  if(!name || !phone || !pincode || !address){
+    alert("Please fill name, phone, pin code and address");
+    return;
+  }
+
+  const deliveryOk = await isDeliveryAvailable(pincode);
+
+  if(!deliveryOk){
+    alert("Sorry. Delivery is currently not available in this pin code. Please register under 'Start Freshly in My Area'.");
     return;
   }
 
@@ -465,7 +456,7 @@ async function placeOrder(){
 
 Name: ${name}
 Phone: ${phone}
-City: ${city}
+City: ${city || "Not provided"}
 Pin Code: ${pincode}
 Address: ${address}
 
@@ -568,6 +559,7 @@ window.onload = function(){
   loadFish();
 };
 </script>
+```
 
 </body>
 </html>
