@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -13,22 +14,27 @@ header h1{font-size:40px}
 header p{margin-top:8px}
 .badge{background:#ffca28;color:#222;display:inline-block;margin-top:15px;padding:10px 18px;border-radius:25px;font-weight:bold}
 .container{padding:20px;max-width:1100px;margin:auto}
-.top-actions{display:flex;gap:10px;margin-bottom:20px}
+.top-actions{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
 button{border:none;border-radius:10px;padding:12px 15px;cursor:pointer;font-weight:bold}
 .lang{background:#004d40;color:white}
+.refresh{background:#ffca28;color:#222}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
 .card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.1)}
 .card img{width:100%;height:210px;object-fit:cover}
 .content{padding:15px}
 .price{font-size:22px;font-weight:bold;color:#009688;margin:10px 0}
-.add{background:#009688;color:white;width:100%}
+.stock{font-weight:bold;margin-bottom:8px}
+.add{background:#009688;color:white;width:100%;margin-top:8px}
 .add:disabled{background:#999}
 .cart{position:fixed;right:15px;bottom:15px;background:#25D366;color:white;border-radius:50%;width:70px;height:70px;font-size:22px}
 .cart-box{background:white;margin-top:25px;padding:20px;border-radius:18px;box-shadow:0 4px 14px rgba(0,0,0,.1)}
 input,textarea,select{width:100%;padding:13px;margin:8px 0;border:1px solid #ccc;border-radius:10px}
 .order{background:#25D366;color:white;width:100%;font-size:18px;margin-top:10px}
+.cart-item{background:#e9f5f2;padding:10px;border-radius:10px;margin-bottom:8px}
+.remove{background:#d32f2f;color:white;padding:7px 10px;margin-top:6px}
 footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:30px}
 </style>
+
 </head>
 
 <body>
@@ -43,7 +49,7 @@ footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:
 
 <div class="top-actions">
 <button class="lang" onclick="toggleLang()">മലയാളം / English</button>
-<button onclick="loadFish()">Refresh Items</button>
+<button class="refresh" onclick="loadFish()">Refresh Items</button>
 </div>
 
 <h2 id="title">Today's Fresh Catch</h2>
@@ -66,6 +72,7 @@ footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:
 </select>
 
 <button class="order" onclick="placeOrder()">Order on WhatsApp</button>
+
 </div>
 
 </div>
@@ -91,8 +98,10 @@ let ml = false;
 
 function parseCSV(text){
   const lines = text.trim().split(/\r?\n/);
+
   return lines.slice(1).map(line => {
     const cols = line.split(",");
+
     return {
       name: cols[0]?.trim(),
       malayalam: cols[1]?.trim(),
@@ -110,6 +119,7 @@ async function loadFish(){
   try{
     const res = await fetch(CSV_URL);
     const csv = await res.text();
+
     fishData = parseCSV(csv);
     box.innerHTML = "";
 
@@ -117,11 +127,30 @@ async function loadFish(){
       box.innerHTML += `
       <div class="card">
         <img src="${fish.image}" onerror="this.src='https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=800'">
+
         <div class="content">
           <h3>${ml ? fish.malayalam : fish.name}</h3>
           <p>${ml ? fish.name : fish.malayalam}</p>
+
           <div class="price">₹${fish.price}/Kg</div>
-          <p style="color:${fish.stock ? 'green':'red'}">${fish.stock ? 'In Stock':'Out of Stock'}</p>
+
+          <p class="stock" style="color:${fish.stock ? 'green':'red'}">
+            ${fish.stock ? 'In Stock':'Out of Stock'}
+          </p>
+
+          <select id="weight-${i}">
+            <option value="0.5">500 gms</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+            <option value="2.5">2.5 kg</option>
+            <option value="3">3 kg</option>
+            <option value="3.5">3.5 kg</option>
+            <option value="4">4 kg</option>
+            <option value="4.5">4.5 kg</option>
+            <option value="5">5 kg</option>
+          </select>
+
           <button class="add" onclick="addToCart(${i})" ${fish.stock ? '' : 'disabled'}>
             ${ml ? 'കാർട്ടിലേക്ക് ചേർക്കുക':'Add to Cart'}
           </button>
@@ -135,20 +164,39 @@ async function loadFish(){
 }
 
 function addToCart(i){
-  cart.push(fishData[i]);
+  const fish = fishData[i];
+  const weight = Number(document.getElementById("weight-" + i).value);
+  const amount = fish.price * weight;
+
+  cart.push({
+    name: fish.name,
+    malayalam: fish.malayalam,
+    price: fish.price,
+    weight: weight,
+    amount: amount
+  });
+
   updateCart();
 }
 
 function updateCart(){
   const list = document.getElementById("cartItems");
   list.innerHTML = "";
+
   let total = 0;
 
   cart.forEach((item,i)=>{
-    total += item.price;
+    total += item.amount;
+
     list.innerHTML += `
-    <p>${item.name} - ₹${item.price}
-    <button onclick="removeItem(${i})">Remove</button></p>`;
+    <div class="cart-item">
+      <strong>${ml ? item.malayalam : item.name}</strong><br>
+      Weight: ${item.weight} kg<br>
+      Rate: ₹${item.price}/kg<br>
+      Amount: ₹${item.amount}
+      <br>
+      <button class="remove" onclick="removeItem(${i})">Remove</button>
+    </div>`;
   });
 
   document.getElementById("total").innerText = total;
@@ -177,8 +225,8 @@ async function placeOrder(){
     return;
   }
 
-  const items = cart.map(x => `${x.name} - ₹${x.price}/Kg`).join(" | ");
-  const total = cart.reduce((s,x)=>s+x.price,0);
+  const items = cart.map(x => `${x.name} - ${x.weight} kg - ₹${x.amount}`).join(" | ");
+  const total = cart.reduce((s,x)=>s+x.amount,0);
 
   const formData = new URLSearchParams();
   formData.append("name", name);
@@ -215,13 +263,21 @@ Please confirm my order.`;
 
   cart = [];
   updateCart();
+
+  alert("Order sent successfully");
 }
 
 function toggleLang(){
   ml = !ml;
-  document.getElementById("title").innerText = ml ? "ഇന്നത്തെ മീൻ ലഭ്യത" : "Today's Fresh Catch";
-  document.getElementById("cartTitle").innerText = ml ? "നിങ്ങളുടെ കാർട്ട്" : "Your Cart";
+
+  document.getElementById("title").innerText =
+    ml ? "ഇന്നത്തെ മീൻ ലഭ്യത" : "Today's Fresh Catch";
+
+  document.getElementById("cartTitle").innerText =
+    ml ? "നിങ്ങളുടെ കാർട്ട്" : "Your Cart";
+
   loadFish();
+  updateCart();
 }
 
 loadFish();
