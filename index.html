@@ -71,8 +71,8 @@ footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:
 
 <input id="name" placeholder="Your Name">
 <input id="phone" placeholder="Phone Number">
-<input id="city" placeholder="City / Town (Optional)">
-<input id="pincode" placeholder="Pin Code (Optional)">
+<input id="city" placeholder="City / Town">
+<input id="pincode" placeholder="Pin Code">
 
 <button class="location-btn" onclick="getLocation()">📍 Use My Current Location</button>
 
@@ -369,8 +369,8 @@ async function placeOrder(){
   const payment = document.getElementById("payment").value;
   const slot = "4 PM - 7 PM";
 
-  if(!name || !phone || !address){
-    alert("Please fill name, phone and address");
+  if(!name || !phone || !city || !pincode || !address){
+    alert("Please fill name, phone, city, pin code and address");
     return;
   }
 
@@ -405,8 +405,8 @@ async function placeOrder(){
 
 Name: ${name}
 Phone: ${phone}
-City: ${city || "Not provided"}
-Pin Code: ${pincode || "Not provided"}
+City: ${city}
+Pin Code: ${pincode}
 Address: ${address}
 
 Items:
