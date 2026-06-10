@@ -174,7 +174,8 @@ const WHATSAPP_NUMBER = "918921696649";
 let fishData = [];
 let cart = [];
 let ml = false;
-
+const DELIVERY_AREAS_CSV_URL =
+"https://YOUR_DELIVERY_AREAS_CSV_LINK_HERE";
 function isBeforeCutoff(){
   const now = new Date();
   const cutoff = new Date();
@@ -187,7 +188,48 @@ function getLocation(){
     alert("Location is not supported on this device.");
     return;
   }
+async function isDeliveryAvailable(pincode){
 
+  try{
+
+    const response =
+      await fetch(DELIVERY_AREAS_CSV_URL);
+
+    const csv =
+      await response.text();
+
+    const rows =
+      csv.trim().split(/\r?\n/);
+
+    for(let i=1;i<rows.length;i++){
+
+      const cols = rows[i].split(",");
+
+      const areaPin =
+        cols[0]?.trim();
+
+      const available =
+        cols[3]?.trim().toLowerCase();
+
+      if(
+        areaPin === pincode &&
+        available === "yes"
+      ){
+        return true;
+      }
+    }
+
+    return false;
+
+  }catch(error){
+
+    alert(
+      "Unable to verify delivery area."
+    );
+
+    return false;
+  }
+}
   document.getElementById("address").value = "Getting current location...";
 
   navigator.geolocation.getCurrentPosition(
