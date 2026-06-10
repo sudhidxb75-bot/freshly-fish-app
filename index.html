@@ -18,6 +18,7 @@ header p{margin-top:8px}
 button{border:none;border-radius:10px;padding:12px 15px;cursor:pointer;font-weight:bold}
 .lang{background:#004d40;color:white}
 .refresh{background:#ffca28;color:#222}
+.location-btn{background:#1976d2;color:white;width:100%;margin:8px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
 .card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.1)}
 .card img{width:100%;height:210px;object-fit:cover}
@@ -63,7 +64,10 @@ footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:
 
 <input id="name" placeholder="Your Name">
 <input id="phone" placeholder="Phone Number">
-<textarea id="address" placeholder="Delivery Address"></textarea>
+
+<button class="location-btn" onclick="getLocation()">📍 Use My Current Location</button>
+
+<textarea id="address" placeholder="Delivery Address or GPS Location"></textarea>
 
 <select id="payment">
 <option value="Cash on Delivery">Cash on Delivery</option>
@@ -93,6 +97,32 @@ const WHATSAPP_NUMBER = "918921696649";
 let fishData = [];
 let cart = [];
 let ml = false;
+
+function getLocation(){
+  if(!navigator.geolocation){
+    alert("Location is not supported on this device.");
+    return;
+  }
+
+  document.getElementById("address").value = "Getting current location...";
+
+  navigator.geolocation.getCurrentPosition(
+    function(position){
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
+
+      document.getElementById("address").value =
+        `GPS Location: ${mapLink}`;
+
+      localStorage.setItem("freshlyAddress", document.getElementById("address").value);
+    },
+    function(){
+      alert("Unable to get location. Please allow location access or type address manually.");
+      document.getElementById("address").value = "";
+    }
+  );
+}
 
 function parseCSV(text){
   const lines = text.trim().split(/\r?\n/);
@@ -259,6 +289,8 @@ async function placeOrder(){
     return;
   }
 
+  localStorage.setItem("freshlyAddress", address);
+
   const items = cart.map(x =>
     `${x.name} - ${x.weight} kg - ${x.cleaning} - ${x.marination} - ₹${x.amount}`
   ).join(" | ");
@@ -317,7 +349,15 @@ function toggleLang(){
   updateCart();
 }
 
-loadFish();
+window.onload = function(){
+  const savedAddress = localStorage.getItem("freshlyAddress");
+
+  if(savedAddress){
+    document.getElementById("address").value = savedAddress;
+  }
+
+  loadFish();
+};
 </script>
 
 </body>
