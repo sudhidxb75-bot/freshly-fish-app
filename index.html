@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,7 +34,6 @@ input,textarea,select{width:100%;padding:13px;margin:8px 0;border:1px solid #ccc
 .remove{background:#d32f2f;color:white;padding:7px 10px;margin-top:6px}
 footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:30px}
 </style>
-
 </head>
 
 <body>
@@ -72,7 +71,6 @@ footer{text-align:center;background:#004d40;color:white;padding:20px;margin-top:
 </select>
 
 <button class="order" onclick="placeOrder()">Order on WhatsApp</button>
-
 </div>
 
 </div>
@@ -138,6 +136,7 @@ async function loadFish(){
             ${fish.stock ? 'In Stock':'Out of Stock'}
           </p>
 
+          <label><b>Select Weight</b></label>
           <select id="weight-${i}">
             <option value="0.5">500 gms</option>
             <option value="1">1 kg</option>
@@ -149,6 +148,25 @@ async function loadFish(){
             <option value="4">4 kg</option>
             <option value="4.5">4.5 kg</option>
             <option value="5">5 kg</option>
+          </select>
+
+          <label><b>Cutting & Cleaning</b></label>
+          <select id="cleaning-${i}">
+            <option value="Whole Fish">Whole Fish</option>
+            <option value="Cleaned">Cleaned</option>
+            <option value="Curry Cut">Curry Cut</option>
+            <option value="Steak Cut">Steak Cut</option>
+            <option value="Fillet">Fillet</option>
+          </select>
+
+          <label><b>Marination</b></label>
+          <select id="marination-${i}">
+            <option value="No Marination">No Marination</option>
+            <option value="Kerala Fish Fry Masala">Kerala Fish Fry Masala</option>
+            <option value="Spicy Red Masala">Spicy Red Masala</option>
+            <option value="Pepper Masala">Pepper Masala</option>
+            <option value="Turmeric & Chilli">Turmeric & Chilli</option>
+            <option value="Tandoori Masala">Tandoori Masala</option>
           </select>
 
           <button class="add" onclick="addToCart(${i})" ${fish.stock ? '' : 'disabled'}>
@@ -165,14 +183,27 @@ async function loadFish(){
 
 function addToCart(i){
   const fish = fishData[i];
+
   const weight = Number(document.getElementById("weight-" + i).value);
-  const amount = fish.price * weight;
+  const cleaning = document.getElementById("cleaning-" + i).value;
+  const marination = document.getElementById("marination-" + i).value;
+
+  let marinadeCharge = 0;
+
+  if(marination !== "No Marination"){
+    marinadeCharge = 30 * weight;
+  }
+
+  const amount = (fish.price * weight) + marinadeCharge;
 
   cart.push({
     name: fish.name,
     malayalam: fish.malayalam,
     price: fish.price,
     weight: weight,
+    cleaning: cleaning,
+    marination: marination,
+    marinadeCharge: marinadeCharge,
     amount: amount
   });
 
@@ -193,6 +224,9 @@ function updateCart(){
       <strong>${ml ? item.malayalam : item.name}</strong><br>
       Weight: ${item.weight} kg<br>
       Rate: ₹${item.price}/kg<br>
+      Cutting: ${item.cleaning}<br>
+      Marination: ${item.marination}<br>
+      Marination Charge: ₹${item.marinadeCharge}<br>
       Amount: ₹${item.amount}
       <br>
       <button class="remove" onclick="removeItem(${i})">Remove</button>
@@ -225,7 +259,10 @@ async function placeOrder(){
     return;
   }
 
-  const items = cart.map(x => `${x.name} - ${x.weight} kg - ₹${x.amount}`).join(" | ");
+  const items = cart.map(x =>
+    `${x.name} - ${x.weight} kg - ${x.cleaning} - ${x.marination} - ₹${x.amount}`
+  ).join(" | ");
+
   const total = cart.reduce((s,x)=>s+x.amount,0);
 
   const formData = new URLSearchParams();
@@ -285,3 +322,4 @@ loadFish();
 
 </body>
 </html>
+```
