@@ -19,7 +19,7 @@
 <script>
 const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?output=csv";
 const DELIVERY_AREAS_CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?gid=312445743&single=true&output=csv";
-const ORDER_SCRIPT_URL="PASTE_NEW_APPS_SCRIPT_WEB_APP_URL_HERE";
+const ORDER_SCRIPT_URL="https://script.google.com/macros/s/AKfycbwVLorx7Ho8_FY-SXLOJttgJ9fJ5iYioyA8ddOxCTID_ljYMRcO6W-6TX5EuqLL8TwRkA/exec";
 const WHATSAPP_NUMBER="918921696649";
 let fishData=[],cart=[],ml=false;
 function parseCSVRows(text){const rows=[];let row=[],field='',q=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&q&&n==='"'){field+='"';i++;}else if(c==='"'){q=!q;}else if(c===','&&!q){row.push(field);field='';}else if((c==='\n'||c==='\r')&&!q){if(field||row.length){row.push(field);rows.push(row);row=[];field='';}if(c==='\r'&&n==='\n')i++;}else field+=c;}if(field||row.length){row.push(field);rows.push(row);}return rows;}
