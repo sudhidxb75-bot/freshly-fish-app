@@ -1,5 +1,5 @@
 /* Freshly App Settings */
-const FISH_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?output=csv";
+const FISH_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vReNx5S9Ga3x-9BUSk7IMq6k_hY3Nl5WzXTJuZ2e8wEVzyj8q_dJUzwHXwKgSqSQK41l29F93e_rw7X/pub?gid=36997096&single=true&output=csv";
 const DELIVERY_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRaa73eTvuPFc-VUT5-bbXe0oSWC6UjzRryJCbrrB3fjy2l8JLI85gqljhnriQCcdvJXto-I4HbO8c4/pub?gid=312445743&single=true&output=csv";
 const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzbE8d3gjfehXjyDAwdw-0geOG444zOhJKRCT5qCzjxQG-oKD0Ox7v5D4Wd9R54ANIdpg/exec";
 const WHATSAPP_NUMBER = "918921696649";
