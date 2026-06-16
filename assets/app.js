@@ -1,8 +1,8 @@
-
+/* Freshly v9 App Settings */
 const FISH_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjx65Uit-ONLxIJS77ftfGTv8cCj8ZCA4yl6tZEsxZWa1A9o4PXHUrTakFsCyvcuy8eY2g-8ZoDRwL/pub?gid=1937927754&single=true&output=csv";
 const HUB_PINCODES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjx65Uit-ONLxIJS77ftfGTv8cCj8ZCA4yl6tZEsxZWa1A9o4PXHUrTakFsCyvcuy8eY2g-8ZoDRwL/pub?gid=1718557348&single=true&output=csv";
 const HUB_DELIVERY_SLOTS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjx65Uit-ONLxIJS77ftfGTv8cCj8ZCA4yl6tZEsxZWa1A9o4PXHUrTakFsCyvcuy8eY2g-8ZoDRwL/pub?gid=1349017846&single=true&output=csv";
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbw4SvD2j7HHnuGpojl8cjlbpApy33p0DHbwH7uGm6tniYY6ftY2yjOFyzk4CXlZUpv0/exec";
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzvKsIUVmIUyMA7WiPK-dYTHxI9RylQ4agBsnqX8yAK8aDiE40MoXLSvHd5S3TnPesZ/exec";
 const WHATSAPP_NUMBERS = ["918921696649", "971558962348"];
 
 let fishData = [];
