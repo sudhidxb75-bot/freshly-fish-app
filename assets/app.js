@@ -1,4 +1,5 @@
-/* Freshly v11 App Settings - 12 Hour Time Format + Pincode Hub Fix */
+```javascript
+/* Freshly v11 App Settings - 12 Hour Time Format + Pincode Hub Fix + WhatsApp Line Breaker */
 const FISH_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=564324358&single=true&output=csv";
 const HUB_PINCODES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1070445629&single=true&output=csv";
 const HUB_DELIVERY_SLOTS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1644440201&single=true&output=csv";
@@ -97,14 +98,10 @@ function normalizePincode(value){
   let v = clean(value);
   if(!v) return '';
 
-  // Handles values like 673008.0 if Google Sheets formats the column as number.
   if(/^\d+\.0+$/.test(v)) v = v.split('.')[0];
 
-  // Keep only digits for comparison.
   v = v.replace(/[^0-9]/g, '');
 
-  // Indian pincodes are 6 digits. If Google Sheets accidentally adds extra decimal digits,
-  // keep the first 6 digits because the displayed pincode should be 6 digits.
   if(v.length > 6) v = v.slice(0, 6);
   return v;
 }
@@ -113,7 +110,6 @@ function normalizePhone(value){
   const raw = clean(value);
   if(!raw) return '';
 
-  // If a phone number was stored in Google Sheets as scientific notation, keep it readable.
   if(/e\+/i.test(raw)){
     const n = Number(raw);
     if(!isNaN(n)) return String(Math.trunc(n));
@@ -135,7 +131,6 @@ function parseTimeParts(timeValue){
   let text = clean(timeValue);
   if(!text) return null;
 
-  // Google Sheets sometimes exports time as a decimal string like 0.625 for 15:00.
   if(/^0?\.\d+$/.test(text)){
     const decimal = Number(text);
     if(!isNaN(decimal)){
@@ -147,10 +142,8 @@ function parseTimeParts(timeValue){
     }
   }
 
-  // Handles 15:00, 15:00:00, 3:00 PM, 03:00 pm, and date-time strings ending with time.
   let match = text.match(/(\d{1,2})\s*:\s*(\d{2})(?:\s*:\s*\d{2})?\s*(AM|PM)?/i);
 
-  // Handles plain hour values like 15 or 3 PM.
   if(!match){
     match = text.match(/^(\d{1,2})\s*(AM|PM)?$/i);
   }
@@ -235,8 +228,6 @@ function hubRowsToObjects(csv){
       hubPartner: pick(r, ['HubPartner', 'Hub Partner', 'PartnerName', 'Partner Name']),
       hubPhone: normalizePhone(pick(r, ['HubPhone', 'Hub Phone', 'PartnerPhone', 'Partner Phone', 'Phone'])),
       minimumOrder: num(pick(r, ['MinimumOrder', 'Minimum Order', 'MinOrder', 'Min Order'])),
-
-      // Optional fallback columns only. Main delivery slots should come from HubDeliverySlots sheet.
       deliverySlot1: pick(r, ['DeliverySlot1', 'Delivery Slot 1', 'Slot1']),
       deliverySlot2: pick(r, ['DeliverySlot2', 'Delivery Slot 2', 'Slot2']),
       deliverySlot3: pick(r, ['DeliverySlot3', 'Delivery Slot 3', 'Slot3'])
@@ -307,8 +298,6 @@ function getHubsForLocation(pincode, city){
   const pin = normalizePincode(pincode);
   const town = clean(city).toLowerCase();
 
-  // Pincode is the main serviceability check. If user entered a pincode,
-  // do not incorrectly approve by city fallback.
   if(pin){
     return hubRows.filter(x => normalizePincode(x.pincode) === pin);
   }
@@ -437,7 +426,6 @@ function updateSlotDropdown(){
     if(filtered.length) slots = filtered;
   }
 
-  // Fallback for older Hub Pincode sheet columns.
   if(slots.length === 0){
     slots = [selectedHub.deliverySlot1, selectedHub.deliverySlot2, selectedHub.deliverySlot3]
       .map((slot, index) => ({
@@ -451,7 +439,6 @@ function updateSlotDropdown(){
       .filter(x => x.deliverySlot && x.deliverySlot !== '-');
   }
 
-  // Safe default so pincode lookup does not fail only because slots are not configured yet.
   if(slots.length === 0){
     slots = [{
       hubId: selectedHub.hubId,
@@ -836,7 +823,64 @@ async function placeOrder(){
 
   fetch(BACKEND_URL, { method: 'POST', mode: 'no-cors', body: formData });
 
-  const msg = `Freshly Fish Order\n\nOrder ID: ${orderId}\n\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nPin Code: ${pincode}\nService: ${fulfillment}\nAddress: ${address || 'Customer will pickup from hub'}\n\nItems:\n${items}\n\nFish Subtotal: ₹${subtotal}\nCleaning/Cutting Charges: ₹${cleaningTotal}\nMarination Charges: ₹${marinationTotal}\nHome Delivery Charge: ₹${deliveryCharge}\nTotal: ₹${total}\nPayment Option: ${payment}\nPayment Rule: Customer pays Freshly directly by UPI. No cash collection by hub/delivery partner.\nDelivery/Pickup Slot: ${slot}\nSlot Cut-off Time: ${slotCutOffTime}\n\nSelected Freshly Hub:\n${selectedHub.hubName}\nArea: ${selectedHub.area}\nHub Partner + Delivery: ${selectedHub.hubPartner || 'Freshly Team'}\n\nPlease confirm my order.`;
+  const msg = `====================================
+*FRESHLY NEW ORDER*
+====================================
+
+Order ID: ${orderId}
+
+Name: ${name}
+Phone: ${phone}
+City: ${city}
+Pin Code: ${pincode}
+
+------------------------------------
+*SERVICE DETAILS*
+------------------------------------
+Service: ${fulfillment}
+Address: ${address || 'Customer will pickup from hub'}
+
+------------------------------------
+*ITEMS*
+------------------------------------
+${items}
+
+------------------------------------
+*BILL SUMMARY*
+------------------------------------
+Fish Subtotal: ₹${subtotal}
+Cleaning/Cutting Charges: ₹${cleaningTotal}
+Marination Charges: ₹${marinationTotal}
+Home Delivery Charge: ₹${deliveryCharge}
+
+*TOTAL: ₹${total}*
+
+------------------------------------
+*PAYMENT*
+------------------------------------
+Payment Option: ${payment}
+
+Customer pays Freshly directly by UPI.
+No cash collection by hub partner or delivery partner.
+
+------------------------------------
+*DELIVERY / PICKUP*
+------------------------------------
+Delivery Slot: ${slot}
+Cut-off Time: ${slotCutOffTime}
+
+------------------------------------
+*SELECTED HUB*
+------------------------------------
+Hub: ${selectedHub.hubName}
+Area: ${selectedHub.area}
+Hub Partner: ${selectedHub.hubPartner || 'Freshly Team'}
+
+Please confirm my order.
+
+====================================
+🔴 *END OF ORDER* 🔴
+====================================`;
 
   openWhatsAppToAllNumbers(msg);
   cart = [];
@@ -948,3 +992,4 @@ window.onload = async function(){
   await loadHubDeliverySlots();
   loadFish();
 };
+```
