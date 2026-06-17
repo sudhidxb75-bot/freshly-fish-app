@@ -315,35 +315,28 @@ function getFulfillmentCharge(){
 }
 
 function getLocation(){
+  const addressBox = document.getElementById('address');
 
-const addressBox = document.getElementById('address');
+  if(!addressBox){
+    alert('Address field not found.');
+    return;
+  }
 
-if(!addressBox){
-alert('Address field not found.');
-return;
-}
+  if(!navigator.geolocation){
+    alert('Location is not supported on this device. Please type your full address manually.');
+    return;
+  }
 
-if(!navigator.geolocation){
-alert('Location is not supported on this device. Please type your full address manually.');
-return;
-}
+  addressBox.value = 'Getting current location. Please wait...';
 
-addressBox.value = 'Getting current location. Please wait...';
+  navigator.geolocation.getCurrentPosition(
+    function(position){
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const accuracy = Math.round(position.coords.accuracy || 0);
+      const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
 
-navigator.geolocation.getCurrentPosition(
-
-```
-function(position){
-
-  const lat = position.coords.latitude;
-  const lon = position.coords.longitude;
-  const accuracy = Math.round(position.coords.accuracy || 0);
-
-  const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
-
-  addressBox.value =
-```
-
+      addressBox.value =
 `Please verify the location before placing order.
 
 Manual Address:
@@ -359,43 +352,21 @@ Note:
 GPS may be inaccurate on some phones and laptops.
 Freshly will use your manual address and landmark as the primary delivery address.`;
 
-```
-  localStorage.setItem('freshlyAddress', addressBox.value);
+      localStorage.setItem('freshlyAddress', addressBox.value);
 
-  alert('GPS location added. Please verify the map and enter your exact house/building/landmark before ordering.');
-
-},
-
-function(error){
-
-  let message = 'Unable to get location. Please type your address manually.';
-
-  if(error && error.code === 1){
-    message = 'Location permission denied. Please allow location access.';
-  }
-  else if(error && error.code === 2){
-    message = 'Location unavailable. Please enter your address manually.';
-  }
-  else if(error && error.code === 3){
-    message = 'Location request timed out. Please try again.';
-  }
-
-  alert(message);
-  addressBox.value = '';
-
-},
-
-{
-  enableHighAccuracy: true,
-  timeout: 20000,
-  maximumAge: 0
+      alert('GPS location added. Please verify the map and enter your exact house/building/landmark before ordering.');
+    },
+    function(error){
+      alert('Unable to get location. Please type your full address manually.');
+      addressBox.value = '';
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 0
+    }
+  );
 }
-```
-
-);
-
-}
-
 async function loadFish(){
   const box = document.getElementById('fishContainer');
   box.innerHTML = 'Loading fish items...';
