@@ -438,39 +438,19 @@ function getLocation(){
       const mapLink = `https://maps.google.com/?q=${lat},${lon}`;
 
       addressBox.value =
-`Please verify the location before placing order.
-
-Manual Address:
-Type house name / building name / road / landmark here
-
-GPS Map Link:
+`GPS Location:
 ${mapLink}
 
-GPS Accuracy:
-${accuracy} meters
+GPS Accuracy: ${accuracy} meters
 
-Note:
-GPS may be inaccurate on some phones and laptops.
-Freshly will use your manual address and landmark as the primary delivery address.`;
+Please add House Name / Building Name / Landmark below this line.`;
 
       localStorage.setItem('freshlyAddress', addressBox.value);
 
-      alert('GPS location added. Please verify the map and enter your exact house/building/landmark before ordering.');
+      alert('GPS location added. Please add exact house/building/landmark before ordering.');
     },
     function(error){
-      let message = 'Unable to get location. Please type your full address manually.';
-
-      if(error && error.code === 1){
-        message = 'Location permission denied. Please allow location access or type your full address manually.';
-      }
-      else if(error && error.code === 2){
-        message = 'Location unavailable. Please type your full address manually.';
-      }
-      else if(error && error.code === 3){
-        message = 'Location request timed out. Please try again or type your full address manually.';
-      }
-
-      alert(message);
+      alert('Unable to get location. Please type your full address manually.');
       addressBox.value = '';
     },
     {
@@ -480,7 +460,6 @@ Freshly will use your manual address and landmark as the primary delivery addres
     }
   );
 }
-
 async function loadFish(){
   const box = document.getElementById('fishContainer');
   if(!box) return;
