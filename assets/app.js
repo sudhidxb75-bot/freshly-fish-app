@@ -657,64 +657,32 @@ async function placeOrder(){
 
   fetch(BACKEND_URL, { method:'POST', mode:'no-cors', body:formData });
 
-  const msg = `====================================
-*FRESHLY NEW ORDER*
-====================================
+ const msg = `🐟 *FRESHLY ORDER*
 
 Order ID: ${orderId}
 
-Name: ${name}
+Customer: ${name}
 Phone: ${phone}
-City: ${city}
-Pin Code: ${pincode}
 
-------------------------------------
-*SERVICE DETAILS*
-------------------------------------
+Location: ${city} - ${pincode}
+
+Hub: ${selectedHub.hubName}
+
 Service: ${fulfillment}
-Address: ${address || 'Customer will pickup from hub'}
 
-------------------------------------
-*ITEMS*
-------------------------------------
+Items:
 ${items}
 
-------------------------------------
-*BILL SUMMARY*
-------------------------------------
-Fish Subtotal: ₹${subtotal}
-Cleaning/Cutting Charges: ₹${cleaningTotal}
-Marination Charges: ₹${marinationTotal}
-Home Delivery Charge: ₹${deliveryCharge}
+Total: ₹${total}
 
-*TOTAL: ₹${total}*
+Payment: ${payment}
 
-------------------------------------
-*PAYMENT*
-------------------------------------
-Payment Option: ${payment}
+Slot: ${slot}
 
-Customer pays Freshly directly by UPI.
-No cash collection by hub partner or delivery partner.
+Address:
+${address}
 
-------------------------------------
-*DELIVERY / PICKUP*
-------------------------------------
-Delivery/Pickup Slot: ${slot}
-Slot Cut-off Time: ${slotCutOffTime}
-
-------------------------------------
-*SELECTED FRESHLY HUB*
-------------------------------------
-${selectedHub.hubName}
-Area: ${selectedHub.area}
-Hub Partner + Delivery: ${selectedHub.hubPartner || 'Freshly Team'}
-
-Please confirm my order.
-
-====================================
-🔴 *END OF ORDER* 🔴
-====================================`;
+END OF ORDER`;
   openWhatsAppToAllNumbers(msg);
   cart = [];
   updateCart();
