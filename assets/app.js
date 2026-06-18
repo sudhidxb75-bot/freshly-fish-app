@@ -682,7 +682,7 @@ Slot: ${slot}
 Address:
 ${address}
 
-END OF ORDER`;
+🔴 END OF ORDER 🔴`;
   openWhatsAppToAllNumbers(msg);
   cart = [];
   updateCart();
