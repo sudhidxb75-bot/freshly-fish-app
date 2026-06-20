@@ -10,7 +10,7 @@
 */
 
 const FRESHLY_CONFIG = {
-  PRODUCT_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1792957600&single=true&output=csv",
+  PRODUCT_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=564324358&single=true&output=csv",
   HUB_PINCODES_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1070445629&single=true&output=csv",
   HUB_SLOTS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1644440201&single=true&output=csv",
   BACKEND_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbxZlaaHTLoEfMOzqLEwSuLqQOizjfIEkEgKisfMxlwxPHQ249VRZDKfV7EBRvRfIhVt/exec",
