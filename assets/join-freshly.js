@@ -5,7 +5,7 @@
   3. Upload this file with join-freshly.html and join-freshly.css to GitHub Pages.
 */
 
-const FRESHLY_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const FRESHLY_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZlaaHTLoEfMOzqLEwSuLqQOizjfIEkEgKisfMxlwxPHQ249VRZDKfV7EBRvRfIhVt/exec";
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
