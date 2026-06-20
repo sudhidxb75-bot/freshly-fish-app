@@ -11,7 +11,7 @@
 
 const FRESHLY_CONFIG = {
   PRODUCT_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1792957600&single=true&output=csv",
-  HUB_PINCODES_CSV_URL: "PASTE_HUBPINCODES_CSV_URL_HERE",
+  HUB_PINCODES_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1070445629&single=true&output=csv",
   HUB_SLOTS_CSV_URL: "PASTE_HUBDELIVERYSLOTS_CSV_URL_HERE",
   BACKEND_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbxZlaaHTLoEfMOzqLEwSuLqQOizjfIEkEgKisfMxlwxPHQ249VRZDKfV7EBRvRfIhVt/exec",
   WHATSAPP_NUMBERS: ["918921696649"],
