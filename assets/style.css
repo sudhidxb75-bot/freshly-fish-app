@@ -397,3 +397,112 @@
     font-size:14px;
   }
 }
+
+
+/* v34 FreshToHome-style compact location dropdown */
+body{position:relative}
+
+.fth-location{
+  background:transparent;
+  color:#fff;
+  border:0;
+  font-weight:900;
+  font-size:15px;
+  cursor:pointer;
+  padding:4px 2px;
+  line-height:1;
+  font-family:inherit;
+}
+.fth-location:hover{text-decoration:underline}
+
+.fth-location-panel{
+  position:absolute;
+  top:32px;
+  right:20px;
+  width:min(360px, calc(100% - 24px));
+  background:#fff;
+  border:1px solid #dcece5;
+  border-radius:16px;
+  box-shadow:0 18px 45px rgba(0,0,0,.18);
+  z-index:9999;
+  display:none;
+  padding:14px;
+}
+.fth-location-panel.open{display:block}
+.fth-location-panel h3{
+  margin:0 0 10px;
+  color:#064f3b;
+  font-size:18px;
+}
+.fth-location-panel .area-status-box{
+  margin-bottom:10px;
+  font-size:13px;
+}
+.fth-location-panel .location-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  max-height:310px;
+  overflow:auto;
+}
+.fth-location-panel .location-option{
+  width:100%;
+  text-align:left;
+  background:#f7fbf9;
+  border:1px solid #dcece5;
+  border-radius:12px;
+  padding:10px;
+  color:#173b2f;
+  cursor:pointer;
+}
+.fth-location-panel .location-option:hover{
+  background:#eaf7f1;
+  border-color:#0f7a58;
+}
+.fth-location-panel .location-option b,
+.fth-location-panel .location-option span,
+.fth-location-panel .location-option small{display:block}
+.fth-location-panel .location-option small{
+  color:#0f7a58;
+  font-weight:900;
+  margin-top:4px;
+}
+.request-area-btn{
+  width:100%;
+  margin-top:8px;
+}
+
+.compact-location,
+.location-bar{display:none !important}
+
+/* further reduce visible header height */
+.site-topbar{min-height:28px}
+.topbar-inner{padding:5px 0 !important}
+.main-header-inner{padding:10px 0 !important}
+.brand-logo{
+  max-width:105px !important;
+  max-height:74px !important;
+}
+.search-wrap input{padding:11px 42px 11px 16px !important}
+.category-tabs{min-height:46px !important}
+.category-tab{padding:12px 4px 9px !important}
+
+@media(max-width:650px){
+  .fth-location{font-size:12px}
+  .fth-location-panel{
+    top:30px;
+    right:8px;
+    left:8px;
+    width:auto;
+  }
+  .topbar-inner{align-items:center !important}
+  .top-left{display:none}
+  .top-links{
+    width:100%;
+    justify-content:space-between;
+  }
+  .main-header-inner{padding:8px 0 !important}
+  .brand-logo{max-width:72px !important}
+  .category-tabs{min-height:42px !important}
+  .category-tab{padding:10px 2px 8px !important}
+}
