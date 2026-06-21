@@ -506,3 +506,27 @@ body{position:relative}
   .category-tabs{min-height:42px !important}
   .category-tab{padding:10px 2px 8px !important}
 }
+
+
+/* v40 District > Area location dropdown refinements */
+.location-step-title{
+  font-weight:900;
+  color:#064f3b;
+  margin:8px 0;
+  padding:6px 2px;
+}
+.location-back{
+  width:100%;
+  text-align:left;
+  background:#fff8d9;
+  border:1px solid #f2d36d;
+  border-radius:12px;
+  padding:10px;
+  color:#173b2f;
+  font-weight:900;
+  margin-bottom:8px;
+  cursor:pointer;
+}
+.district-option b{
+  color:#064f3b;
+}
