@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwJt4KdBEYcz9KvIbZpO3NJY9sHmD3RQy3RibRFDGr4m_GxZ9rAlVID3mtPde6CXn8/exec";
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzMbPDLv7A5kgzumDh6mjofS1dDQ6m3YRhpuEol8WzarU6FXNkGrRwUtRQEgFoGjIl2/exec";
 
 function getValues(form){
   const data = new URLSearchParams();
