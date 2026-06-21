@@ -1,5 +1,5 @@
 /* Freshly v9 App Settings */
-const CATEGORIES_URL = "PASTE_CATEGORIES_CSV_URL_HERE";
+const CATEGORIES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vToGyXumuQ1T6s6qEkvYGI4ooc4vefH_a2oWV5hwkyj8RIj7It20gCdlBt3Kil_DzUIC4tfyAUwea3Q/pub?gid=1547172666&single=true&output=csv";
 const AREA_DEVELOPMENT_URL = "PASTE_AREA_DEVELOPMENT_CSV_URL_HERE";
 const FISH_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=564324358&single=true&output=csv";
 const HUB_PINCODES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1070445629&single=true&output=csv";
