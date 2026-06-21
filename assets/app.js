@@ -4,7 +4,7 @@ const AREA_DEVELOPMENT_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT
 const FISH_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=564324358&single=true&output=csv";
 const HUB_PINCODES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1070445629&single=true&output=csv";
 const HUB_DELIVERY_SLOTS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7gp6cTQ7rETR-HZ5eiwTjjkd0OIOESFfbunbxHSxeoL_2RzmxVdF3c1Y1bMUo-yzgEMF-olA4pUuh/pub?gid=1644440201&single=true&output=csv";
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwJt4KdBEYcz9KvIbZpO3NJY9sHmD3RQy3RibRFDGr4m_GxZ9rAlVID3mtPde6CXn8/exec";
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzMbPDLv7A5kgzumDh6mjofS1dDQ6m3YRhpuEol8WzarU6FXNkGrRwUtRQEgFoGjIl2/exec";
 const WHATSAPP_NUMBERS = ["918921696649"];
 
 let fishData = [];
