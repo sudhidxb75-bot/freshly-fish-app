@@ -10,7 +10,7 @@
 */
 
 const FRESHLY_CONFIG = {
-  PRODUCT_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vToGyXumuQ1T6s6qEkvYGI4ooc4vefH_a2oWV5hwkyj8RIj7It20gCdlBt3Kil_DzUIC4tfyAUwea3Q/pub?gid=49027174&single=true&output=csv",
+  PRODUCT_CSV_URL: "",
   HUB_PINCODES_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vToGyXumuQ1T6s6qEkvYGI4ooc4vefH_a2oWV5hwkyj8RIj7It20gCdlBt3Kil_DzUIC4tfyAUwea3Q/pub?gid=100960280&single=true&output=csv",
   HUB_SLOTS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vToGyXumuQ1T6s6qEkvYGI4ooc4vefH_a2oWV5hwkyj8RIj7It20gCdlBt3Kil_DzUIC4tfyAUwea3Q/pub?gid=109398983&single=true&output=csv",
   BACKEND_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwJt4KdBEYcz9KvIbZpO3NJY9sHmD3RQy3RibRFDGr4m_GxZ9rAlVID3mtPde6CXn8/exec",
