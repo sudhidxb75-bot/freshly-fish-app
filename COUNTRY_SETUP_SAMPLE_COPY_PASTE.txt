@@ -1,0 +1,19 @@
+### Countries
+CountryCode	CountryName	Currency	CurrencySymbol	PhoneCode	DefaultLanguage	Status	CreatedAt	UpdatedAt
+IN	India	INR	₹	+91	English	Active	2026-06-27	2026-06-27
+AE	United Arab Emirates	AED	AED 	+971	English	Active	2026-06-27	2026-06-27
+
+### CountryPayments
+CountryCode	PaymentModes	DefaultPaymentMode	PaymentInstructions	Status	CreatedAt	UpdatedAt
+IN	UPI,Pay at Hub by UPI QR,COD with UPI confirmation	UPI	All payments to Freshly UPI/QR only.	Active	2026-06-27	2026-06-27
+AE	Payment Link,Bank Transfer,Card on Delivery	Payment Link	Use approved UAE payment link, bank transfer or cashless collection method.	Active	2026-06-27	2026-06-27
+
+### Districts example
+CountryCode	DistrictID	DistrictFreshlyID	DistrictName	State	DistrictMasterHubID	Status	LaunchDate	DistrictManager	Contact	CreatedAt
+IN	FLY-DST-000001		Kozhikode	Kerala		Active				2026-06-27
+AE	FLY-DST-UAE-000001		Dubai	Dubai		Coming Soon				2026-06-27
+
+### LocalHubs example
+CountryCode	HubID	HubFreshlyID	DistrictID	MasterHubID	HubName	PartnerName	Phone	WhatsApp	Area	Pincode	Address	PickupAvailable	HomeDeliveryAvailable	DeliveryCharge	MinimumOrder	CutOffTime	Status	CreatedAt
+IN	FLY-LHB-000001		FLY-DST-000001		Peringolam Hub	Freshly Partner	+91XXXXXXXXXX	+91XXXXXXXXXX	Peringolam	673571	Peringolam, Kozhikode	Yes	Yes	40	300	15:00	Active	2026-06-27
+AE	FLY-LHB-UAE-000001		FLY-DST-UAE-000001		Dubai Demo Hub	Freshly UAE Partner	+971XXXXXXXXX	+971XXXXXXXXX	Deira	Deira	Dubai, UAE	Yes	Yes	10	50	15:00	Coming Soon	2026-06-27

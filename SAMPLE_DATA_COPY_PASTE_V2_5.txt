@@ -1,0 +1,21 @@
+### V2.7 NOTE
+Orders sheet includes additional checkout location fields: AddressMode, HouseNo, BuildingName, Area, Landmark, ManualAddress, Latitude, Longitude, LocationAccuracy, GoogleMapLink, LocationCapturedAt.
+
+### Products
+ProductID	ProductFreshlyID	SKU	Name	CategoryID	PackSize	Description	FreshnessNote	Unit	PriceBasis	BaseUnit	BasePrice	MinimumQty	MaximumQty	QtyStep	AllowedQtyOptions	DefaultQty	Price	MRP	StockQty	StockStatus	ImageURL	SupplierID	ProductOwner	FreshlyControlled	ApprovalStatus	WebsiteStatus	CleaningAvailable	CuttingAvailable	MarinationAvailable	RequiresGST	RequiresFSSAI	QualityStatus	LastUpdated
+FLY-PRD-000001	FLY-PRD-000001	FISH-MATHI	Fresh Sardine / Mathi	CAT-FISHSEA	Price per kg	Fresh sardine cleaned on request and packed for same-day hub dispatch.	Freshly sourced and quality checked before packing.	kg	Per Kg	kg	220	0.5	5	0.5	0.5,1,1.5,2,2.5,3,4,5	0.5	220	260	50	Available		FLY-SUP-000001	Freshly	Yes	Approved	Active	Yes	Yes	No	Yes	Yes	Passed	2026-06-26 10:00
+FLY-PRD-000002	FLY-PRD-000002	FISH-SEER	Seer Fish Slices	CAT-FISHSEA	Price per kg	Premium seer fish slices suitable for fry and curry.	Limited daily stock based on fresh arrival.	kg	Per Kg	kg	780	0.5	5	0.5	0.5,1,1.5,2,2.5,3,4,5	0.5	780	850	12	Limited		FLY-SUP-000001	Freshly	Yes	Approved	Active	Yes	Yes	Yes	Yes	Yes	Passed	2026-06-26 10:00
+FLY-PRD-000003	FLY-PRD-000003	CHICK-CURRY	Chicken Curry Cut	CAT-CHICKEN	Price per kg	Fresh chicken curry cut, packed after quality check.	Freshly processed and packed after quality check.	kg	Per Kg	kg	240	0.5	5	0.5	0.5,1,1.5,2,3,5	1	240	270	40	Available		FLY-SUP-000002	Freshly	Yes	Approved	Active	No	Yes	Yes	Yes	Yes	Passed	2026-06-26 10:00
+FLY-PRD-000004	FLY-PRD-000004	COCONUT-OIL	Coconut Oil	CAT-GROCERY	Price per litre	Coconut oil for daily cooking.	Packed and quality checked.	litre	Per Litre	litre	180	0.5	5	0.5	0.5,1,2,5	1	180	200	30	Available		FLY-SUP-000003	Freshly	Yes	Approved	Active	No	No	No	Yes	No	Passed	2026-06-26 10:00
+FLY-PRD-000005	FLY-PRD-000005	EGG-12	Farm Eggs	CAT-EGGS	Per dozen	Fresh farm eggs.	Quality checked before dispatch.	dozen	Per Dozen	dozen	95	1	3	1	1,2,3	1	95	110	80	Available		FLY-SUP-000003	Freshly	Yes	Approved	Active	No	No	No	No	No	Passed	2026-06-26 10:00
+
+### DistrictPricing
+DistrictPricingID	DistrictID	ProductID	PriceBasis	BaseUnit	SupplyPrice	SellingPrice	OfferPrice	MRP	StockQty	Status	LastUpdated
+DPR001	FLY-DST-000001	FLY-PRD-000001	Per Kg	kg	170	220	200	260	50	Active	2026-06-26 10:00
+DPR002	FLY-DST-000001	FLY-PRD-000002	Per Kg	kg	620	780		850	12	Active	2026-06-26 10:00
+DPR003	FLY-DST-000001	FLY-PRD-000003	Per Kg	kg	190	240		270	40	Active	2026-06-26 10:00
+DPR004	FLY-DST-000001	FLY-PRD-000004	Per Litre	litre	140	180		200	30	Active	2026-06-26 10:00
+DPR005	FLY-DST-000001	FLY-PRD-000005	Per Dozen	dozen	75	95		110	80	Active	2026-06-26 10:00
+
+### OrderItems New Columns
+OrderItems now includes: SelectedQty, BaseUnit, PriceBasis, BaseRate, ProductTotal, OptionCharges.
