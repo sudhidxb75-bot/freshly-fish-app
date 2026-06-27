@@ -540,3 +540,11 @@
     min-height:min(var(--banner-height,320px), 210px) !important;
   }
 }
+
+/* V2.9.11 full-cover banner default */
+.promo-slide.image-only img{
+  object-fit:var(--banner-fit,cover) !important;
+}
+.promo-slide.backend-banner.has-image{
+  background-size:cover !important;
+}
