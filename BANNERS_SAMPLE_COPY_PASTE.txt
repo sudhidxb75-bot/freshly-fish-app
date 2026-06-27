@@ -1,0 +1,11 @@
+### Banners
+BannerID	Label	Title	Subtitle	ImageURL	ButtonText	ButtonLink	SortOrder	Status	DisplayMode	CreatedAt	UpdatedAt
+BAN001	Freshly	Today’s Fresh Offer	Fresh Fish & Seafood, meat and essentials delivered through your nearby hub.		Shop Now	#shop	1	Active	OverlayText	2026-06-27 03:00	2026-06-27 03:00
+BAN002	Hub Partner	Become a Freshly Hub Partner	Start earning from your local area with low investment and strong support.	assets/images/banner-hub-partner-earnings.png	Register Now	join-freshly.html	2	Active	ImageOnly	2026-06-27 03:00	2026-06-27 03:00
+BAN003	Supplier	Register as Freshly Supplier	Supply to Freshly and grow with organized demand.	assets/images/banner-supplier.png	Register as Supplier	join-freshly.html#supplier	3	Active	ImageOnly	2026-06-27 03:00	2026-06-27 03:00
+BAN004	Freshly	Weekend Specials	Enjoy selected fresh products at attractive prices this weekend.		Shop Now	#shop	4	Active	OverlayText	2026-06-27 03:00	2026-06-27 03:00
+BAN005	Freshly	Bulk Orders Made Easy	Order in bulk for events, hotels, shops and institutions.		Bulk Order	bulk-orders.html	5	Active	OverlayText	2026-06-27 03:00	2026-06-27 03:00
+BAN006	Hub Partner	Earn More With Freshly	Pickup, delivery and local coordination opportunities for hub partners.	assets/images/banner-hub-partner.png	Join Freshly	join-freshly.html	6	Active	ImageOnly	2026-06-27 03:00	2026-06-27 03:00
+BAN007	Freshly Mart	Explore Freshly Mart	Shop more categories through our linked marketplace.		Visit Freshly Mart	freshly-mart.html	7	Active	OverlayText	2026-06-27 03:00	2026-06-27 03:00
+BAN008	Support	Need Help With Ordering?	Reach our team on WhatsApp for quick assistance and support.		Contact Us	contact.html	8	Active	OverlayText	2026-06-27 03:00	2026-06-27 03:00
+BAN009	Freshly	Freshness Delivered.	Choose your location and order from your nearby Freshly Hub.		Start Shopping	#shop	9	Active	OverlayText	2026-06-27 03:00	2026-06-27 03:00
