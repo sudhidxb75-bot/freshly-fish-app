@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" role="img" aria-label="Freshly logo">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#16a34a"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+<rect width="420" height="120" rx="26" fill="none"/>
+<circle cx="62" cy="60" r="42" fill="url(#g)"/>
+<path d="M43 62c20-31 46-28 55-14-25-4-41 7-55 14Z" fill="#fff" opacity=".96"/>
+<path d="M43 72c21-8 41-4 58 13-25 4-43 1-58-13Z" fill="#dcfce7"/>
+<text x="122" y="58" font-family="Inter,Arial,sans-serif" font-size="44" font-weight="900" fill="#052e16">Freshly</text>
+<text x="124" y="88" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#0f766e">Freshness Delivered. Communities Empowered.</text>
+</svg>
