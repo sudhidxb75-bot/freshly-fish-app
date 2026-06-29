@@ -1,4 +1,47 @@
 
+## Mobile App / PWA V1.0
+- Added installable mobile app support.
+- Added manifest.webmanifest.
+- Added service-worker.js for app shell/offline fallback.
+- Added offline.html.
+- Added mobile app CSS refinements.
+- Added PWA install prompt script.
+- Added app icons in multiple sizes.
+
+
+## V2.9.22
+- Removed unwanted text overlay from designed image banners by default.
+- Added backend columns ShowTextOverlay and HideTextOverlay.
+- Added Apps Script function setImageBannersNoTextOverlay().
+- Added Freshly Backend menu item: Set Image Banners: No Text Overlay.
+- Updated cache-busting query strings to 2.9.22.
+
+
+## V2.9.21
+- Added backend-controlled banner size fields in the Banners sheet.
+- Added DesktopHeight and MobileHeight controls for homepage banners.
+- Added ObjectFit and ObjectPosition controls for banner image display.
+- Added Apps Script function upgradeBannerSizeControls().
+- Added Freshly Backend menu item: Upgrade Banner Size Controls.
+- Updated cache-busting query strings to 2.9.21.
+
+
+## V2.9.19
+- Fixed banner button visibility.
+- ImageOnly banners now show a floating button when ButtonText is filled.
+- OverlayText banner buttons now have stronger z-index and visibility styling.
+- Added banner button instructions to backend banner control guide.
+- Updated cache-busting query strings to 2.9.19.
+
+
+## V2.9.18
+- Fixed Track Order page spacing by removing the empty banner area from non-home pages.
+- Added a compact Track Order page title section.
+- Improved Order Not Found message with support guidance.
+- Made phone number matching more flexible by comparing cleaned digits and last 10 digits.
+- Updated cache-busting query strings to 2.9.18.
+
+
 ## V2.9.17
 - Fixed missing/collapsed homepage banner area by adding a safe fallback banner.
 - Improved banner rendering when backend Banners sheet is empty, inactive, or has blank rows.
