@@ -1604,3 +1604,99 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
     margin-top:10px !important;
   }
 }
+
+
+/* Freshly V3.6.4 - remove internal mobile banner top gap */
+@media(max-width:760px){
+  .promo-slider,
+  .freshly-promo-slider,
+  .hero-slider,
+  .banner-slider{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    overflow:hidden !important;
+    background:transparent !important;
+  }
+
+  .promo-track,
+  [data-promo-track]{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    min-height:0 !important;
+    align-items:flex-start !important;
+    overflow:hidden !important;
+  }
+
+  .promo-slide,
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    position:relative !important;
+    display:block !important;
+    margin-top:0 !important;
+    padding:0 !important;
+    padding-top:0 !important;
+    min-height:240px !important;
+    height:240px !important;
+    max-height:240px !important;
+    overflow:hidden !important;
+    align-items:flex-start !important;
+    justify-content:flex-start !important;
+    background-size:cover !important;
+    background-position:center top !important;
+    background-repeat:no-repeat !important;
+  }
+
+  .promo-slide.image-only .banner-copy,
+  .promo-slide.image-only .banner-content,
+  .promo-slide.image-only .slide-content,
+  .promo-slide.image-only .hero-content,
+  .promo-slide.image-only .banner-text,
+  .promo-slide.image-only .slide-text{
+    display:none !important;
+  }
+
+  .promo-slide .banner-image-link,
+  .promo-slide a:has(img){
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  .promo-slide img,
+  .promo-slide.image-only img,
+  .promo-slide.backend-banner img,
+  .promo-slide.has-image img{
+    position:absolute !important;
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:auto !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+    transform:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+  }
+
+  .promo-dots{
+    bottom:8px !important;
+    z-index:10 !important;
+  }
+
+  .freshly-mobile-home{
+    margin-top:10px !important;
+    padding-top:0 !important;
+  }
+}
