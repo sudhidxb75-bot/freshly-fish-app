@@ -1164,7 +1164,205 @@ body:not(#home) .hero-mini h1{
 }
 
 
-/* Freshly V3.7 - move mobile banner further upward to fill top gap */
+/* Freshly V3.6.1 - mobile banner full top position fix */
+@media(max-width:760px){
+  /* Remove any empty spacing before the mobile banner */
+  .freshly-app-search + .promo-slider,
+  .nav + .promo-slider,
+  .promo-slider{
+    margin-top:var(--banner-mobile-top-shift, 0px) !important;
+    padding-top:0 !important;
+  }
+
+  .promo-track{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    align-items:flex-start !important;
+  }
+
+  .promo-slide,
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    padding-top:0 !important;
+    margin-top:0 !important;
+    align-items:flex-start !important;
+    justify-content:flex-start !important;
+    overflow:hidden !important;
+    background-position:var(--banner-mobile-object-position, center top) !important;
+  }
+
+  /* Image must start from top edge of banner area */
+  .promo-slide.image-only img,
+  .promo-slide.backend-banner img,
+  .promo-slide.has-image img{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    margin-top:0 !important;
+    padding-top:0 !important;
+    object-fit:var(--banner-mobile-object-fit, contain) !important;
+    object-position:var(--banner-mobile-object-position, center top) !important;
+    transform:none !important;
+  }
+
+  /* If the banner uses background image instead of img */
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    background-size:var(--banner-mobile-object-fit, contain) !important;
+    background-repeat:no-repeat !important;
+    background-position:var(--banner-mobile-object-position, center top) !important;
+  }
+
+  /* Remove accidental empty spacer/placeholder inside promo */
+  .promo-slide::before,
+  .promo-slide::after{
+    top:0 !important;
+  }
+
+  .promo-slider .spacer,
+  .promo-slider .top-spacer,
+  .promo-slider .banner-spacer{
+    display:none !important;
+    height:0 !important;
+  }
+
+  /* Keep button overlay visible */
+  .promo-slide .banner-floating-btn,
+  .promo-slide .banner-content,
+  .promo-slide .slide-content{
+    z-index:5 !important;
+  }
+}
+
+
+/* Freshly V3.6.2 - move full mobile page content to top */
+@media(max-width:760px){
+  html,
+  body{
+    margin-top:0 !important;
+    padding-top:0 !important;
+  }
+
+  .top-strip,
+  .desktop-topbar,
+  .header-spacer,
+  .mobile-header-spacer,
+  .page-spacer,
+  .top-placeholder{
+    display:none !important;
+    height:0 !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  /* Keep mobile header compact */
+  .nav{
+    margin:0 !important;
+    padding:0 !important;
+    min-height:0 !important;
+  }
+
+  .nav-top-row{
+    margin:0 !important;
+    padding:6px 12px 0 !important;
+    min-height:0 !important;
+  }
+
+  .nav-inner{
+    margin:0 !important;
+    padding:6px 12px 8px !important;
+    min-height:54px !important;
+  }
+
+  /* Remove hidden/unused search spacer if it creates blank area */
+  .freshly-app-search:empty,
+  .freshly-app-search.hidden,
+  .freshly-app-search[hidden]{
+    display:none !important;
+    height:0 !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  /* Pull first page section to the top */
+  body > main,
+  main,
+  .main,
+  .page,
+  .page-content,
+  .home-page,
+  .site-main{
+    margin-top:0 !important;
+    padding-top:0 !important;
+  }
+
+  /* Banner/hero must start immediately after header/search */
+  .freshly-app-search + .promo-slider,
+  .nav + .promo-slider,
+  .promo-slider,
+  .freshly-promo-slider,
+  .hero-slider,
+  .banner-slider{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    top:auto !important;
+    transform:none !important;
+  }
+
+  .promo-track,
+  .promo-slide,
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    margin-top:0 !important;
+    padding-top:0 !important;
+  }
+
+  /* If old CSS created a large empty mobile promo height, reduce it */
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    height:var(--banner-mobile-height, 210px) !important;
+    min-height:var(--banner-mobile-height, 210px) !important;
+  }
+
+  /* Remove blank area above the visual image inside banner */
+  .promo-slide.image-only img,
+  .promo-slide.backend-banner img,
+  .promo-slide.has-image img{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    transform:none !important;
+    object-position:var(--banner-mobile-object-position, center top) !important;
+  }
+
+  /* Welcome/home blocks should sit close to banner */
+  .freshly-mobile-home{
+    margin-top:10px !important;
+    padding-top:0 !important;
+  }
+
+  .freshly-welcome-card{
+    margin-top:0 !important;
+  }
+
+  /* Remove possible generated top gaps */
+  .promo-slider::before,
+  .promo-slider::after,
+  .freshly-mobile-home::before,
+  main::before{
+    display:none !important;
+    height:0 !important;
+    min-height:0 !important;
+  }
+}
+
+
+/* Freshly V3.6.3 - force mobile banner to top and crop blank gap */
 @media(max-width:760px){
   .promo-slider,
   .freshly-promo-slider,
@@ -1172,46 +1370,69 @@ body:not(#home) .hero-mini h1{
   .banner-slider{
     margin-top:0 !important;
     padding-top:0 !important;
+    overflow:hidden !important;
+  }
+
+  .promo-track,
+  [data-promo-track]{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    align-items:flex-start !important;
   }
 
   .promo-slide,
   .promo-slide.image-only,
   .promo-slide.backend-banner,
   .promo-slide.backend-banner.has-image{
+    margin-top:0 !important;
+    padding-top:0 !important;
     overflow:hidden !important;
-    position:relative !important;
+    align-items:flex-start !important;
+    justify-content:flex-start !important;
+  }
+
+  .promo-slide.image-only,
+  .promo-slide:has(img){
+    height:320px !important;
+    min-height:320px !important;
+    max-height:320px !important;
+  }
+
+  .promo-slide.image-only .banner-image-link,
+  .promo-slide .banner-image-link{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden !important;
+    margin:0 !important;
+    padding:0 !important;
   }
 
   .promo-slide.image-only img,
   .promo-slide.backend-banner img,
-  .promo-slide.has-image img{
-    object-fit:var(--banner-mobile-object-fit, contain) !important;
-    object-position:var(--banner-mobile-object-position, center top) !important;
-    transform:translateY(var(--banner-mobile-offset-y, -80px)) !important;
-    width:100% !important;
-    height:calc(100% + 80px) !important;
-    max-height:none !important;
+  .promo-slide.has-image img,
+  .promo-slide img{
     display:block !important;
+    width:100% !important;
+    height:auto !important;
+    min-height:440px !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+    transform:translateY(-115px) !important;
+    transform-origin:center top !important;
   }
 
-  .promo-slide.image-only,
   .promo-slide.backend-banner,
   .promo-slide.backend-banner.has-image{
-    background-position:var(--banner-mobile-object-position, center top) !important;
+    background-size:cover !important;
+    background-position:center -115px !important;
+    background-repeat:no-repeat !important;
   }
 
-  /* Move actual visual content upward so blank gap is reduced */
-  .promo-slide .slide-media,
-  .promo-slide .banner-media,
-  .promo-slide .hero-media{
-    transform:translateY(var(--banner-mobile-offset-y, -80px)) !important;
-  }
-
-  /* Keep text/button overlays usable and above banner */
-  .promo-slide .banner-content,
-  .promo-slide .slide-content,
-  .promo-slide .hero-content{
-    position:relative !important;
-    z-index:3 !important;
+  .freshly-mobile-home{
+    margin-top:10px !important;
   }
 }
