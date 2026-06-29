@@ -1,4 +1,11 @@
 
+## Freshly Mobile App V2 - FreshToHome-inspired
+- Revised from uploaded working PWA package.
+- Added mobile-first food delivery app design.
+- Added sticky search, category grid, benefit chips, offer cards and bottom nav.
+- Added visible Install App option with Android/iPhone fallback instructions.
+
+
 ## Mobile App / PWA V1.0
 - Added installable mobile app support.
 - Added manifest.webmanifest.
