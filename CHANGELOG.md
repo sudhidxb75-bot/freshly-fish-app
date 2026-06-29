@@ -1,4 +1,17 @@
 
+## Freshly Mobile App V2.5
+- Removed Hub Portal and Supplier Portal from customer mobile menu.
+- Added Customer Login / Sign Up option in the mobile menu.
+- Added Login / Sign Up quick action on mobile home screen.
+
+
+## Freshly Mobile App V2.4
+- Fixed top menu/dropdown overlay issue on mobile.
+- Added backdrop and body scroll lock when menu is open.
+- Improved menu z-index and solid background.
+- Menu closes after selecting menu items or tapping outside.
+
+
 ## Freshly Mobile App V2.3
 - Improved mobile home screen, category grid, quick actions, benefits and menu.
 - Improved product card styling.

@@ -1,4 +1,4 @@
-const FRESHLY_CACHE='freshly-mobile-v2-3-user-friendly-ui';
+const FRESHLY_CACHE='freshly-mobile-v2-5-customer-login-signup';
 const APP_SHELL=['./','./index.html','./track-order.html','./offline.html','./assets/styles.css','./assets/app.js','./assets/config.js','./assets/freshly-mobile-app-v2.css','./assets/freshly-mobile-app-v2.js','./assets/freshly-install-app.js','./manifest.webmanifest','./assets/icons/icon-192.png','./assets/icons/icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(FRESHLY_CACHE).then(c=>c.addAll(APP_SHELL).catch(()=>null)));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k===FRESHLY_CACHE?null:caches.delete(k)))));self.clients.claim();});
