@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Freshly Supplier Portal</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=2.9.17"></head><body>
+<div class="top-strip"><div class="container"><span>Freshness Delivered. Communities Empowered.</span><span>Support: <a href="tel:+918921696649">+91 89216 96649</a></span></div></div>
+<nav class="nav"><div class="container nav-inner">
+  <a class="brand freshly-logo-brand" href="index.html#home" aria-label="Freshly Home"><img src="assets/freshly-logo-header.png" alt="Freshly logo" onerror="this.style.display=\'none\';this.insertAdjacentHTML(\'afterend\',\'<span class=&quot;brand-leaf&quot;>Freshly</span>\');"></a>
+  <button class="mobile-toggle" type="button">Menu</button>
+  <div class="menu">
+    <a href="index.html">Home</a>
+    <a href="index.html#shop">Shop</a>
+    <div class="dropdown"><button class="dropdown-btn" type="button">Categories ▾</button><div class="dropdown-panel">
+      <a href="index.html#shop" data-menu-cat="CAT-FISHSEA">Fish &amp; Seafood</a>
+      <a href="index.html#shop" data-menu-cat="CAT-CHICKEN">Chicken</a>
+      <a href="index.html#shop" data-menu-cat="CAT-MUTTON">Mutton</a>
+      <a href="index.html#shop" data-menu-cat="CAT-EGGS">Eggs</a>
+      <a href="index.html#shop" data-menu-cat="CAT-FV">Fruits &amp; Vegetables</a>
+      <a href="index.html#shop" data-menu-cat="CAT-GROCERY">Groceries</a>
+      <a href="index.html#shop" data-menu-cat="CAT-ESSENTIALS">Daily Essentials</a>
+      <a href="index.html#shop" data-menu-cat="CAT-READY">Ready to Cook</a>
+      <a href="index.html#shop" data-menu-cat="CAT-COMBO">Combo Packs</a>
+    </div></div>
+    <div class="dropdown"><button class="dropdown-btn" type="button">Join Freshly ▾</button><div class="dropdown-panel">
+      <a href="join-freshly.html#hub">Become a Hub Partner</a>
+      <a href="join-freshly.html#supplier">Become a Supplier</a>
+      <a href="join-freshly.html#delivery">Become a Delivery Partner</a>
+      <a href="join-freshly.html#district-master">Become a District Master</a>
+      <a href="join-freshly.html#area-request">Start Freshly in My Area</a>
+    </div></div>
+    <a href="track-order.html">Track Order</a>
+    <a href="freshly-mart.html">Freshly Mart</a>
+  <a class="login-icon-link" href="customer-portal.html" title="Customer Login" aria-label="Customer Login">👤</a></div>
+</div></nav>
+
+<section class="hero-mini"><div class="container"><span class="eyebrow">Supplier Portal</span><h1>Update stock and supply price for admin approval.</h1><p class="section-lead">Suppliers are approved supply partners. Freshly remains the customer-facing seller.</p></div></section>
+<section class="section"><div class="container grid grid-2"><form id="stockPriceUpdateForm" class="card"><h2>Submit Stock / Price Update</h2><label>Supplier Freshly ID</label><input class="input" name="SupplierID" placeholder="FLY-SUP-000001" required><label>Product Freshly ID / Product ID</label><input class="input" name="ProductID" placeholder="FLY-PRD-000001" required><label>Product Name</label><input class="input" name="ProductName" required><label>District ID</label><input class="input" name="DistrictID" placeholder="FLY-DST-000001"><label>Available Stock Qty</label><input class="input" name="ProposedStockQty" type="number"><label>Supply Price</label><input class="input" name="ProposedSupplyPrice" type="number"><label>Suggested MRP</label><input class="input" name="ProposedMRP" type="number"><label>Stock Status</label><select class="input" name="ProposedStockStatus"><option>Available</option><option>Limited</option><option>Sold Out</option></select><label>Note</label><textarea class="input" name="Note"></textarea><br><button class="btn btn-primary">Submit for Admin Approval</button></form><form id="complianceUpdateForm" class="card"><h2>Compliance Update</h2><label>Supplier Freshly ID</label><input class="input" name="SupplierID" required><label>Business Name</label><input class="input" name="BusinessName" required><label>GST Number</label><input class="input" name="GSTNumber"><label>FSSAI Number</label><input class="input" name="FSSAINumber"><label>GST Applicable</label><select class="input" name="GSTApplicable"><option>Yes</option><option>No</option><option>Need Admin Review</option></select><label>FSSAI Applicable</label><select class="input" name="FSSAIApplicable"><option>Yes</option><option>No</option><option>Need Admin Review</option></select><label>Relaxation Request / Reason</label><textarea class="input" name="RelaxationReason"></textarea><br><button class="btn btn-primary">Submit Compliance Details</button></form></div></section>
+
+<footer class="footer"><div class="container footer-grid">
+  <div><h3>Freshly</h3><p>Freshly is a community-driven, single-seller fresh commerce platform operating through district master hubs and local Freshly hubs.</p><p class="muted">All customer payments go directly to Freshly. Hubs and delivery partners do not handle cash.</p></div>
+  <div><h4>Support Links</h4><a href="how-freshly-works.html">How Freshly Works</a><a href="community-benefits.html">Community Benefits</a><a href="about.html">About Freshly</a><a href="contact.html">Contact</a></div>
+  <div><h4>Policies</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="refund-policy.html">Refund Policy</a><a href="delivery-policy.html">Delivery Policy</a><a href="supplier-terms.html">Supplier Terms</a><a href="hub-partner-terms.html">Hub Partner Terms</a></div>
+  <div><h4>Portals</h4><a href="portal.html">Hub / Delivery Portal</a><a href="admin.html">Admin Login</a><p>© <span id="year"></span> Freshly</p></div>
+</div></footer><div id="statusBox" class="status-box"></div>
+<script src="assets/config.js?v=2.9.17"></script><script src="assets/app.js?v=2.9.17"></script></body></html>

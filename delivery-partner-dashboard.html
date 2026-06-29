@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Delivery Partner Dashboard</title><meta name="description" content="Delivery Partner Dashboard"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=2.9.17"></head><body>
+<div class="top-strip"><div class="container"><span>Freshness Delivered.</span><span>Contact Us: <a href="https://wa.me/918921696649" target="_blank" rel="noopener">WhatsApp</a></span></div></div>
+<nav class="nav"><div class="container nav-inner">
+  <a class="brand freshly-logo-brand" href="index.html#home" aria-label="Freshly Home"><img src="assets/freshly-logo-header.png" alt="Freshly logo" onerror="this.style.display=\'none\';this.insertAdjacentHTML(\'afterend\',\'<span class=&quot;brand-leaf&quot;>Freshly</span>\');"></a>
+  <button class="mobile-toggle" type="button">Menu</button>
+  <div class="menu">
+    <a href="index.html">Home</a>
+    <a href="index.html#shop">Shop</a>
+    <a href="portal.html">Partner Portals</a>
+    <a href="hub-partner-dashboard.html">Hub Dashboard</a>
+    <a href="delivery-partner-dashboard.html">Delivery Dashboard</a>
+    <a href="district-master-dashboard.html">District Dashboard</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</div></nav>
+<section class="hero-mini partner-hero"><div class="container"><span class="eyebrow">Delivery Partner Portal</span><h1>Delivery Partner Dashboard</h1><p class="section-lead">View assigned deliveries, address/map link, payment support and delivery earning summary.</p></div></section>
+<section class="section"><div class="container">
+  <div class="card partner-login-card">
+    <div class="split-line"><div><h2>Partner Login</h2><p class="muted">Use the Freshly ID and PIN issued to the approved Delivery Partner.</p></div><a class="btn" href="portal.html">Back to Partner Portals</a></div>
+    <div class="form-grid">
+      <div><label>Freshly Partner ID</label><input class="input" data-partner-id placeholder="Example: FLY-HUB-000001"></div>
+      <div><label>PIN</label><input class="input" data-partner-pin type="password" placeholder="Enter PIN"></div>
+      <div><label>Dashboard Date</label><input class="input" data-dashboard-date type="date"></div>
+      <div class="form-actions"><button class="btn btn-primary" data-load-partner-dashboard="delivery" type="button">Load Dashboard</button></div>
+    </div>
+    <div class="notice mini">Demo data is shown if backend is not configured. For live use, paste Apps Script Web App URL in <b>assets/config.js?v=2.9.17</b>.</div>
+  </div>
+
+  <div class="partner-metrics metric-grid"><div class="metric-card"><span>Assigned Deliveries</span><strong data-partner-metric="assignedDeliveries">0</strong><small>For selected date</small></div><div class="metric-card"><span>Completed</span><strong data-partner-metric="completedDeliveries">0</strong><small>Delivered successfully</small></div><div class="metric-card"><span>Pending</span><strong data-partner-metric="pendingDeliveries">0</strong><small>Still to deliver</small></div><div class="metric-card"><span>Payment Pending</span><strong data-partner-metric="paymentPending">0</strong><small>UPI confirmation pending</small></div></div>
+
+  <div class="grid dashboard-grid"><div class="card dashboard-panel">
+      <div class="split-line"><div><h3>Assigned Delivery List</h3><p class="muted">Delivery orders assigned to this partner.</p></div><button class="btn btn-small" onclick="window.print()">Print</button></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Map</th><th>Slot</th><th>Status</th></tr></thead><tbody data-dashboard-table="assignedDeliveries"><tr><td colspan="7" class="muted">Login and load dashboard data.</td></tr></tbody></table></div>
+    </div><div class="card dashboard-panel">
+      <div class="split-line"><div><h3>Payment Confirmation Support</h3><p class="muted">Orders where payment confirmation must be checked with Freshly.</p></div></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th><th>Payment Mode</th><th>Payment Status</th><th>Action</th></tr></thead><tbody data-dashboard-table="deliveryPayments"><tr><td colspan="6" class="muted">Login and load dashboard data.</td></tr></tbody></table></div>
+    </div><div class="card dashboard-panel">
+      <div class="split-line"><div><h3>Delivery Earnings</h3><p class="muted">Delivery support earning summary for this partner.</p></div></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Date</th><th>Orders</th><th>Completed</th><th>Delivery Earnings</th><th>Status</th></tr></thead><tbody data-dashboard-table="deliveryEarnings"><tr><td colspan="5" class="muted">Login and load dashboard data.</td></tr></tbody></table></div>
+    </div></div>
+</div></section>
+<footer class="footer"><div class="container footer-grid">
+  <div><h3>Freshly</h3><p>Freshly partner dashboards for approved operational users.</p><p class="muted">Keep dashboard links private and share only with approved Freshly partners.</p></div>
+  <div><h4>Dashboards</h4><a href="hub-partner-dashboard.html">Hub Partner Dashboard</a><a href="delivery-partner-dashboard.html">Delivery Partner Dashboard</a><a href="district-master-dashboard.html">District Master Dashboard</a></div>
+  <div><h4>Support</h4><a href="portal.html">Partner Portal</a><a href="contact.html">Contact Freshly</a><a href="hub-partner-terms.html">Hub Partner Terms</a></div>
+  <div><h4>Freshly</h4><a href="index.html">Home</a><a href="join-freshly.html">Join Freshly</a><p>© <span id="year"></span> Freshly</p></div>
+</div></footer><div id="statusBox" class="status-box"></div>
+<script src="assets/config.js?v=2.9.17"></script><script src="assets/app.js?v=2.9.17"></script>
+</body></html>

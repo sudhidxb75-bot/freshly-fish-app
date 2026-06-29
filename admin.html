@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Freshly Admin Dashboard</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=2.9.17"></head><body>
+<section class="admin-shell">
+  <aside class="admin-sidebar"><a class="admin-brand" href="index.html"><img src="assets/freshly-logo.svg" alt="Freshly"><span>Freshly Admin</span></a><nav>
+    <button class="admin-tab active" data-admin-tab="dashboard">Dashboard</button>
+    <button class="admin-tab" data-admin-tab="orders">Orders</button>
+    <button class="admin-tab" data-admin-tab="products">Products</button>
+    <button class="admin-tab" data-admin-tab="approvals">Stock &amp; Price Approvals</button>
+    <button class="admin-tab" data-admin-tab="reports">Reports &amp; Print Sheets</button>
+    <button class="admin-tab" data-admin-tab="identity">Freshly ID Manager</button>
+    <button class="admin-tab" data-admin-tab="admin-management">Admin Management</button>
+    <button class="admin-tab" data-admin-tab="whatsapp">WhatsApp Queue</button>
+    <button class="admin-tab" data-admin-tab="settings">Settings</button>
+  </nav><a class="btn btn-small" href="index.html">Open Website</a></aside>
+  <main class="admin-main">
+    <section id="adminLoginPanel" class="admin-login card"><span class="eyebrow">Online control centre</span><h1>Freshly Admin Dashboard</h1><p class="section-lead">Use this dashboard for daily handling. Use the Google Sheet menu for advanced backend control, setup and recovery.</p><form id="adminLoginForm" class="form-grid"><div><label>Freshly Admin ID / Phone / Email</label><input class="input" name="Login" value="FLY-ADM-000001" required></div><div><label>PIN</label><input class="input" name="PIN" type="password" value="1234" required></div><div class="form-actions"><button class="btn btn-primary" type="submit">Login</button></div></form><p class="warning">Default demo admin is FLY-ADM-000001 / 1234. Change it before live use.</p></section>
+    <section id="adminDashboardPanel" class="hidden"><div class="split-line"><div><span class="eyebrow">Admin dashboard</span><h1>Freshly Control Centre</h1><p class="muted">Logged in as <span data-admin-name>Admin</span></p></div><div><button class="btn" data-admin-refresh>Refresh</button><button class="btn btn-danger" data-admin-logout>Logout</button></div></div>
+      <section class="admin-panel active" data-panel="dashboard"><div id="adminMetrics" class="metric-grid"></div><div class="grid grid-2"><div class="card"><h3>Recent Orders</h3><div id="recentOrders"></div></div><div class="card"><h3>Pending Approvals</h3><div id="pendingApprovals"></div></div></div></section>
+      <section class="admin-panel" data-panel="orders"><h2>Orders</h2><p class="muted">Filter and update orders from Google Sheet backend. Recent order list is shown here for quick handling.</p><div id="ordersTable" class="table-wrap"></div></section>
+      <section class="admin-panel" data-panel="products"><h2>Products</h2><p class="muted">Product catalogue is approval-first. Public website shows only Active + Approved products.</p><div id="productsTable" class="table-wrap"></div></section>
+      <section class="admin-panel" data-panel="approvals"><h2>Stock &amp; Price Approvals</h2><div class="card"><p>Supplier updates remain pending until admin approves and applies them.</p><button class="btn btn-primary" data-admin-action="applyApprovedStockPriceUpdates">Apply Approved Stock &amp; Price Updates</button></div><div id="approvalTable" class="table-wrap"></div></section>
+      <section class="admin-panel" data-panel="reports"><h2>Reports &amp; Print Sheets</h2>
+        <div class="card"><h3>One-click report generation</h3><p class="muted">Use these buttons to generate daily, monthly and yearly reports. Generated sheets are safe to clear; main order, payment, product and customer data are protected.</p>
+          <div class="grid grid-3">
+            <button class="btn btn-primary" data-admin-action="generateAllDailyReports">Generate ALL Daily Reports</button>
+            <button class="btn btn-primary" data-admin-action="generateAllMonthlyReports">Generate ALL Monthly Reports</button>
+            <button class="btn btn-primary" data-admin-action="generateAllYearlyReports">Generate ALL Yearly Reports</button>
+          </div>
+        </div>
+        <div class="card"><h3>Daily operational reports</h3>
+          <div class="grid grid-3">
+            <button class="btn" data-admin-action="generateDailyOrderReport">Daily Order Report</button>
+            <button class="btn" data-admin-action="generateDailyProductRequirementReport">Product Requirement Report</button>
+            <button class="btn" data-admin-action="generateTodayDistrictPurchaseSheet">Supplier Purchase Sheet</button>
+            <button class="btn" data-admin-action="generateTodayHubDispatch">Hub Dispatch Sheets</button>
+            <button class="btn" data-admin-action="generateTodayDeliverySheet">Delivery Sheets</button>
+            <button class="btn" data-admin-action="generateTodayPaymentReport">Payment Report</button>
+            <button class="btn" data-admin-action="generatePaymentPendingReport">Payment Pending Report</button>
+            <button class="btn" data-admin-action="generateProductStockReport">Product Stock Report</button>
+            <button class="btn" data-admin-action="generatePrintableDailySheets">Generate Print Sheets</button>
+          </div>
+        </div>
+        <div class="card"><h3>Statements &amp; summaries</h3>
+          <div class="grid grid-3">
+            <button class="btn" data-admin-action="generateSupplierStatements">Supplier Statements</button>
+            <button class="btn" data-admin-action="generateHubStatements">Hub Statements</button>
+            <button class="btn" data-admin-action="generateCustomerStatements">Customer Statements</button>
+            <button class="btn" data-admin-action="generateSalesSummaryReport">Sales Summary Report</button>
+          </div>
+        </div>
+        <div class="card"><h3>Clear generated sheets</h3>
+          <div class="grid grid-3">
+            <button class="btn btn-danger" data-admin-action="clearPrintSheets" data-confirm="Clear only temporary print sheets? Main data will not be deleted.">Clear Print Sheets</button>
+            <button class="btn btn-danger" data-admin-action="clearGeneratedReports" data-confirm="Clear generated reports only? Main order/payment/customer/product data will not be deleted.">Clear Generated Reports</button>
+          </div>
+        </div>
+        <div class="notice"><b>Safety rule:</b> clear functions affect only generated report/print sheets, never Orders, OrderItems, Products, Customers, Payments, FreshlyIDRegistry, AdminActivityLog or AuditLog.</div>
+      </section>
+      <section class="admin-panel" data-panel="identity"><h2>Freshly ID Manager</h2><div class="grid grid-2"><form id="freshlyIdForm" class="card"><h3>Create Freshly ID</h3><label>Entity Type</label><select class="input" name="EntityType"><option>Customer</option><option>Supplier</option><option>Hub Partner</option><option>District Master</option><option>Delivery Partner</option><option>Admin User</option><option>Product</option><option>Order</option><option>Payment</option><option>Refund</option><option>District</option><option>Local Hub</option><option>Support Ticket</option></select><label>Name</label><input class="input" name="Name" required><label>Mobile</label><input class="input" name="Mobile"><label>Email</label><input class="input" name="Email"><label>District</label><input class="input" name="District"><br><button class="btn btn-primary" type="submit">Create Freshly ID</button></form><div class="card"><h3>Maintenance</h3><button class="btn btn-primary" data-admin-action="generateMissingFreshlyIDs">Generate Missing Freshly IDs</button><p class="muted">Creates IDs for existing customers, suppliers, hubs, delivery partners, admins, products, orders and payments.</p><div id="freshlyIdResult"></div></div></div><div id="freshlyIdRegistry" class="table-wrap"></div></section>
+      <section class="admin-panel" data-panel="admin-management"><h2>Admin Management</h2><div class="grid grid-2"><form id="createAdminForm" class="card"><h3>Create Admin User</h3><label>Name</label><input class="input" name="Name" required><label>Mobile</label><input class="input" name="Mobile" required><label>Email</label><input class="input" name="Email"><label>Role</label><select class="input" name="Role"><option>Super Admin</option><option>Head Office Admin</option><option>District Admin</option><option>District Master</option><option>Hub Admin</option><option>Support Admin</option><option>Accounts Admin</option><option>Delivery Coordinator</option><option>Read Only</option></select><label>PIN</label><input class="input" name="PIN" required><br><button class="btn btn-primary" type="submit">Create Admin</button></form><div class="card"><h3>Admin controls</h3><p>Use Google Sheet menu for reset PIN, activate/deactivate, roles and emergency access recovery.</p><button class="btn" data-admin-action="refreshDashboard">Refresh Backend Dashboard</button></div></div><div id="adminUsersTable" class="table-wrap"></div></section>
+      <section class="admin-panel" data-panel="whatsapp"><h2>WhatsApp Queue</h2><p class="muted">Default mode is LOG_ONLY. Production sending uses Meta WhatsApp Cloud API tokens stored in Apps Script Properties.</p><button class="btn btn-primary" data-admin-action="processPendingWhatsAppQueue">Process Pending Queue</button><div id="whatsappTable" class="table-wrap"></div></section>
+      <section class="admin-panel" data-panel="settings"><h2>Settings</h2><p>Backend secrets must not be stored in website files. Store WhatsApp tokens and admin secrets in Apps Script Properties.</p><div id="settingsTable" class="table-wrap"></div></section>
+    </section>
+  </main>
+</section>
+<div id="statusBox" class="status-box"></div><script src="assets/config.js?v=2.9.17"></script><script src="assets/app.js?v=2.9.17"></script></body></html>
