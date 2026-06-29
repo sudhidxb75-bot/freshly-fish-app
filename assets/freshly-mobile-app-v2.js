@@ -1,111 +1,13 @@
-
 (function(){
 function make(t,a,h){const n=document.createElement(t);Object.entries(a||{}).forEach(([k,v])=>k==='class'?n.className=v:n.setAttribute(k,v));if(h!==undefined)n.innerHTML=h;return n}
-
-function buildSearch(){
-  if(document.querySelector('.freshly-app-search'))return;
-  const nav=document.querySelector('.nav'); if(!nav)return;
-  const box=make('div',{class:'freshly-app-search'});
-  box.innerHTML=`<div class="freshly-app-search-inner">
-    <span class="search-icon">🔍</span>
-    <input id="freshlyMobileSearch" type="search" placeholder="Search fish, meat, groceries...">
-    <button class="cart-mini" type="button" data-open-cart aria-label="Open cart">🛒 <span data-cart-count>0</span></button>
-  </div>`;
-  nav.insertAdjacentElement('afterend',box);
-  const orig=document.querySelector('#catalogSearch'),mob=box.querySelector('#freshlyMobileSearch');
-  if(orig&&mob){mob.addEventListener('input',()=>{orig.value=mob.value;orig.dispatchEvent(new Event('input',{bubbles:true}))})}
-}
-
-function buildHome(){
-  if(document.querySelector('.freshly-mobile-home'))return;
-  const promo=document.querySelector('.promo-slider'); if(!promo)return;
-  const s=make('section',{class:'freshly-mobile-home'});
-  s.innerHTML=`<div class="freshly-mobile-section-title"><h2>Shop by category</h2><a href="#shop">View all</a></div>
-  <div class="freshly-mobile-cats">
-    <a class="freshly-mobile-cat" href="#shop"><span class="icon">🐟</span><span>Fish & Seafood</span></a>
-    <a class="freshly-mobile-cat" href="#shop"><span class="icon">🍗</span><span>Fresh Meat</span></a>
-    <a class="freshly-mobile-cat" href="#shop"><span class="icon">🥦</span><span>Fruits & Veg</span></a>
-    <a class="freshly-mobile-cat" href="#shop"><span class="icon">🛒</span><span>Essentials</span></a>
-  </div>
-  <div class="freshly-mobile-section-title"><h2>Freshly benefits</h2></div>
-  <div class="freshly-benefit-strip">
-    <span class="benefit-chip">Freshness Delivered</span>
-    <span class="benefit-chip">Nearby Hub</span>
-    <span class="benefit-chip">UPI Payment</span>
-    <span class="benefit-chip">Track Orders</span>
-  </div>
-  <div class="freshly-mobile-section-title"><h2>Quick actions</h2></div>
-  <div class="freshly-quick-actions">
-    <a href="track-order.html">📦 Track Order</a>
-    <button type="button" data-install-app>📲 Install App</button>
-    <a href="join-freshly.html">🤝 Join Freshly</a>
-  </div>`;
-  promo.insertAdjacentElement('afterend',s);
-}
-
-function buildMoreMenu(){
-  if(document.querySelector('.freshly-more-menu'))return;
-  const overlay=make('div',{class:'freshly-more-menu hidden',id:'freshlyMoreMenu'});
-  overlay.innerHTML=`<div class="freshly-more-card">
-    <div class="freshly-more-head">
-      <strong>Freshly Menu</strong>
-      <button type="button" data-close-more aria-label="Close">×</button>
-    </div>
-    <div class="freshly-more-grid">
-      <a href="index.html#home">🏠 Home</a>
-      <a href="index.html#shop">🧺 Shop</a>
-      <button type="button" data-open-cart>🛒 Cart</button>
-      <a href="track-order.html">📦 Track Order</a>
-      <a href="join-freshly.html">🤝 Join Freshly</a>
-      <a href="customer-portal.html">👤 Customer Login</a>
-      <a href="hub-portal.html">🏪 Hub Portal</a>
-      <a href="supplier-portal.html">🚚 Supplier Portal</a>
-      <button type="button" data-install-app>📲 Install App</button>
-      <a href="index.html#contact">☎️ Contact</a>
-    </div>
-  </div>`;
-  document.body.appendChild(overlay);
-  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.add('hidden')});
-  overlay.querySelector('[data-close-more]').onclick=()=>overlay.classList.add('hidden');
-  overlay.querySelectorAll('a,button[data-open-cart],button[data-install-app]').forEach(x=>{
-    x.addEventListener('click',()=>{ if(!x.hasAttribute('data-install-app')) overlay.classList.add('hidden'); });
-  });
-}
-
-function buildBottom(){
-  if(document.querySelector('.freshly-bottom-nav'))return;
-  const n=make('nav',{class:'freshly-bottom-nav','aria-label':'Freshly mobile navigation'});
-  n.innerHTML=`<a class="active" href="index.html#home"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="index.html#shop"><span class="nav-icon">🧺</span><span>Shop</span></a>
-    <button type="button" data-open-cart><span class="cart-count-badge" data-cart-count>0</span><span class="nav-icon">🛒</span><span>Cart</span></button>
-    <a href="track-order.html"><span class="nav-icon">📦</span><span>Orders</span></a>
-    <button type="button" data-open-more><span class="nav-icon">☰</span><span>Menu</span></button>`;
-  document.body.appendChild(n);
-  n.querySelector('[data-open-more]').onclick=()=>document.querySelector('#freshlyMoreMenu')?.classList.remove('hidden');
-}
-
-function addStaticInstallButton(){
-  if(document.querySelector('.install-app-btn'))return;
-  const b=make('button',{class:'btn btn-primary install-app-btn',type:'button','data-install-app':''},'📲 Install App');
-  document.body.appendChild(b);
-}
-
-function sync(){
-  let c='0';
-  const src=[...document.querySelectorAll('[data-cart-count]')].find(x=>!x.closest('.freshly-bottom-nav')&&!x.closest('.freshly-app-search'));
-  if(src)c=src.textContent||'0';
-  document.querySelectorAll('.freshly-bottom-nav [data-cart-count],.freshly-app-search [data-cart-count]').forEach(x=>x.textContent=c);
-}
-
-function init(){
-  buildSearch();
-  buildHome();
-  buildMoreMenu();
-  buildBottom();
-  addStaticInstallButton();
-  setInterval(sync,1000);
-  sync();
-}
-
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+function greet(){let h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'}
+function buildSearch(){if(document.querySelector('.freshly-app-search'))return;const nav=document.querySelector('.nav');if(!nav)return;const box=make('div',{class:'freshly-app-search'});box.innerHTML='<div class="freshly-app-search-inner"><span class="search-icon">🔍</span><input id="freshlyMobileSearch" type="search" placeholder="Search fish, meat, groceries..."><button class="cart-mini" type="button" data-open-cart>🛒 <span data-cart-count>0</span></button></div>';nav.insertAdjacentElement('afterend',box);const o=document.querySelector('#catalogSearch'),m=box.querySelector('#freshlyMobileSearch');if(o&&m)m.addEventListener('input',()=>{o.value=m.value;o.dispatchEvent(new Event('input',{bubbles:true}))})}
+function buildHome(){if(document.querySelector('.freshly-mobile-home'))return;const p=document.querySelector('.promo-slider');if(!p)return;const s=make('section',{class:'freshly-mobile-home'});s.innerHTML='<div class="freshly-welcome-card"><div><span>'+greet()+'</span><h2>Freshness delivered near you</h2><p>Shop from your nearby Freshly Hub.</p></div><button type="button" data-install-app>📲 Install</button></div><div class="freshly-mini-stats"><div><strong>Hub</strong><span>Local pickup</span></div><div><strong>UPI</strong><span>Easy payment</span></div><div><strong>Track</strong><span>Order status</span></div></div><div class="freshly-mobile-section-title"><h2>Shop by category</h2><a href="#shop">View all</a></div><div class="freshly-mobile-cats freshly-mobile-cats-v23"><a class="freshly-mobile-cat" href="#shop"><span class="icon">🐟</span><span>Fish & Seafood</span></a><a class="freshly-mobile-cat" href="#shop"><span class="icon">🍗</span><span>Fresh Meat</span></a><a class="freshly-mobile-cat" href="#shop"><span class="icon">🥦</span><span>Fruits & Veg</span></a><a class="freshly-mobile-cat" href="#shop"><span class="icon">🍚</span><span>Groceries</span></a><a class="freshly-mobile-cat" href="#shop"><span class="icon">🛒</span><span>Essentials</span></a><a class="freshly-mobile-cat" href="#shop"><span class="icon">🏷️</span><span>Offers</span></a></div><div class="freshly-mobile-section-title"><h2>Quick actions</h2></div><div class="freshly-quick-actions freshly-quick-actions-v23"><a href="#shop"><b>🧺</b><span>Shop</span></a><button type="button" data-open-cart><b>🛒</b><span>Cart</span></button><a href="track-order.html"><b>📦</b><span>Track</span></a><button type="button" data-install-app><b>📲</b><span>Install</span></button></div><div class="freshly-mobile-section-title"><h2>Why Freshly?</h2></div><div class="freshly-benefit-grid"><div><b>🌿</b><strong>Fresh selection</strong><span>Daily freshness focus</span></div><div><b>🏪</b><strong>Nearby hubs</strong><span>Pickup or delivery</span></div><div><b>💳</b><strong>UPI payment</strong><span>Simple & transparent</span></div><div><b>🤝</b><strong>Partner model</strong><span>Join & grow locally</span></div></div>';p.insertAdjacentElement('afterend',s)}
+function more(){if(document.querySelector('.freshly-more-menu'))return;const o=make('div',{class:'freshly-more-menu hidden',id:'freshlyMoreMenu'});o.innerHTML='<div class="freshly-more-card"><div class="freshly-more-head"><div><strong>Freshly Menu</strong><span>Quick access</span></div><button type="button" data-close-more>×</button></div><div class="freshly-more-feature"><span>📲</span><div><strong>Install Freshly App</strong><small>Add to your phone home screen</small></div><button type="button" data-install-app>Install</button></div><div class="freshly-more-grid"><a href="index.html#home">🏠 Home</a><a href="index.html#shop">🧺 Shop</a><button type="button" data-open-cart>🛒 Cart</button><a href="track-order.html">📦 Track Order</a><a href="join-freshly.html">🤝 Join Freshly</a><a href="customer-portal.html">👤 Customer Login</a><a href="hub-portal.html">🏪 Hub Portal</a><a href="supplier-portal.html">🚚 Supplier Portal</a><button type="button" data-install-app>📲 Install App</button><a href="index.html#contact">☎️ Contact</a></div></div>';document.body.appendChild(o);o.onclick=e=>{if(e.target===o)o.classList.add('hidden')};o.querySelector('[data-close-more]').onclick=()=>o.classList.add('hidden')}
+function bottom(){if(document.querySelector('.freshly-bottom-nav'))return;const n=make('nav',{class:'freshly-bottom-nav'});n.innerHTML='<a class="active" href="index.html#home"><span class="nav-icon">🏠</span><span>Home</span></a><a href="index.html#shop"><span class="nav-icon">🧺</span><span>Shop</span></a><button type="button" data-open-cart><span class="cart-count-badge" data-cart-count>0</span><span class="nav-icon">🛒</span><span>Cart</span></button><a href="track-order.html"><span class="nav-icon">📦</span><span>Orders</span></a><button type="button" data-open-more><span class="nav-icon">☰</span><span>Menu</span></button>';document.body.appendChild(n);n.querySelector('[data-open-more]').onclick=()=>document.querySelector('#freshlyMoreMenu')?.classList.remove('hidden')}
+function installBtn(){if(document.querySelector('.install-app-btn'))return;document.body.appendChild(make('button',{class:'btn btn-primary install-app-btn',type:'button','data-install-app':''},'📲 Install App'))}
+function topBtn(){if(document.querySelector('.freshly-scroll-top'))return;const b=make('button',{class:'freshly-scroll-top hidden',type:'button'},'↑');document.body.appendChild(b);b.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>b.classList.toggle('hidden',scrollY<500))}
+function sync(){let c='0';let s=[...document.querySelectorAll('[data-cart-count]')].find(x=>!x.closest('.freshly-bottom-nav')&&!x.closest('.freshly-app-search'));if(s)c=s.textContent||'0';document.querySelectorAll('.freshly-bottom-nav [data-cart-count],.freshly-app-search [data-cart-count]').forEach(x=>x.textContent=c)}
+function init(){buildSearch();buildHome();more();bottom();installBtn();topBtn();setInterval(sync,1000);sync()}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init()
 })();
