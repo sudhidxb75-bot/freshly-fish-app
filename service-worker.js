@@ -1,4 +1,4 @@
-const FRESHLY_CACHE='freshly-desktop-mobile-v3-6-7-root-banner-fix';
+const FRESHLY_CACHE='freshly-desktop-mobile-v3-6-8-safe-mobile-layout';
 const APP_SHELL=[
   './',
   './index.html',
@@ -11,7 +11,7 @@ const APP_SHELL=[
   './assets/freshly-mobile-app-v2.css',
   './assets/freshly-mobile-app-v2.js',
   './assets/freshly-mobile-menu-fix-v34.js',
-  './assets/freshly-mobile-banner-rootfix-v367.js',
+  './assets/freshly-mobile-layout-safe-v368.js',
   './assets/freshly-install-app.js',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
