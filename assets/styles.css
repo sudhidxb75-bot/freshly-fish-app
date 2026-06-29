@@ -1081,3 +1081,34 @@ body:not(#home) .hero-mini h1{
 .promo-slide.image-only p{
   display:none !important;
 }
+
+
+/* Freshly V3.5 - mobile banner object-fit option */
+@media(max-width:760px){
+  .promo-slide.image-only img,
+  .promo-slide.backend-banner img,
+  .promo-slide.has-image img{
+    object-fit:var(--banner-mobile-object-fit, contain) !important;
+    object-position:var(--banner-object-position, center center) !important;
+    width:100% !important;
+    height:100% !important;
+  }
+
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    background-size:var(--banner-mobile-object-fit, contain) !important;
+    background-repeat:no-repeat !important;
+    background-position:var(--banner-object-position, center center) !important;
+  }
+
+  .promo-slide.image-only.mobile-fit-contain,
+  .promo-slide.backend-banner.mobile-fit-contain{
+    background-size:contain !important;
+  }
+
+  .promo-slide.image-only.mobile-fit-cover,
+  .promo-slide.backend-banner.mobile-fit-cover{
+    background-size:cover !important;
+  }
+}

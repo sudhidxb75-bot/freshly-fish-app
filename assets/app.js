@@ -157,8 +157,9 @@
     const desktopHeight = toPx(b.DesktopHeight || b.BannerHeight || b.Height, 340, 140, 800);
     const mobileHeight = toPx(b.MobileHeight || b.MobileBannerHeight || '', 230, 120, 520);
     const objectFit = cleanFit(b.ObjectFit);
+  const mobileObjectFit = cleanFit(b.MobileObjectFit || b.MobileFit || b.MobileImageFit || 'contain');
     const objectPosition = esc(b.ObjectPosition || 'center center');
-    const cssVars = `--banner-desktop-height:${desktopHeight}px;--banner-mobile-height:${mobileHeight}px;--banner-object-fit:${objectFit};--banner-object-position:${objectPosition};`;
+    const cssVars = `--banner-desktop-height:${desktopHeight}px;--banner-mobile-height:${mobileHeight}px;--banner-object-fit:${objectFit};--banner-mobile-object-fit:${mobileObjectFit};--banner-object-position:${objectPosition};`;
 
     if(image && (displayMode === 'imageonly' || hideTextOverlay || !wantsTextOverlay)){
       const imageButton = btnText ? `<a class="btn btn-primary banner-floating-btn" href="${btnLink}">${btnText}</a>` : '';
