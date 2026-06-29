@@ -1,4 +1,11 @@
 
+## Freshly Mobile App V2.6
+- Added the missing categories to the mobile top category menu.
+- Added full category rail under mobile search.
+- Added full category list inside More/Menu.
+- Category buttons now scroll to shop and try to open the matching product category.
+
+
 ## Freshly Mobile App V2.5
 - Removed Hub Portal and Supplier Portal from customer mobile menu.
 - Added Customer Login / Sign Up option in the mobile menu.
