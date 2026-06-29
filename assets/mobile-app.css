@@ -1,0 +1,144 @@
+
+/* Freshly Mobile App / PWA refinements */
+@media(max-width:760px){
+  body{
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-y:contain;
+  }
+  .top-strip{
+    display:none !important;
+  }
+  .nav{
+    position:sticky !important;
+    top:0 !important;
+    z-index:90 !important;
+  }
+  .nav-top-row{
+    justify-content:center !important;
+  }
+  .nav-inner{
+    min-height:58px !important;
+  }
+  .menu.open{
+    max-height:calc(100vh - 64px);
+    overflow:auto;
+  }
+  .btn{
+    min-height:44px;
+  }
+  .input,select,textarea{
+    min-height:44px;
+    font-size:16px;
+  }
+  .cart-float{
+    right:14px !important;
+    bottom:14px !important;
+  }
+  .drawer{
+    width:100vw !important;
+    right:-100vw;
+  }
+  .drawer.open{
+    right:0;
+  }
+  .modal-card{
+    width:96vw;
+    border-radius:20px;
+  }
+  .product-card{
+    border-radius:18px;
+  }
+  .product-img{
+    height:190px;
+  }
+}
+@media(display-mode:standalone){
+  body::before{
+    content:'';
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:env(safe-area-inset-top);
+    background:#ffffff;
+    z-index:999;
+  }
+}
+
+
+/* Freshly PWA install helper V2.1 */
+.install-app-btn{
+  position:fixed !important;
+  left:14px !important;
+  bottom:76px !important;
+  z-index:140 !important;
+  min-height:42px !important;
+  padding:10px 15px !important;
+  border-radius:999px !important;
+  box-shadow:0 16px 34px rgba(15,23,42,.22) !important;
+}
+.freshly-install-modal{
+  position:fixed;
+  inset:0;
+  z-index:220;
+  background:rgba(15,23,42,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.freshly-install-modal.hidden{
+  display:none !important;
+}
+.freshly-install-card{
+  width:min(430px,96vw);
+  background:#fff;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 22px 60px rgba(15,23,42,.25);
+  position:relative;
+}
+.freshly-install-card img{
+  width:74px;
+  height:74px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 10px;
+}
+.freshly-install-card h2{
+  text-align:center;
+  margin:0 0 12px;
+  color:#052e16;
+}
+.freshly-install-card ol{
+  padding-left:22px;
+  margin:10px 0;
+}
+.freshly-install-card li{
+  margin:8px 0;
+}
+.freshly-install-close{
+  position:absolute;
+  right:14px;
+  top:12px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid #e2e8f0;
+  background:#fff;
+  font-size:24px;
+  line-height:1;
+  cursor:pointer;
+}
+@media(max-width:760px){
+  .install-app-btn{
+    left:12px !important;
+    bottom:72px !important;
+    font-size:13px !important;
+  }
+}
+@media(display-mode:standalone){
+  .install-app-btn{
+    display:none !important;
+  }
+}
