@@ -27,7 +27,7 @@ function buildTopAuth(){
       pop.innerHTML='<div class="freshly-auth-title">Hi, '+first+'</div><a href="customer-portal.html">My Account</a><a href="track-order.html">Track Order</a><button type="button" data-mobile-logout>Logout</button>';
     }else{
       auth.innerHTML='👤 <span class="freshly-top-auth-name">Login</span>';
-      pop.innerHTML='<div class="freshly-auth-title">Customer Account</div><a href="customer-portal.html">Login</a><a href="customer-portal.html#signup">Sign Up</a><a href="track-order.html">Track Order</a>';
+      pop.innerHTML='<div class="freshly-auth-title">Customer Account</div><a href="customer-portal.html">Login with User ID</a><a href="customer-portal.html#signup">Sign Up</a><a href="track-order.html">Track Order</a>';
     }
     const logout=pop.querySelector('[data-mobile-logout]');
     if(logout)logout.onclick=()=>{localStorage.removeItem('freshlyCustomer');render();pop.classList.add('hidden')};
@@ -80,4 +80,295 @@ function init(){
   setInterval(sync,1000);sync();
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+})();
+
+
+/* Freshly Mobile App V2.9 - click-to-open top submenu */
+(function(){
+  function openCategoryFromTop(category){
+    const term = String(category || '').trim();
+    if(!term) return;
+    const shop = document.querySelector('#shop');
+    if(shop) shop.scrollIntoView({behavior:'smooth', block:'start'});
+
+    setTimeout(() => {
+      const tabs = [...document.querySelectorAll('.tab,[data-category],[data-filter],button')];
+      const target = tabs.find(t => {
+        if(t.closest('.freshly-top-category-rail') || t.closest('.freshly-more-category-grid') || t.closest('.menu')) return false;
+        const text = (t.textContent || '').trim().toLowerCase();
+        const data = (t.dataset.category || t.dataset.filter || '').trim().toLowerCase();
+        const c = term.toLowerCase();
+        return text === c || data === c || text.includes(c) || c.includes(text);
+      });
+      if(target){
+        target.click();
+      } else {
+        const search = document.querySelector('#catalogSearch');
+        if(search){
+          search.value = term;
+          search.dispatchEvent(new Event('input', {bubbles:true}));
+        }
+      }
+    }, 260);
+  }
+
+  function closeMobileMenu(){
+    const menu = document.querySelector('.menu');
+    if(menu){
+      menu.classList.remove('open','show','active');
+      menu.style.display = '';
+      menu.style.visibility = '';
+    }
+    document.querySelectorAll('.menu .dropdown.open').forEach(d => d.classList.remove('open'));
+    document.body.classList.remove('freshly-menu-open');
+  }
+
+  function initTopSubmenus(){
+    document.querySelectorAll('.menu .dropdown').forEach(drop => {
+      const btn = drop.querySelector('.dropdown-btn');
+      const panel = drop.querySelector('.dropdown-panel,.dropdown-content,.dropdown-menu');
+      if(!btn || !panel) return;
+
+      btn.setAttribute('type','button');
+      btn.setAttribute('aria-expanded', drop.classList.contains('open') ? 'true' : 'false');
+
+      if(btn.dataset.submenuBound === 'yes') return;
+      btn.dataset.submenuBound = 'yes';
+
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const willOpen = !drop.classList.contains('open');
+        document.querySelectorAll('.menu .dropdown.open').forEach(d => {
+          if(d !== drop){
+            d.classList.remove('open');
+            d.querySelector('.dropdown-btn')?.setAttribute('aria-expanded','false');
+          }
+        });
+
+        drop.classList.toggle('open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        document.body.classList.add('freshly-menu-open');
+      });
+    });
+
+    document.querySelectorAll('.menu [data-menu-cat], .menu [data-mobile-category]').forEach(link => {
+      if(link.dataset.menuCatBound === 'yes') return;
+      link.dataset.menuCatBound = 'yes';
+      link.addEventListener('click', e => {
+        const cat = link.dataset.menuCat || link.dataset.mobileCategory;
+        if(cat){
+          e.preventDefault();
+          openCategoryFromTop(cat);
+          setTimeout(closeMobileMenu, 150);
+        }
+      });
+    });
+  }
+
+  function autoOpenCategoriesWhenMenuOpens(){
+    const menu = document.querySelector('.menu');
+    if(!menu) return;
+    const observer = new MutationObserver(() => {
+      const isOpen = menu.classList.contains('open') || menu.classList.contains('show') || menu.classList.contains('active') || getComputedStyle(menu).display !== 'none';
+      if(isOpen && window.innerWidth <= 760){
+        const catDrop = [...menu.querySelectorAll('.dropdown')].find(d => /Categories/i.test(d.textContent || ''));
+        if(catDrop && !catDrop.classList.contains('open')){
+          catDrop.classList.add('open');
+          catDrop.querySelector('.dropdown-btn')?.setAttribute('aria-expanded','true');
+        }
+      }
+    });
+    observer.observe(menu, {attributes:true, attributeFilter:['class','style']});
+  }
+
+  function init(){
+    initTopSubmenus();
+    autoOpenCategoriesWhenMenuOpens();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+
+(function(){
+  function syncCheckoutAuthMode(form){
+    if(!form) return;
+    const mode = form.querySelector('input[name="AuthMode"]:checked')?.value || 'Login';
+    const signup = mode === 'Signup';
+    form.querySelectorAll('[data-auth-login-field]').forEach(el=>el.classList.toggle('hidden', signup));
+    form.querySelectorAll('[data-auth-signup-field]').forEach(el=>el.classList.toggle('hidden', !signup));
+    const name = form.querySelector('input[name="Name"]');
+    const phone = form.querySelector('input[name="Phone"]');
+    const user = form.querySelector('input[name="UserID"]');
+    const pass = form.querySelector('input[name="Password"]');
+    const signupPass = form.querySelector('input[name="SignupPassword"]');
+    if(signup){
+      if(name) name.required = true;
+      if(phone) phone.required = true;
+      if(user) user.required = false;
+      if(pass) pass.required = false;
+      if(signupPass) signupPass.required = true;
+    }else{
+      if(name) name.required = false;
+      if(phone) phone.required = false;
+      if(user) user.required = true;
+      if(pass) pass.required = true;
+      if(signupPass) signupPass.required = false;
+    }
+  }
+  function initCheckoutAuthTabs(){
+    const form = document.querySelector('#checkoutLoginForm');
+    if(!form) return;
+    form.addEventListener('change', e=>{
+      if(e.target.name === 'AuthMode') syncCheckoutAuthMode(form);
+      if(e.target.name === 'SignupPassword'){
+        const pass = form.querySelector('input[name="Password"]');
+        if(pass && form.querySelector('input[name="AuthMode"]:checked')?.value === 'Signup') pass.value = e.target.value;
+      }
+    });
+    form.addEventListener('submit', ()=>{
+      const signupPass = form.querySelector('input[name="SignupPassword"]');
+      const pass = form.querySelector('input[name="Password"]');
+      if(signupPass && pass && form.querySelector('input[name="AuthMode"]:checked')?.value === 'Signup') pass.value = signupPass.value;
+    }, true);
+    syncCheckoutAuthMode(form);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCheckoutAuthTabs);
+  else initCheckoutAuthTabs();
+})();
+
+
+/* Freshly Desktop + Mobile V3.1 - desktop customer login and category submenu */
+(function(){
+  function getCustomer(){
+    try{return JSON.parse(localStorage.getItem('freshlyCustomer')||'null')||null}catch(e){return null}
+  }
+
+  function customerName(){
+    const c=getCustomer();
+    if(!c)return '';
+    return c.Name||c.CustomerName||c.FullName||c.name||c.Phone||c.Mobile||'Customer';
+  }
+
+  function buildDesktopAuth(){
+    const navInner=document.querySelector('.nav-inner');
+    if(!navInner || document.querySelector('.freshly-desktop-auth')) return;
+
+    const auth=document.createElement('button');
+    auth.className='freshly-desktop-auth';
+    auth.type='button';
+    auth.setAttribute('aria-label','Customer login');
+    navInner.appendChild(auth);
+
+    const pop=document.createElement('div');
+    pop.className='freshly-desktop-auth-popover hidden';
+    navInner.appendChild(pop);
+
+    function render(){
+      const name=customerName();
+      if(name){
+        const first=String(name).trim().split(/\s+/)[0]||'Customer';
+        auth.innerHTML='👤 <span>'+first+'</span>';
+        pop.innerHTML='<div class="freshly-auth-title">Hi, '+first+'</div><a href="customer-portal.html">My Account</a><a href="track-order.html">Track Order</a><button type="button" data-desktop-logout>Logout</button>';
+      }else{
+        auth.innerHTML='👤 <span>Login</span>';
+        pop.innerHTML='<div class="freshly-auth-title">Customer Account</div><a href="customer-portal.html">Login with User ID</a><a href="customer-portal.html#signup">Sign Up</a><a href="track-order.html">Track Order</a>';
+      }
+      const logout=pop.querySelector('[data-desktop-logout]');
+      if(logout){
+        logout.onclick=function(){
+          localStorage.removeItem('freshlyCustomer');
+          render();
+          pop.classList.add('hidden');
+        };
+      }
+    }
+
+    auth.addEventListener('click',function(e){
+      e.stopPropagation();
+      render();
+      pop.classList.toggle('hidden');
+    });
+
+    pop.addEventListener('click',function(e){e.stopPropagation()});
+    document.addEventListener('click',function(){pop.classList.add('hidden')});
+    setInterval(render,2000);
+    render();
+  }
+
+  function openCategory(category){
+    const term=String(category||'').trim();
+    if(!term)return;
+    const shop=document.querySelector('#shop');
+    if(shop) shop.scrollIntoView({behavior:'smooth',block:'start'});
+
+    setTimeout(function(){
+      const tabs=[...document.querySelectorAll('.tab,[data-category],[data-filter],button')];
+      const target=tabs.find(function(t){
+        if(t.closest('.freshly-top-category-rail')||t.closest('.freshly-more-category-grid')||t.closest('.menu')) return false;
+        const text=(t.textContent||'').trim().toLowerCase();
+        const data=(t.dataset.category||t.dataset.filter||'').trim().toLowerCase();
+        const c=term.toLowerCase();
+        return text===c||data===c||text.includes(c)||c.includes(text);
+      });
+      if(target){target.click();return;}
+      const search=document.querySelector('#catalogSearch');
+      if(search){
+        search.value=term;
+        search.dispatchEvent(new Event('input',{bubbles:true}));
+      }
+    },260);
+  }
+
+  function initCategorySubmenus(){
+    document.querySelectorAll('.freshly-desktop-categories, .menu .dropdown').forEach(function(drop){
+      const btn=drop.querySelector('.dropdown-btn');
+      const panel=drop.querySelector('.dropdown-panel');
+      if(!btn||!panel||btn.dataset.desktopSubmenuBound==='yes') return;
+
+      btn.dataset.desktopSubmenuBound='yes';
+      btn.setAttribute('aria-expanded','false');
+
+      btn.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const open=!drop.classList.contains('open');
+        document.querySelectorAll('.dropdown.open').forEach(function(d){
+          if(d!==drop){
+            d.classList.remove('open');
+            d.querySelector('.dropdown-btn')?.setAttribute('aria-expanded','false');
+          }
+        });
+
+        drop.classList.toggle('open',open);
+        btn.setAttribute('aria-expanded',open?'true':'false');
+      });
+    });
+
+    document.querySelectorAll('[data-menu-cat]').forEach(function(link){
+      if(link.dataset.desktopMenuCatBound==='yes') return;
+      link.dataset.desktopMenuCatBound='yes';
+      link.addEventListener('click',function(e){
+        e.preventDefault();
+        openCategory(link.dataset.menuCat||link.dataset.mobileCategory);
+        document.querySelectorAll('.dropdown.open').forEach(d=>d.classList.remove('open'));
+      });
+    });
+
+    document.addEventListener('click',function(){
+      document.querySelectorAll('.dropdown.open').forEach(d=>d.classList.remove('open'));
+    });
+  }
+
+  function init(){
+    buildDesktopAuth();
+    initCategorySubmenus();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();

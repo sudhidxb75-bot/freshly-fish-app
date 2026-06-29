@@ -633,3 +633,343 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
     grid-template-columns:repeat(3,1fr) !important;
   }
 }
+
+
+/* Freshly Mobile App V2.9 - click submenu categories fix */
+@media(max-width:760px){
+  .menu .dropdown{
+    width:100% !important;
+    position:relative !important;
+    display:block !important;
+  }
+
+  .menu .dropdown-btn{
+    width:100% !important;
+    min-height:46px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    border:1px solid #e4ebf3 !important;
+    background:#f8fafc !important;
+    color:#052e16 !important;
+    border-radius:14px !important;
+    padding:11px 12px !important;
+    font-size:14px !important;
+    font-weight:900 !important;
+  }
+
+  .menu .dropdown-btn::after{
+    content:"Tap to open";
+    font-size:10px;
+    color:#64748b;
+    font-weight:800;
+  }
+
+  .menu .dropdown.open .dropdown-btn::after{
+    content:"Tap to close";
+  }
+
+  .menu .dropdown-panel,
+  .menu .dropdown-content,
+  .menu .dropdown-menu{
+    display:none !important;
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    width:100% !important;
+    max-height:none !important;
+    overflow:visible !important;
+    background:#ffffff !important;
+    border:1px solid #dbe7ef !important;
+    border-radius:16px !important;
+    box-shadow:0 8px 20px rgba(15,23,42,.06) !important;
+    margin:8px 0 10px !important;
+    padding:8px !important;
+    z-index:290 !important;
+  }
+
+  .menu .dropdown.open .dropdown-panel,
+  .menu .dropdown.open .dropdown-content,
+  .menu .dropdown.open .dropdown-menu{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+  }
+
+  .menu .dropdown-panel a,
+  .menu .dropdown-content a,
+  .menu .dropdown-menu a{
+    display:flex !important;
+    align-items:center !important;
+    min-height:42px !important;
+    padding:9px 10px !important;
+    border-radius:12px !important;
+    background:#f8fafc !important;
+    color:#0f172a !important;
+    text-decoration:none !important;
+    font-size:12px !important;
+    font-weight:900 !important;
+    white-space:normal !important;
+    line-height:1.15 !important;
+  }
+
+  .menu .dropdown-panel a:nth-child(1),
+  .menu .dropdown-panel a:nth-child(2),
+  .menu .dropdown-panel a:nth-child(3),
+  .menu .dropdown-panel a:nth-child(4){
+    background:#ecfdf5 !important;
+    color:#064e3b !important;
+    border:1px solid #bbf7d0 !important;
+  }
+
+  .menu .dropdown-panel a[data-mobile-category="Freshly Mart"]{
+    grid-column:1 / -1 !important;
+    background:linear-gradient(135deg,#ecfdf5,#f0fdf4) !important;
+    color:#064e3b !important;
+    border:1px solid #bbf7d0 !important;
+  }
+
+  .menu .dropdown-panel a:active{
+    transform:scale(.985);
+  }
+
+  .menu .dropdown.open{
+    background:#ffffff !important;
+    border-radius:16px !important;
+  }
+
+  .menu .dropdown-panel::before{
+    content:"Freshly Categories";
+    grid-column:1 / -1;
+    color:#64748b;
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    padding:2px 2px 0;
+  }
+}
+
+@media(max-width:370px){
+  .menu .dropdown.open .dropdown-panel,
+  .menu .dropdown.open .dropdown-content,
+  .menu .dropdown.open .dropdown-menu{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* Freshly Mobile App V3.0 - customer user id/password login */
+.auth-tabs,
+.customer-auth-switch{
+  display:flex;
+  gap:8px;
+  background:#f1f5f9;
+  border-radius:16px;
+  padding:5px;
+  margin-bottom:14px;
+}
+.auth-tabs label,
+.customer-auth-switch button{
+  flex:1;
+  min-height:40px;
+  border:0;
+  border-radius:12px;
+  background:transparent;
+  color:#334155;
+  font-weight:900;
+  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.customer-auth-switch button.active,
+.auth-tabs label:has(input:checked){
+  background:#ffffff;
+  color:#065f46;
+  box-shadow:0 6px 16px rgba(15,23,42,.08);
+}
+.auth-tabs input{
+  accent-color:#0f9d58;
+}
+.customer-auth-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
+  gap:18px;
+}
+.customer-auth-card,
+.customer-account-card{
+  border-radius:24px !important;
+}
+.button-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.form-grid.single{
+  grid-template-columns:1fr;
+}
+@media(max-width:760px){
+  .customer-auth-layout{
+    grid-template-columns:1fr;
+  }
+  .customer-auth-page{
+    padding:14px 12px 90px !important;
+  }
+  .customer-auth-card h2,
+  .customer-account-card h2{
+    font-size:20px;
+  }
+}
+
+/* Freshly Desktop + Mobile V3.1 - desktop package alignment */
+@media(min-width:761px){
+  .nav-inner{
+    position:relative;
+  }
+
+  .freshly-desktop-categories{
+    position:relative;
+  }
+
+  .freshly-desktop-categories .dropdown-btn{
+    cursor:pointer;
+  }
+
+  .freshly-desktop-categories .dropdown-panel{
+    display:none;
+    position:absolute;
+    top:calc(100% + 12px);
+    left:0;
+    width:520px;
+    max-width:calc(100vw - 40px);
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:20px;
+    box-shadow:0 24px 65px rgba(15,23,42,.18);
+    padding:14px;
+    z-index:300;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+  }
+
+  .freshly-desktop-categories.open .dropdown-panel{
+    display:grid;
+  }
+
+  .freshly-desktop-categories .dropdown-panel a{
+    display:flex;
+    align-items:center;
+    min-height:44px;
+    padding:10px 12px;
+    border-radius:14px;
+    background:#f8fafc;
+    color:#0f172a;
+    text-decoration:none;
+    font-weight:900;
+    font-size:14px;
+    border:1px solid transparent;
+  }
+
+  .freshly-desktop-categories .dropdown-panel a:hover{
+    background:#ecfdf5;
+    border-color:#bbf7d0;
+    color:#064e3b;
+  }
+
+  .freshly-desktop-categories .dropdown-panel a[data-mobile-category="Freshly Mart"]{
+    grid-column:1 / -1;
+    background:linear-gradient(135deg,#ecfdf5,#f0fdf4);
+    border-color:#bbf7d0;
+    color:#064e3b;
+  }
+
+  .freshly-desktop-auth{
+    border:1px solid #dbe7ef;
+    background:#ffffff;
+    color:#064e3b;
+    min-height:42px;
+    border-radius:999px;
+    padding:9px 13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(15,23,42,.06);
+  }
+
+  .freshly-desktop-auth span{
+    max-width:110px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .freshly-desktop-auth-popover{
+    position:absolute;
+    right:0;
+    top:calc(100% + 12px);
+    width:230px;
+    background:#ffffff;
+    border:1px solid #dbe7ef;
+    border-radius:20px;
+    padding:10px;
+    box-shadow:0 24px 65px rgba(15,23,42,.18);
+    z-index:310;
+  }
+
+  .freshly-desktop-auth-popover.hidden{
+    display:none !important;
+  }
+
+  .freshly-desktop-auth-popover a,
+  .freshly-desktop-auth-popover button{
+    display:block;
+    width:100%;
+    min-height:42px;
+    border:0;
+    background:#ffffff;
+    color:#0f172a;
+    text-align:left;
+    text-decoration:none;
+    border-radius:13px;
+    padding:10px;
+    font-size:14px;
+    font-weight:900;
+    cursor:pointer;
+  }
+
+  .freshly-desktop-auth-popover a:hover,
+  .freshly-desktop-auth-popover button:hover{
+    background:#ecfdf5;
+    color:#064e3b;
+  }
+
+  .freshly-auth-title{
+    color:#052e16;
+    font-weight:900;
+    font-size:14px;
+    padding:6px 8px 10px;
+    border-bottom:1px solid #eef2f7;
+    margin-bottom:6px;
+  }
+
+  .customer-auth-layout{
+    max-width:1100px;
+    margin:0 auto;
+  }
+
+  .customer-auth-card,
+  .customer-account-card{
+    box-shadow:0 14px 36px rgba(15,23,42,.06);
+  }
+
+  .auth-tabs,
+  .customer-auth-switch{
+    max-width:480px;
+  }
+}
