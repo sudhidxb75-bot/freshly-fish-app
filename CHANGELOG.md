@@ -1,4 +1,10 @@
 
+## Freshly Mobile App V2.3
+- Improved mobile home screen, category grid, quick actions, benefits and menu.
+- Improved product card styling.
+- Strengthened Install App visibility and added back-to-top button.
+
+
 ## Freshly Mobile App V2.2
 - Fixed Install App button visibility.
 - Added permanent Install App button and fallback instructions.
