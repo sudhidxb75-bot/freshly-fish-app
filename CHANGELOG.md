@@ -1,4 +1,10 @@
 
+## Freshly V3.6.3
+- Added runtime mobile banner top override loaded after all scripts.
+- Force-crops and shifts mobile banner upward to remove the blank top gap.
+- Added Set Mobile Banner Strong Top Crop backend utility.
+
+
 ## Freshly V3.6.2
 - Moved the full mobile page content upward.
 - Removed blank top spacing before the mobile banner.
