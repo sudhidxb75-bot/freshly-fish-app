@@ -1,4 +1,11 @@
 
+## Freshly V3.5
+- Added MobileObjectFit banner option.
+- Mobile banners can now use contain to fit full image on mobile screen.
+- Added Apps Script utility setMobileBannerObjectFitContain.
+- Added backend menu item Set Mobile Banner Fit: Contain.
+
+
 ## Freshly V3.4
 - Added reliable mobile top menu controller.
 - Fixed hamburger menu open/close behavior on mobile.
