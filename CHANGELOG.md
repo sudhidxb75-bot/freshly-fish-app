@@ -1,4 +1,11 @@
 
+## Freshly V3.6
+- Added MobileObjectPosition banner option.
+- Mobile banner image now anchors to top on mobile.
+- Added Apps Script utility setMobileBannerTopFit.
+- Added backend menu item Set Mobile Banner Up Fit.
+
+
 ## Freshly V3.5
 - Added MobileObjectFit banner option.
 - Mobile banners can now use contain to fit full image on mobile screen.
