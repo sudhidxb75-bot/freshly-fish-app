@@ -1,4 +1,10 @@
 
+## Freshly V3.6.2
+- Moved the full mobile page content upward.
+- Removed blank top spacing before the mobile banner.
+- Added setMobileCompactTopLayout backend utility.
+
+
 ## Freshly V3.6.1
 - Used uploaded working V3.6 file as base.
 - Moved mobile banner to full top position.
