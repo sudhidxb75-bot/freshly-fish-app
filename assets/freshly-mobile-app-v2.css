@@ -153,3 +153,147 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
 .freshly-more-head div{display:flex;flex-direction:column}.freshly-more-head span{font-size:12px;color:#64748b;margin-top:2px}.freshly-more-feature{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:13px;margin-bottom:12px;border-radius:18px;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:1px solid #bbf7d0}.freshly-more-feature>span{font-size:28px}.freshly-more-feature strong{display:block;color:#052e16;font-size:14px}.freshly-more-feature small{display:block;color:#64748b;font-size:11px;margin-top:2px}.freshly-more-feature button{border:0;background:#0f9d58;color:#fff;border-radius:999px;min-height:36px;padding:8px 12px;font-size:12px;font-weight:900}
 .freshly-scroll-top{position:fixed;right:14px;bottom:148px;z-index:150;width:42px;height:42px;border-radius:50%;border:1px solid #e4ebf3;background:#fff;color:#064e3b;font-size:20px;font-weight:900;box-shadow:0 12px 24px rgba(15,23,42,.12)}.freshly-scroll-top.hidden{display:none!important}
 }
+
+
+/* Freshly Mobile App V2.4 - top menu/dropdown overlay fix */
+@media(max-width:760px){
+  body.freshly-menu-open{
+    overflow:hidden !important;
+    touch-action:none !important;
+  }
+
+  body.freshly-menu-open::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:155;
+    background:rgba(15,23,42,.48);
+    backdrop-filter:blur(2px);
+  }
+
+  .nav{
+    z-index:260 !important;
+  }
+
+  .menu,
+  .menu.open,
+  .nav .menu,
+  .nav .menu.open{
+    position:fixed !important;
+    top:106px !important;
+    left:12px !important;
+    right:12px !important;
+    width:auto !important;
+    max-width:none !important;
+    max-height:calc(100vh - 122px) !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain !important;
+    background:#ffffff !important;
+    background-color:#ffffff !important;
+    opacity:1 !important;
+    border:1px solid #e2e8f0 !important;
+    border-radius:22px !important;
+    box-shadow:0 24px 70px rgba(15,23,42,.34) !important;
+    z-index:280 !important;
+    padding:12px !important;
+    isolation:isolate !important;
+  }
+
+  .menu::before,
+  .menu.open::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:#ffffff;
+    border-radius:22px;
+  }
+
+  .menu a,
+  .menu button,
+  .menu .dropdown-btn,
+  .menu .dropdown-content a{
+    position:relative !important;
+    z-index:2 !important;
+    background:#ffffff !important;
+  }
+
+  .menu .dropdown-content,
+  .dropdown-content,
+  .dropdown-menu{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    width:100% !important;
+    max-height:none !important;
+    overflow:visible !important;
+    background:#f8fafc !important;
+    border:1px solid #e2e8f0 !important;
+    border-radius:16px !important;
+    box-shadow:none !important;
+    margin:6px 0 8px !important;
+    padding:6px !important;
+    z-index:285 !important;
+  }
+
+  .menu .dropdown-content a,
+  .dropdown-content a{
+    display:block !important;
+    min-height:42px !important;
+    padding:10px 12px !important;
+    border-radius:12px !important;
+    color:#0f172a !important;
+    text-decoration:none !important;
+  }
+
+  .menu a:active,
+  .menu button:active,
+  .dropdown-content a:active{
+    transform:scale(.985);
+  }
+
+  .freshly-app-search{
+    z-index:70 !important;
+  }
+
+  .freshly-mobile-home,
+  .promo-slider,
+  #shop,
+  main,
+  .section{
+    position:relative;
+    z-index:1;
+  }
+}
+
+
+/* Freshly Mobile App V2.5 - customer login/signup menu update */
+@media(max-width:760px){
+  .freshly-quick-actions-v23{
+    grid-template-columns:repeat(5,1fr) !important;
+  }
+
+  .freshly-quick-actions-v23 a,
+  .freshly-quick-actions-v23 button{
+    min-height:78px !important;
+    padding:8px 4px !important;
+  }
+
+  .freshly-quick-actions-v23 span{
+    font-size:10px !important;
+    line-height:1.1 !important;
+  }
+
+  .freshly-more-grid a[href="customer-portal.html"]{
+    grid-column:1 / -1;
+    background:linear-gradient(135deg,#ecfdf5,#f0fdf4) !important;
+    border-color:#bbf7d0 !important;
+    color:#064e3b !important;
+  }
+
+  .freshly-customer-login-highlight{
+    background:linear-gradient(135deg,#ecfdf5,#f0fdf4) !important;
+    border-color:#bbf7d0 !important;
+  }
+}
