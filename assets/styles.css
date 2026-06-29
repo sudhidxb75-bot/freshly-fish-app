@@ -1026,3 +1026,49 @@ body:not(#home) .hero-mini h1{
   .promo-slide.image-only .banner-floating-btn{right:18px !important;bottom:18px !important;min-width:118px !important;min-height:40px !important;padding:10px 16px !important;font-size:14px !important;}
   .promo-slide .banner-main-btn{min-width:118px !important;min-height:40px !important;padding:10px 16px !important;font-size:14px !important;}
 }
+
+
+/* V2.9.20 prevent unwanted text overlay on designed image banners */
+.promo-slide.image-only .eyebrow,
+.promo-slide.image-only h2,
+.promo-slide.image-only p,
+.promo-slide.image-only .banner-copy{
+  display:none !important;
+}
+
+
+/* V2.9.21 backend-controlled banner size */
+.promo-slider{
+  min-height:0 !important;
+}
+.promo-track{
+  min-height:0 !important;
+  align-items:stretch !important;
+}
+.promo-slide.backend-banner,
+.promo-slide.backend-banner.has-image{
+  min-height:var(--banner-desktop-height,340px) !important;
+}
+.promo-slide.image-only{
+  height:var(--banner-desktop-height,340px) !important;
+  min-height:var(--banner-desktop-height,340px) !important;
+}
+.promo-slide.image-only img{
+  object-fit:var(--banner-object-fit,cover) !important;
+  object-position:var(--banner-object-position,center center) !important;
+}
+.promo-slide.backend-banner,
+.promo-slide.backend-banner.has-image{
+  background-position:var(--banner-object-position,center center) !important;
+  background-size:cover !important;
+}
+@media(max-width:760px){
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    min-height:var(--banner-mobile-height,230px) !important;
+  }
+  .promo-slide.image-only{
+    height:var(--banner-mobile-height,230px) !important;
+    min-height:var(--banner-mobile-height,230px) !important;
+  }
+}
