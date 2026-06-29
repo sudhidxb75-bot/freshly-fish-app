@@ -1,4 +1,10 @@
 
+## Freshly V3.3
+- Fixed duplicate desktop login buttons.
+- Removed customer login link from main menu.
+- Kept only one Login button at the right end of desktop header.
+
+
 ## Freshly Desktop + Mobile V3.2
 - Added full integrated Apps Script backend file.
 - Customer login patch is now merged into the full backend script.
