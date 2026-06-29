@@ -1,4 +1,11 @@
 
+## Freshly Mobile App V2.2
+- Fixed Install App button visibility.
+- Added permanent Install App button and fallback instructions.
+- Added easy More/Menu mobile navigation panel.
+- Simplified bottom navigation to Home, Shop, Cart, Orders and Menu.
+
+
 ## Freshly Mobile App V2 - FreshToHome-inspired
 - Revised from uploaded working PWA package.
 - Added mobile-first food delivery app design.
