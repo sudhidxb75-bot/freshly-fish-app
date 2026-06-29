@@ -1,4 +1,12 @@
 
+## Freshly V3.7.0
+- Fixed banner images not loading on desktop and mobile.
+- Frontend now normalizes banner image alias columns before filtering banners.
+- Added image fallback handling.
+- Apps Script getPublicData normalizes public banner fields.
+- Added/retained repairBannerSheetImageColumns utility.
+
+
 ## Freshly V3.6.9
 - Fixed mobile banners not loading from Banners sheet.
 - Frontend normalizes multiple banner image column names.
