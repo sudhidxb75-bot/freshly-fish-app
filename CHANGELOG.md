@@ -1,14 +1,4 @@
 
-## Freshly Mobile App UI V2
-- Added FreshToHome-inspired mobile-first UI.
-- Added sticky mobile search bar.
-- Added shop-by-category mobile grid.
-- Added Freshly benefits strip.
-- Added bottom navigation bar.
-- Improved mobile product card design.
-- Preserved existing Freshly backend and PWA install support.
-
-
 ## Mobile App / PWA V1.0
 - Added installable mobile app support.
 - Added manifest.webmanifest.
