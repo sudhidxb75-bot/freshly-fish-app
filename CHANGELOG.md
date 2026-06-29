@@ -1,4 +1,17 @@
 
+## Freshly Mobile App V2.8
+- Kept only the requested Freshly categories.
+- Added Freshly Mart for all other items.
+- Removed Home Products, Fashion, Stationery, Electronics, Wellness and Local Store from direct category list.
+
+
+## Freshly Mobile App V2.7
+- Added the remaining missing categories to the top menu, category rail, home grid and More/Menu.
+- Added top-right customer login icon.
+- Login icon shows Login / Sign Up when logged out.
+- Login icon shows customer name when logged in.
+
+
 ## Freshly Mobile App V2.6
 - Added the missing categories to the mobile top category menu.
 - Added full category rail under mobile search.
