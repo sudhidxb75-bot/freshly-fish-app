@@ -1,4 +1,18 @@
 
+## Freshly V3.6.5
+- Fixed mobile layout order: Header > Banner > Search/category bar > Welcome section.
+- Added freshly-mobile-banner-first-v365.js runtime layout correction.
+- Removed older aggressive banner runtime script references.
+- Added backend utility Set Mobile Banner First Layout.
+
+
+## Freshly V3.6.4
+- Removed internal mobile banner top gap.
+- Added runtime override freshly-mobile-banner-fulltop-v364.js.
+- Reduced mobile banner frame to 240px and forces image to top cover crop.
+- Added backend utility Set Mobile Banner No Internal Gap.
+
+
 ## Freshly V3.6.3
 - Added runtime mobile banner top override loaded after all scripts.
 - Force-crops and shifts mobile banner upward to remove the blank top gap.
