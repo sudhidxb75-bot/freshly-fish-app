@@ -23,10 +23,12 @@
       {CategoryID:'CAT-MUTTON',Name:'Mutton',SortOrder:3,Status:'Active'},
       {CategoryID:'CAT-EGGS',Name:'Eggs',SortOrder:4,Status:'Active'},
       {CategoryID:'CAT-FV',Name:'Fruits & Vegetables',SortOrder:5,Status:'Active'},
-      {CategoryID:'CAT-GROCERY',Name:'Groceries',SortOrder:6,Status:'Active'},
-      {CategoryID:'CAT-ESSENTIALS',Name:'Daily Essentials',SortOrder:7,Status:'Active'},
-      {CategoryID:'CAT-READY',Name:'Ready to Cook',SortOrder:8,Status:'Active'},
-      {CategoryID:'CAT-COMBO',Name:'Combo Packs',SortOrder:9,Status:'Active'}
+      {CategoryID:'CAT-FOOD',Name:'Food',SortOrder:6,Status:'Active'},
+      {CategoryID:'CAT-GROCERY',Name:'Groceries',SortOrder:7,Status:'Active'},
+      {CategoryID:'CAT-ESSENTIALS',Name:'Daily Essentials',SortOrder:8,Status:'Active'},
+      {CategoryID:'CAT-READY',Name:'Ready to Cook',SortOrder:9,Status:'Active'},
+      {CategoryID:'CAT-COMBO',Name:'Combo Packs',SortOrder:10,Status:'Active'},
+      {CategoryID:'CAT-FRESHLYMART',Name:'Freshly Mart',SortOrder:11,Status:'Active'}
     ],
     products:[
       {ProductID:'FLY-PRD-000001',SKU:'FISH-MATHI-500',Name:'Fresh Sardine / Mathi',CategoryID:'CAT-FISHSEA',PackSize:'Price per kg',Description:'Fresh sardine cleaned on request and packed for same-day hub dispatch.',FreshnessNote:'Freshly sourced and quality checked before packing.',Unit:'kg',PriceBasis:'Per Kg',BaseUnit:'kg',BasePrice:220,MinimumQty:0.5,MaximumQty:5,QtyStep:0.5,AllowedQtyOptions:'0.5,1,1.5,2,2.5,3,4,5',DefaultQty:0.5,Price:220,MRP:260,StockQty:50,StockStatus:'Available',ImageURL:'',ApprovalStatus:'Approved',WebsiteStatus:'Active',CleaningAvailable:'Yes',CuttingAvailable:'Yes',MarinationAvailable:'No'},
