@@ -297,3 +297,99 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
     border-color:#bbf7d0 !important;
   }
 }
+
+
+/* Freshly Mobile App V2.6 - full mobile category menu fix */
+@media(max-width:760px){
+  .freshly-app-search{
+    padding-bottom:8px !important;
+  }
+
+  .freshly-top-category-rail{
+    display:flex;
+    gap:8px;
+    overflow:auto;
+    padding:9px 0 2px;
+    scrollbar-width:none;
+  }
+
+  .freshly-top-category-rail::-webkit-scrollbar{
+    display:none;
+  }
+
+  .freshly-top-category-rail button{
+    flex:0 0 auto;
+    border:1px solid #dbe7ef;
+    background:#ffffff;
+    border-radius:999px;
+    min-height:34px;
+    padding:7px 11px;
+    color:#064e3b;
+    font-size:12px;
+    font-weight:900;
+    box-shadow:0 6px 14px rgba(15,23,42,.045);
+  }
+
+  .freshly-mobile-cats-v23{
+    grid-template-columns:repeat(5,1fr) !important;
+    gap:8px !important;
+  }
+
+  .freshly-mobile-cats-v23 .freshly-mobile-cat{
+    min-height:86px !important;
+    padding:7px 4px !important;
+  }
+
+  .freshly-mobile-cats-v23 .freshly-mobile-cat .icon{
+    width:36px !important;
+    height:36px !important;
+    border-radius:14px !important;
+    font-size:22px !important;
+  }
+
+  .freshly-mobile-cats-v23 .freshly-mobile-cat span:last-child{
+    font-size:9.5px !important;
+    line-height:1.05 !important;
+  }
+
+  .freshly-menu-section-label{
+    margin:12px 2px 8px;
+    color:#64748b;
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+
+  .freshly-more-category-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+    margin-bottom:8px;
+  }
+
+  .freshly-more-category-grid button{
+    min-height:46px;
+    border:1px solid #e4ebf3;
+    background:#ffffff;
+    border-radius:15px;
+    padding:9px;
+    text-align:left;
+    color:#052e16;
+    font-size:12px;
+    font-weight:900;
+    box-shadow:0 6px 16px rgba(15,23,42,.045);
+  }
+
+  .freshly-more-category-grid button:active,
+  .freshly-top-category-rail button:active,
+  .freshly-mobile-cat:active{
+    transform:scale(.985);
+  }
+}
+
+@media(max-width:390px){
+  .freshly-mobile-cats-v23{
+    grid-template-columns:repeat(4,1fr) !important;
+  }
+}
