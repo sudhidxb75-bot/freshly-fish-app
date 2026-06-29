@@ -1,4 +1,35 @@
 
+## Freshly Desktop + Mobile V3.2
+- Added full integrated Apps Script backend file.
+- Customer login patch is now merged into the full backend script.
+- Added customerSignup and customerPasswordLogin actions to handleAction_.
+- Expanded Customers sheet headers for UserID and hashed password fields.
+- Added updateFreshlyV3Categories utility.
+- Final categories and Freshly Mart are included in full App Script.
+
+
+## Freshly Desktop + Mobile V3.1
+- Revised desktop package to match latest mobile updates.
+- Added desktop customer login icon and customer name display.
+- Added click-based desktop categories dropdown.
+- Finalized desktop categories with Freshly Mart.
+- Retained customer-portal.html and customer User ID/password login.
+
+
+## Freshly Mobile App V3.0
+- Added customer login using User ID and password.
+- Added separate customer signup page/form.
+- Added customer-portal.html.
+- Updated checkout auth to support Login or Sign Up.
+- Added Apps Script backend patch for customer signup and password login.
+
+
+## Freshly Mobile App V2.9
+- Fixed top home page mobile menu categories.
+- Added click/tap option to show and hide Categories submenu.
+- Ensured Fish & Seafood, Chicken, Mutton and Eggs show inside top menu.
+
+
 ## Freshly Mobile App V2.8
 - Kept only the requested Freshly categories.
 - Added Freshly Mart for all other items.

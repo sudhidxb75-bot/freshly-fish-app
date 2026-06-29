@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Freshly - Community Fresh Commerce</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=2.9.22"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16a34a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Freshly"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="assets/icons/icon-180.png"><link rel="stylesheet" href="assets/mobile-app.css?v=pwa1"><link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=2.8"></head><body id="home">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Freshly - Community Fresh Commerce</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=2.9.22"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16a34a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Freshly"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="assets/icons/icon-180.png"><link rel="stylesheet" href="assets/mobile-app.css?v=pwa1"><link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.1"></head><body id="home">
 <div class="top-strip"><div class="container"><span>Freshness Delivered.</span><span>Contact Us: <a href="https://wa.me/918921696649" target="_blank" rel="noopener">WhatsApp</a></span></div></div>
 <nav class="nav">
 <div class="container nav-top-row">
@@ -22,18 +22,18 @@
   <div class="menu">
     <a href="index.html#home">Home</a>
     <a href="index.html#shop">Shop</a>
-    <div class="dropdown"><button class="dropdown-btn" type="button">Categories ▾</button><div class="dropdown-panel">
-      <a href="index.html#shop" data-menu-cat="Fish & Seafood">🐟 Fish & Seafood</a>
-      <a href="index.html#shop" data-menu-cat="Chicken">🍗 Chicken</a>
-      <a href="index.html#shop" data-menu-cat="Mutton">🥩 Mutton</a>
-      <a href="index.html#shop" data-menu-cat="Eggs">🥚 Eggs</a>
-      <a href="index.html#shop" data-menu-cat="Fruits & Vegetables">🥦 Fruits & Vegetables</a>
-      <a href="index.html#shop" data-menu-cat="Food">🍱 Food</a>
-      <a href="index.html#shop" data-menu-cat="Groceries">🍚 Groceries</a>
-      <a href="index.html#shop" data-menu-cat="Daily Essentials">🛒 Daily Essentials</a>
-      <a href="index.html#shop" data-menu-cat="Ready to Cook">🍳 Ready to Cook</a>
-      <a href="index.html#shop" data-menu-cat="Combo Packs">🏷️ Combo Packs</a>
-      <a href="index.html#shop" data-menu-cat="Freshly Mart">🛍️ Freshly Mart</a>
+    <div class="dropdown freshly-desktop-categories"><button class="dropdown-btn" type="button" data-submenu-toggle>Categories ▾</button><div class="dropdown-panel" data-submenu-panel>
+      <a href="index.html#shop" data-menu-cat="Fish & Seafood" data-mobile-category="Fish & Seafood">🐟 Fish & Seafood</a>
+      <a href="index.html#shop" data-menu-cat="Chicken" data-mobile-category="Chicken">🍗 Chicken</a>
+      <a href="index.html#shop" data-menu-cat="Mutton" data-mobile-category="Mutton">🥩 Mutton</a>
+      <a href="index.html#shop" data-menu-cat="Eggs" data-mobile-category="Eggs">🥚 Eggs</a>
+      <a href="index.html#shop" data-menu-cat="Fruits & Vegetables" data-mobile-category="Fruits & Vegetables">🥦 Fruits & Vegetables</a>
+      <a href="index.html#shop" data-menu-cat="Food" data-mobile-category="Food">🍱 Food</a>
+      <a href="index.html#shop" data-menu-cat="Groceries" data-mobile-category="Groceries">🍚 Groceries</a>
+      <a href="index.html#shop" data-menu-cat="Daily Essentials" data-mobile-category="Daily Essentials">🛒 Daily Essentials</a>
+      <a href="index.html#shop" data-menu-cat="Ready to Cook" data-mobile-category="Ready to Cook">🍳 Ready to Cook</a>
+      <a href="index.html#shop" data-menu-cat="Combo Packs" data-mobile-category="Combo Packs">🏷️ Combo Packs</a>
+      <a href="index.html#shop" data-menu-cat="Freshly Mart" data-mobile-category="Freshly Mart">🛍️ Freshly Mart</a>
     </div></div>
     <a href="bulk-orders.html">Bulk Order</a>
     <div class="dropdown"><button class="dropdown-btn" type="button">Join Freshly ▾</button><div class="dropdown-panel">
@@ -73,7 +73,25 @@
 <div id="cartDrawer" class="drawer"><div class="drawer-header"><h3>Your Cart</h3><button class="btn btn-small" data-close-cart>Close</button></div><div id="cartItems" class="cart-items"></div><div class="cart-total"><div class="split-line"><strong>Total</strong><strong data-cart-total>₹0</strong></div><br><button class="btn btn-primary" data-open-checkout>Checkout</button><p class="muted">Login/signup is required only during checkout.</p></div></div>
 <button class="btn btn-primary cart-float" data-open-cart>Cart <span data-cart-count>0</span></button>
 <div id="checkoutModal" class="modal"><div class="modal-card"><div class="split-line"><h2>Freshly Checkout</h2><button class="btn btn-small" data-close-modal>Close</button></div><div id="checkoutLines" class="card"></div><br><div data-customer-state></div>
-  <form id="checkoutLoginForm" data-checkout-auth class="card"><h3>Signup / Login to continue checkout</h3><p class="muted">You can browse and add to cart without login. Freshly ID is created during checkout for tracking, loyalty and receipts.</p><div class="form-grid"><div><label>Name</label><input class="input" name="Name" required></div><div><label>Phone / WhatsApp</label><input class="input" name="Phone" required></div><div><label>Email</label><input class="input" name="Email" type="email"></div><div><label>WhatsApp Updates</label><select class="input" name="WhatsAppOptIn"><option>Yes</option><option>No</option></select></div></div><br><button class="btn btn-primary" type="submit">Signup / Login</button></form>
+  <form id="checkoutLoginForm" data-checkout-auth data-customer-auth-form class="card">
+    <h3>Customer Login / Sign Up</h3>
+    <p class="muted">Login with User ID and password. New customers can sign up and continue checkout.</p>
+    <div class="auth-tabs">
+      <label><input type="radio" name="AuthMode" value="Login" checked> Login</label>
+      <label><input type="radio" name="AuthMode" value="Signup"> Sign Up</label>
+    </div>
+    <div class="form-grid">
+      <div data-auth-login-field><label>User ID / Phone / Email / Freshly ID</label><input class="input" name="UserID" autocomplete="username"></div>
+      <div data-auth-login-field><label>Password</label><input class="input" name="Password" type="password" autocomplete="current-password"></div>
+      <div data-auth-signup-field class="hidden"><label>Name</label><input class="input" name="Name"></div>
+      <div data-auth-signup-field class="hidden"><label>Phone / WhatsApp</label><input class="input" name="Phone"></div>
+      <div data-auth-signup-field class="hidden"><label>Email</label><input class="input" name="Email" type="email"></div>
+      <div data-auth-signup-field class="hidden"><label>Create Password</label><input class="input" name="SignupPassword" type="password" autocomplete="new-password"></div>
+      <div data-auth-signup-field class="hidden"><label>Confirm Password</label><input class="input" name="ConfirmPassword" type="password" autocomplete="new-password"></div>
+      <div data-auth-signup-field class="hidden"><label>WhatsApp Updates</label><select class="input" name="WhatsAppOptIn"><option>Yes</option><option>No</option></select></div>
+    </div>
+    <br><button class="btn btn-primary" type="submit">Continue</button>
+  </form>
   <form id="checkoutOrderForm" data-checkout-order class="card hidden"><h3>Delivery &amp; Payment</h3><div class="form-grid"><div><label>District</label><select class="input" name="DistrictID" data-district-select required></select></div><div><label>Pincode</label><input class="input" name="Pincode" data-checkout-pincode required></div><div><label>Nearest Freshly Hub</label><select class="input" name="HubID" data-hub-select required></select></div><div><label>Delivery Slot</label><select class="input" name="DeliverySlot" data-slot-select required></select></div><div><label>Fulfilment</label><select class="input" name="FulfilmentType"><option>Home Delivery</option><option>Pickup from Hub</option></select></div><div><label>Payment Mode</label><select class="input" name="PaymentMode"><option>UPI to Freshly</option><option>Pay at Hub using Freshly UPI QR</option><option>Pay on Delivery using Freshly UPI QR</option></select></div></div>
 
   <div class="checkout-address-card">
@@ -103,4 +121,4 @@
   <div><h4>Policies</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="refund-policy.html">Refund Policy</a><a href="delivery-policy.html">Delivery Policy</a></div>
   <div><h4>Freshly</h4><a href="index.html#home">Home</a><a href="contact.html">Contact</a><p>© <span id="year"></span> Freshly</p></div>
 </div></footer><div id="statusBox" class="status-box"></div>
-<script src="assets/config.js?v=2.9.22"></script><script src="assets/app.js?v=2.9.22"></script><script src="assets/pwa-install.js?v=pwa1"></script><script src="assets/freshly-mobile-app-v2.js?v=2.8"></script><script src="assets/freshly-install-app.js?v=2.8"></script><button class="btn btn-primary install-app-btn" type="button" data-install-app>📲 Install App</button></body></html>
+<script src="assets/config.js?v=2.9.22"></script><script src="assets/app.js?v=3.1"></script><script src="assets/pwa-install.js?v=pwa1"></script><script src="assets/freshly-mobile-app-v2.js?v=3.1"></script><script src="assets/freshly-install-app.js?v=3.1"></script><button class="btn btn-primary install-app-btn" type="button" data-install-app>📲 Install App</button></body></html>

@@ -1,6 +1,6 @@
 {
   "id": "./",
-  "name": "Freshly - Freshness Delivered",
+  "name": "Freshly Mobile - Customer Login",
   "short_name": "Freshly",
   "description": "Freshly mobile app for fresh products, hub delivery, order tracking and partner registration.",
   "start_url": "./index.html",
@@ -93,6 +93,17 @@
       "name": "Join Freshly",
       "short_name": "Join",
       "url": "./join-freshly.html",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Customer Login",
+      "short_name": "Login",
+      "url": "./customer-portal.html",
       "icons": [
         {
           "src": "assets/icons/icon-192.png",
