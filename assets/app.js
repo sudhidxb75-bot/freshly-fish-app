@@ -159,8 +159,9 @@
     const objectFit = cleanFit(b.ObjectFit);
   const mobileObjectFit = cleanFit(b.MobileObjectFit || b.MobileFit || b.MobileImageFit || 'contain');
   const mobileObjectPosition = String(b.MobileObjectPosition || b.MobilePosition || 'center top').trim() || 'center top';
+  const mobileOffsetY = String(b.MobileOffsetY || b.MobileImageOffsetY || '-80px').trim() || '-80px';
     const objectPosition = esc(b.ObjectPosition || 'center center');
-    const cssVars = `--banner-desktop-height:${desktopHeight}px;--banner-mobile-height:${mobileHeight}px;--banner-object-fit:${objectFit};--banner-mobile-object-fit:${mobileObjectFit};--banner-object-position:${objectPosition};--banner-mobile-object-position:${mobileObjectPosition};`;
+    const cssVars = `--banner-desktop-height:${desktopHeight}px;--banner-mobile-height:${mobileHeight}px;--banner-object-fit:${objectFit};--banner-mobile-object-fit:${mobileObjectFit};--banner-object-position:${objectPosition};--banner-mobile-object-position:${mobileObjectPosition};--banner-mobile-offset-y:${mobileOffsetY};`;
 
     if(image && (displayMode === 'imageonly' || hideTextOverlay || !wantsTextOverlay)){
       const imageButton = btnText ? `<a class="btn btn-primary banner-floating-btn" href="${btnLink}">${btnText}</a>` : '';
