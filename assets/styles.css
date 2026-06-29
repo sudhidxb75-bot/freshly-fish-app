@@ -970,3 +970,59 @@
     min-height:230px !important;
   }
 }
+
+
+/* V2.9.18 track order page spacing and compact title fix */
+.page-title-compact{
+  padding:22px 0 18px !important;
+  background:linear-gradient(135deg,#f0fdf4,#eff6ff);
+  border-bottom:1px solid var(--line);
+}
+.page-title-compact h1{
+  margin:0 0 6px !important;
+  color:#052e16;
+  font-size:clamp(30px,3.4vw,48px);
+  line-height:1.05;
+}
+.page-title-compact p{
+  margin:0 !important;
+  color:#475569;
+  font-size:16px;
+}
+body:not(#home) .promo-slider{
+  display:none !important;
+}
+body:not(#home) .hero-mini{
+  padding:24px 0 20px !important;
+  min-height:auto !important;
+}
+body:not(#home) .hero-mini h1{
+  margin-top:0 !important;
+}
+#trackOrderResult.danger-note,
+#orderStatusResult.danger-note,
+.danger-note{
+  font-size:16px;
+}
+@media(max-width:760px){
+  .page-title-compact{
+    padding:18px 0 14px !important;
+  }
+  .page-title-compact h1{
+    font-size:30px;
+  }
+}
+
+/* V2.9.19 banner button visibility fix */
+.promo-slide.backend-banner{position:relative !important;}
+.promo-slide .banner-copy{position:relative !important;z-index:2 !important;}
+.promo-slide .banner-main-btn{position:relative !important;z-index:3 !important;min-width:140px !important;min-height:46px !important;padding:12px 22px !important;font-size:16px !important;box-shadow:0 12px 24px rgba(22,163,74,.24) !important;}
+.promo-slide.image-only{position:relative !important;}
+.promo-slide.image-only .banner-image-link{position:absolute !important;inset:0 !important;z-index:1 !important;}
+.promo-slide.image-only img{position:absolute !important;inset:0 !important;}
+.promo-slide.image-only .banner-floating-btn{position:absolute !important;right:max(5vw,34px) !important;bottom:34px !important;z-index:5 !important;min-width:150px !important;min-height:48px !important;padding:13px 24px !important;font-size:17px !important;border:2px solid rgba(255,255,255,.72) !important;box-shadow:0 16px 34px rgba(15,23,42,.22) !important;}
+.promo-slide.image-only .banner-floating-btn:hover,.promo-slide .banner-main-btn:hover{transform:translateY(-2px) !important;}
+@media(max-width:760px){
+  .promo-slide.image-only .banner-floating-btn{right:18px !important;bottom:18px !important;min-width:118px !important;min-height:40px !important;padding:10px 16px !important;font-size:14px !important;}
+  .promo-slide .banner-main-btn{min-width:118px !important;min-height:40px !important;padding:10px 16px !important;font-size:14px !important;}
+}
