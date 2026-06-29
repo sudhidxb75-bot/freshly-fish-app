@@ -1532,3 +1532,299 @@ body:not(#home) .hero-mini h1{
     padding-top:0 !important;
   }
 }
+
+
+/* Freshly V3.6.5 - mobile banner first layout fix */
+@media(max-width:760px){
+  .freshly-app-search{
+    position:relative !important;
+    top:auto !important;
+    z-index:40 !important;
+    margin-top:0 !important;
+    border-radius:0 0 20px 20px !important;
+  }
+
+  .promo-slider,
+  .freshly-promo-slider,
+  .hero-slider,
+  .banner-slider{
+    margin-top:0 !important;
+    padding-top:0 !important;
+    overflow:hidden !important;
+    background:#f7fbfc !important;
+    border-radius:0 0 20px 20px !important;
+    box-shadow:0 10px 24px rgba(15,23,42,.07) !important;
+  }
+
+  .promo-track,
+  [data-promo-track]{
+    margin:0 !important;
+    padding:0 !important;
+    min-height:0 !important;
+    align-items:flex-start !important;
+  }
+
+  .promo-slide,
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    position:relative !important;
+    display:block !important;
+    height:270px !important;
+    min-height:270px !important;
+    max-height:270px !important;
+    padding:0 !important;
+    margin:0 !important;
+    overflow:hidden !important;
+    background-size:cover !important;
+    background-position:center top !important;
+    background-repeat:no-repeat !important;
+  }
+
+  .promo-slide .banner-image-link,
+  .promo-slide a:has(img){
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  .promo-slide img,
+  .promo-slide.image-only img,
+  .promo-slide.backend-banner img,
+  .promo-slide.has-image img{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    max-height:none !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+    transform:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+  }
+
+  .promo-slide.image-only .banner-copy,
+  .promo-slide.image-only .banner-content,
+  .promo-slide.image-only .slide-content,
+  .promo-slide.image-only .hero-content{
+    display:none !important;
+  }
+
+  .promo-dots{
+    bottom:8px !important;
+    z-index:20 !important;
+  }
+
+  .freshly-mobile-home{
+    margin-top:10px !important;
+    padding-top:0 !important;
+  }
+}
+
+
+/* Freshly V3.6.6 - final clean mobile order: header > banner > search */
+@media(max-width:760px){
+  .freshly-app-search{
+    position:relative !important;
+    top:auto !important;
+    margin:0 !important;
+    padding:10px 12px 12px !important;
+    z-index:40 !important;
+    border-radius:0 0 18px 18px !important;
+    box-shadow:0 8px 18px rgba(15,23,42,.06) !important;
+  }
+
+  .promo-slider,
+  .freshly-promo-slider,
+  .hero-slider,
+  .banner-slider{
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    overflow:hidden !important;
+    background:#f7fbfc !important;
+    border-radius:0 0 20px 20px !important;
+  }
+
+  .promo-track,
+  [data-promo-track]{
+    display:flex !important;
+    margin:0 !important;
+    padding:0 !important;
+    min-height:0 !important;
+    align-items:stretch !important;
+  }
+
+  .promo-slide,
+  .promo-slide.image-only,
+  .promo-slide.backend-banner,
+  .promo-slide.backend-banner.has-image{
+    position:relative !important;
+    display:block !important;
+    flex:0 0 100% !important;
+    width:100% !important;
+    height:270px !important;
+    min-height:270px !important;
+    max-height:270px !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background-size:cover !important;
+    background-position:center top !important;
+    background-repeat:no-repeat !important;
+  }
+
+  .promo-slide .banner-image-link,
+  .promo-slide a:has(img){
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  .promo-slide img,
+  .promo-slide.image-only img,
+  .promo-slide.backend-banner img,
+  .promo-slide.has-image img{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    max-height:none !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+    transform:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+  }
+
+  .promo-slide.image-only .banner-copy,
+  .promo-slide.image-only .banner-content,
+  .promo-slide.image-only .slide-content,
+  .promo-slide.image-only .hero-content{
+    display:none !important;
+  }
+
+  .promo-dots{
+    bottom:8px !important;
+    z-index:20 !important;
+  }
+
+  .freshly-mobile-home{
+    margin-top:10px !important;
+    padding-top:0 !important;
+  }
+}
+
+
+/* Freshly V3.6.7 - root mobile banner fix */
+@media(max-width:760px){
+  .promo-slider,
+  .freshly-promo-slider,
+  .hero-slider,
+  .banner-slider{
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+    height:270px !important;
+    max-height:270px !important;
+    min-height:0 !important;
+    overflow:hidden !important;
+    background:#f7fbfc !important;
+    border-radius:0 0 20px 20px !important;
+  }
+
+  .promo-track,
+  [data-promo-track]{
+    display:flex !important;
+    height:270px !important;
+    margin:0 !important;
+    padding:0 !important;
+    align-items:stretch !important;
+  }
+
+  .promo-slide{
+    position:relative !important;
+    flex:0 0 100% !important;
+    width:100% !important;
+    height:270px !important;
+    min-height:270px !important;
+    max-height:270px !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background-size:cover !important;
+    background-position:center top !important;
+    background-repeat:no-repeat !important;
+  }
+
+  .promo-slide.banner-image-error,
+  .promo-slide:not(:has(img)):not(.has-image){
+    display:none !important;
+    height:0 !important;
+    min-height:0 !important;
+    max-height:0 !important;
+    flex-basis:0 !important;
+  }
+
+  .promo-slide .banner-image-link,
+  .promo-slide a:has(img){
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  .promo-slide img{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+    transform:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+  }
+
+  .promo-slide.image-only .banner-copy,
+  .promo-slide.image-only .banner-content,
+  .promo-slide.image-only .slide-content,
+  .promo-slide.image-only .hero-content{
+    display:none !important;
+  }
+
+  .freshly-app-search{
+    position:relative !important;
+    top:auto !important;
+    margin:0 !important;
+    z-index:40 !important;
+  }
+
+  .freshly-mobile-home{
+    margin-top:10px !important;
+    padding-top:0 !important;
+  }
+}

@@ -96,6 +96,7 @@
     panel.addEventListener('click', e=>e.stopPropagation());
     document.addEventListener('click', ()=>panel.classList.remove('open'));
   }
+  function isMobileBannerView_(){ return window.matchMedia && window.matchMedia('(max-width:760px)').matches; }
   function renderPromoSlider(){
     const slider = document.querySelector('.promo-slider');
     const track = document.querySelector('[data-promo-track]');
@@ -113,6 +114,17 @@
         .filter(b => String(b.ImageURL || b.Title || '').trim())
         .filter(b => String(b.Status || 'Active').toLowerCase() === 'active')
         .sort((a,b)=>(+a.SortOrder||999)-(+b.SortOrder||999));
+    }
+
+    if(isMobileBannerView_()){
+      let imageBanners = banners.filter(b => String(b.ImageURL || '').trim());
+      if(!imageBanners.length){
+        imageBanners = (demo.banners || [])
+          .filter(b => String(b.ImageURL || '').trim())
+          .filter(b => String(b.Status || 'Active').toLowerCase() === 'active')
+          .sort((a,b)=>(+a.SortOrder||999)-(+b.SortOrder||999));
+      }
+      banners = imageBanners;
     }
 
     if(!banners.length){
@@ -165,7 +177,7 @@
 
     if(image && (displayMode === 'imageonly' || hideTextOverlay || !wantsTextOverlay)){
       const imageButton = btnText ? `<a class="btn btn-primary banner-floating-btn" href="${btnLink}">${btnText}</a>` : '';
-      return `<article class="promo-slide backend-banner image-only" style="${cssVars}"><a class="banner-image-link" href="${btnLink}" aria-label="${title}"><img src="${esc(image)}" alt="${title}"></a>${imageButton}</article>`;
+      return `<article class="promo-slide backend-banner image-only" style="${cssVars}"><a class="banner-image-link" href="${btnLink}" aria-label="${title}"><img data-banner-img src="${esc(image)}" alt="${title}" onerror="this.closest(\'.promo-slide\')?.classList.add(\'banner-image-error\');window.freshlyMobileBannerRootFix&&window.freshlyMobileBannerRootFix();"></a>${imageButton}</article>`;
     }
 
     const bg = image ? `background-image:linear-gradient(90deg,rgba(255,255,255,.95),rgba(255,255,255,.64),rgba(255,255,255,.08)),url('${esc(image)}');` : '';
