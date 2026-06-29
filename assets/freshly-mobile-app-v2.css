@@ -973,3 +973,73 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
     max-width:480px;
   }
 }
+
+
+/* Freshly V3.3 - single desktop login button at right end */
+@media(min-width:761px){
+  .freshly-top-auth,
+  .freshly-top-auth-name{
+    display:none !important;
+  }
+
+  .nav-inner{
+    display:flex !important;
+    align-items:center !important;
+    gap:22px !important;
+  }
+
+  .nav-inner > .menu{
+    flex:1 1 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:24px !important;
+  }
+
+  .nav-inner > .menu a[href="customer-portal.html"]{
+    display:none !important;
+  }
+
+  .freshly-desktop-auth{
+    margin-left:auto !important;
+    flex:0 0 auto !important;
+    min-width:118px !important;
+    height:48px !important;
+    border-radius:999px !important;
+    border:1px solid #dbe7ef !important;
+    background:#ffffff !important;
+    color:#064e3b !important;
+    font-size:18px !important;
+    font-weight:900 !important;
+    box-shadow:0 10px 24px rgba(15,23,42,.08) !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:0 !important;
+    padding:0 22px !important;
+  }
+
+  .freshly-desktop-auth::before{
+    content:"👤";
+    margin-right:8px;
+    font-size:20px;
+  }
+
+  .freshly-desktop-auth span{
+    max-width:120px !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  .freshly-desktop-auth-popover{
+    right:0 !important;
+  }
+}
+
+@media(max-width:760px){
+  .freshly-desktop-auth,
+  .freshly-desktop-auth-popover{
+    display:none !important;
+  }
+}

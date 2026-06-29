@@ -13,6 +13,7 @@ function buildSearch(){
   if(o&&m)m.addEventListener('input',()=>{o.value=m.value;o.dispatchEvent(new Event('input',{bubbles:true}))})
 }
 function buildTopAuth(){
+  if(window.innerWidth>760)return;
   if(document.querySelector('.freshly-top-auth'))return;
   const navInner=document.querySelector('.nav-inner');if(!navInner)return;
   const menuBtn=document.querySelector('.mobile-toggle');
@@ -271,10 +272,10 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',ini
       const name=customerName();
       if(name){
         const first=String(name).trim().split(/\s+/)[0]||'Customer';
-        auth.innerHTML='👤 <span>'+first+'</span>';
+        auth.innerHTML='<span>'+first+'</span>';
         pop.innerHTML='<div class="freshly-auth-title">Hi, '+first+'</div><a href="customer-portal.html">My Account</a><a href="track-order.html">Track Order</a><button type="button" data-desktop-logout>Logout</button>';
       }else{
-        auth.innerHTML='👤 <span>Login</span>';
+        auth.innerHTML='<span>Login</span>';
         pop.innerHTML='<div class="freshly-auth-title">Customer Account</div><a href="customer-portal.html">Login with User ID</a><a href="customer-portal.html#signup">Sign Up</a><a href="track-order.html">Track Order</a>';
       }
       const logout=pop.querySelector('[data-desktop-logout]');
