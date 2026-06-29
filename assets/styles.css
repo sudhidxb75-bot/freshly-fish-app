@@ -1072,3 +1072,12 @@ body:not(#home) .hero-mini h1{
     min-height:var(--banner-mobile-height,230px) !important;
   }
 }
+
+
+/* V2.9.22 remove unwanted text overlay from image banners */
+.promo-slide.image-only .banner-copy,
+.promo-slide.image-only .eyebrow,
+.promo-slide.image-only h2,
+.promo-slide.image-only p{
+  display:none !important;
+}
