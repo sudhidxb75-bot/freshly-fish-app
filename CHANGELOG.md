@@ -1,4 +1,11 @@
 
+## Freshly V3.4
+- Added reliable mobile top menu controller.
+- Fixed hamburger menu open/close behavior on mobile.
+- Fixed click/tap Categories submenu behavior.
+- Added final category list inside mobile submenu.
+
+
 ## Freshly V3.3
 - Fixed duplicate desktop login buttons.
 - Removed customer login link from main menu.
