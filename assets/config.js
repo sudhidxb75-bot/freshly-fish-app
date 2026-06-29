@@ -1,6 +1,6 @@
 window.FRESHLY_CONFIG = {
   VERSION: '2.9.22',
-  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbzFXuE9XlE8br3vSAECzSASrJ02_qEyRGFoWqMj8xdHHkrKDkJRQKVapRx3FDGZ9g2uww/exec', // Paste your deployed Apps Script Web App URL here
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbzXmdUxbachJmL5ro1gC-6ObZY5Hd2fSpdxQpq-rbLuNfLvOBWmUwYKskVSQoDjWYr3Vg/exec', // Paste your deployed Apps Script Web App URL here
   CURRENCY: '₹',
   DEFAULT_COUNTRY: 'India',
   DEMO_MODE_WHEN_BACKEND_EMPTY: true,

@@ -169,6 +169,7 @@
     window.addEventListener('orientationchange', function(){ setTimeout(applyLayout, 300); });
   }
 
+  window.freshlyMobileSafeLayout = scheduleLayout;
   window.freshlyMobileBannerRootFix = scheduleLayout;
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

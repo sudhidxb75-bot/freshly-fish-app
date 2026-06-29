@@ -96,6 +96,50 @@
     panel.addEventListener('click', e=>e.stopPropagation());
     document.addEventListener('click', ()=>panel.classList.remove('open'));
   }
+
+  function bannerValue_(b, keys){
+    b = b || {};
+    for(const key of keys){
+      if(b[key] !== undefined && b[key] !== null && String(b[key]).trim() !== '') return String(b[key]).trim();
+    }
+    const wanted = keys.map(k => String(k).toLowerCase().replace(/[^a-z0-9]/g,''));
+    for(const k of Object.keys(b)){
+      const nk = String(k).toLowerCase().replace(/[^a-z0-9]/g,'');
+      if(wanted.includes(nk) && String(b[k] || '').trim()) return String(b[k]).trim();
+    }
+    return '';
+  }
+  function bannerImageUrl_(b){
+    return bannerValue_(b, [
+      'MobileImageURL','MobileImageUrl','Mobile Image URL','MobileImage','Mobile Banner Image','MobileBannerImageURL',
+      'ImageURL','ImageUrl','Image URL','Image Url','BannerImageURL','Banner Image URL','BannerImage','Banner Image',
+      'DesktopImageURL','Desktop Image URL','Image','PhotoURL','Photo URL','PictureURL','Picture URL'
+    ]);
+  }
+  function bannerTitle_(b){
+    return bannerValue_(b, ['Title','BannerTitle','Banner Title','Heading','Headline']) || 'Freshness Delivered.';
+  }
+  function bannerIsActive_(b){
+    const s = String(b?.Status ?? b?.Active ?? b?.Show ?? 'Active').trim().toLowerCase();
+    return !s || ['active','yes','true','1','show','published','visible'].includes(s);
+  }
+  function normalizeBanner_(b, source){
+    const image = bannerImageUrl_(b);
+    return Object.assign({}, b, {
+      ImageURL: image,
+      Title: bannerTitle_(b),
+      Subtitle: bannerValue_(b, ['Subtitle','SubTitle','BannerSubtitle','Banner Subtitle','Description','Caption']),
+      ButtonText: bannerValue_(b, ['ButtonText','Button Text','CTA','CTA Text']) || b.ButtonText || '',
+      ButtonLink: bannerValue_(b, ['ButtonLink','Button Link','CTA Link','Link','URL']) || b.ButtonLink || '#shop',
+      SortOrder: b.SortOrder || b.Order || b.Sequence || 999,
+      Status: b.Status || 'Active',
+      _BannerSource: source || ''
+    });
+  }
+  function normalizeBanners_(rows, source){
+    return (rows || []).map(b => normalizeBanner_(b, source)).filter(b => bannerIsActive_(b));
+  }
+
   function isMobileBannerView_(){ return window.matchMedia && window.matchMedia('(max-width:760px)').matches; }
   function renderPromoSlider(){
     const slider = document.querySelector('.promo-slider');
@@ -144,15 +188,15 @@
     bindPromoSlider();
   }
   function promoSlide(b, idx){
-    const image = String(b.ImageURL || '').trim();
+    const image = bannerImageUrl_(b);
     const displayModeRaw = String(b.DisplayMode || '').trim().toLowerCase();
     const showOverlayRaw = String(b.ShowTextOverlay || b.ShowOverlay || '').trim().toLowerCase();
     const hideOverlayRaw = String(b.HideTextOverlay || '').trim().toLowerCase();
     const wantsTextOverlay = ['yes','true','1','show','active'].includes(showOverlayRaw);
     const hideTextOverlay = ['yes','true','1','hide','active'].includes(hideOverlayRaw);
     const displayMode = image && !wantsTextOverlay ? 'imageonly' : (displayModeRaw || (image ? 'imageonly' : 'overlaytext'));
-    const title = esc(b.Title || 'Freshness Delivered.');
-    const sub = esc(b.Subtitle || 'Choose fresh products, easy ordering and convenient pickup or delivery.');
+    const title = esc(bannerTitle_(b));
+    const sub = esc(b.Subtitle || b.Description || b.Caption || 'Choose fresh products, easy ordering and convenient pickup or delivery.');
     const btnText = esc(b.ButtonText || 'Shop Now');
     const btnLink = esc(b.ButtonLink || '#shop');
     const label = esc(b.Label || b.Tagline || 'Freshly');
@@ -177,7 +221,7 @@
 
     if(image && (displayMode === 'imageonly' || hideTextOverlay || !wantsTextOverlay)){
       const imageButton = btnText ? `<a class="btn btn-primary banner-floating-btn" href="${btnLink}">${btnText}</a>` : '';
-      return `<article class="promo-slide backend-banner image-only" style="${cssVars}"><a class="banner-image-link" href="${btnLink}" aria-label="${title}"><img data-banner-img src="${esc(image)}" alt="${title}" onerror="this.closest(\'.promo-slide\')?.classList.add(\'banner-image-error\');window.freshlyMobileBannerRootFix&&window.freshlyMobileBannerRootFix();"></a>${imageButton}</article>`;
+      return `<article class="promo-slide backend-banner image-only" style="${cssVars}"><a class="banner-image-link" href="${btnLink}" aria-label="${title}"><img data-banner-img src="${esc(image)}" alt="${title}" onerror="this.closest(\'.promo-slide\')?.classList.add(\'banner-image-error\');window.freshlyMobileSafeLayout&&window.freshlyMobileSafeLayout();"></a>${imageButton}</article>`;
     }
 
     const bg = image ? `background-image:linear-gradient(90deg,rgba(255,255,255,.95),rgba(255,255,255,.64),rgba(255,255,255,.08)),url('${esc(image)}');` : '';

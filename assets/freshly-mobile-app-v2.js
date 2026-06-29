@@ -8,10 +8,13 @@ function buildSearch(){
   const nav=document.querySelector('.nav');if(!nav)return;
   const box=make('div',{class:'freshly-app-search'});
   box.innerHTML='<div class="freshly-app-search-inner"><span class="search-icon">🔍</span><input id="freshlyMobileSearch" type="search" placeholder="Search fish, chicken, groceries..."><button class="cart-mini" type="button" data-open-cart>🛒 <span data-cart-count>0</span></button></div><div class="freshly-top-category-rail"><button data-mobile-category="Fish & Seafood">🐟 Fish & Seafood</button><button data-mobile-category="Chicken">🍗 Chicken</button><button data-mobile-category="Mutton">🥩 Mutton</button><button data-mobile-category="Eggs">🥚 Eggs</button><button data-mobile-category="Fruits & Vegetables">🥦 Fruits & Veg</button><button data-mobile-category="Food">🍱 Food</button><button data-mobile-category="Groceries">🍚 Groceries</button><button data-mobile-category="Daily Essentials">🛒 Essentials</button><button data-mobile-category="Ready to Cook">🍳 Ready to Cook</button><button data-mobile-category="Combo Packs">🏷️ Combo Packs</button><button data-mobile-category="Freshly Mart">🛍️ Freshly Mart</button></div>';
-  const slider=document.querySelector('.promo-slider,.freshly-promo-slider,.hero-slider,.banner-slider'); if(slider) slider.insertAdjacentElement('afterend',box); else nav.insertAdjacentElement('afterend',box);
+  const slider=document.querySelector('.promo-slider,.freshly-promo-slider,.hero-slider,.banner-slider');
+  if(slider) slider.insertAdjacentElement('afterend',box);
+  else nav.insertAdjacentElement('afterend',box);
   const o=document.querySelector('#catalogSearch'),m=box.querySelector('#freshlyMobileSearch');
   if(o&&m)m.addEventListener('input',()=>{o.value=m.value;o.dispatchEvent(new Event('input',{bubbles:true}))})
 }
+
 function buildTopAuth(){
   if(window.innerWidth>760)return;
   if(document.querySelector('.freshly-top-auth'))return;
