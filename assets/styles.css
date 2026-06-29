@@ -1828,3 +1828,59 @@ body:not(#home) .hero-mini h1{
     padding-top:0 !important;
   }
 }
+
+
+/* Freshly V3.6.8 - mobile stuck/performance fix */
+@media(max-width:760px){
+  .promo-slider,
+  .freshly-promo-slider,
+  .hero-slider,
+  .banner-slider{
+    margin:0 !important;
+    padding:0 !important;
+    height:270px;
+    max-height:270px;
+    min-height:0 !important;
+    overflow:hidden !important;
+    background:#f7fbfc !important;
+    border-radius:0 0 20px 20px !important;
+  }
+
+  .promo-track,
+  [data-promo-track]{
+    height:270px;
+    margin:0 !important;
+    padding:0 !important;
+    align-items:stretch !important;
+  }
+
+  .promo-slide{
+    height:270px;
+    min-height:270px;
+    max-height:270px;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background-size:cover !important;
+    background-position:center top !important;
+    background-repeat:no-repeat !important;
+  }
+
+  .promo-slide.banner-image-error{
+    display:none !important;
+  }
+
+  .promo-slide img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center top !important;
+  }
+
+  .freshly-app-search{
+    position:relative !important;
+    top:auto !important;
+    margin:0 !important;
+    z-index:40 !important;
+  }
+}
