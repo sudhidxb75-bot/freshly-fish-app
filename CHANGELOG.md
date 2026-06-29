@@ -1,4 +1,34 @@
 
+## Freshly V3.6.9
+- Fixed mobile banners not loading from Banners sheet.
+- Frontend normalizes multiple banner image column names.
+- Mobile uses sheet image banners first and demo banners only when backend returns no banner rows.
+- Apps Script getPublicData now normalizes banner image fields.
+- Added repairBannerSheetImageColumns utility.
+
+
+## Freshly V3.6.8
+- Fixed mobile app freezing/stuck issue.
+- Removed aggressive banner runtime observer scripts.
+- Added safe lightweight mobile layout controller freshly-mobile-layout-safe-v368.js.
+- Rewrote service worker with a clean cache version.
+
+
+## Freshly V3.6.7
+- Root fixed mobile banner issue.
+- Restored missing local banner images into assets/images.
+- Mobile slider now filters to image banners only.
+- Added root final mobile banner controller.
+- Rewrote service worker cache shell to remove corrupted paths and old banner scripts.
+
+
+## Freshly V3.6.6
+- Fixed the source mobile layout logic so search/category bar is created after the banner.
+- Welcome section now comes after the search/category bar.
+- Removed earlier conflicting banner runtime scripts from HTML.
+- Added final clean layout controller freshly-mobile-layout-final-v366.js.
+
+
 ## Freshly V3.6.5
 - Fixed mobile layout order: Header > Banner > Search/category bar > Welcome section.
 - Added freshly-mobile-banner-first-v365.js runtime layout correction.
