@@ -1,9 +1,9 @@
 
-## Freshly V3.7
-- Added MobileOffsetY banner option.
-- Moved mobile banner further upward to fill the top gap.
-- Added Apps Script utility setMobileBannerFillTopGap.
-- Added backend menu item Set Mobile Banner Fill Top Gap.
+## Freshly V3.6.1
+- Used uploaded working V3.6 file as base.
+- Moved mobile banner to full top position.
+- Removed blank top gap above mobile banner.
+- Added MobileTopShift backend option and setMobileBannerFullTop utility.
 
 
 ## Freshly V3.6
