@@ -1,18 +1,16 @@
-const FRESHLY_CACHE='freshly-desktop-mobile-v3-7-5-menu-banner-final-repair';
+const FRESHLY_CACHE='freshly-v4-0-0-clean';
 const APP_SHELL=[
   './',
   './index.html',
   './track-order.html',
   './customer-portal.html',
   './offline.html',
+  './assets/config.js',
   './assets/styles.css',
   './assets/app.js',
-  './assets/config.js',
-  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
-  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
-  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
-  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
-  './assets/freshly-install-app.js','./assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
+  './assets/freshly-mobile-app-v2.css',
+  './assets/freshly-mobile-app-v2.js',
+  './assets/freshly-install-app.js',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
@@ -21,19 +19,39 @@ const APP_SHELL=[
   './assets/images/banner-hub-partner.png',
   './assets/images/banner-supplier.png'
 ];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(FRESHLY_CACHE).then(c=>c.addAll(APP_SHELL).catch(()=>null)));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k===FRESHLY_CACHE?null:caches.delete(k)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{
-  const r=e.request;
-  if(r.method!=='GET') return;
-  const u=new URL(r.url);
-  if(u.hostname.includes('script.google.com')||u.hostname.includes('googleusercontent.com')){
-    e.respondWith(fetch(r).catch(()=>new Response(JSON.stringify({ok:false,message:'Freshly backend is offline.'}),{headers:{'Content-Type':'application/json'}})));
+
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(FRESHLY_CACHE).then(cache => cache.addAll(APP_SHELL).catch(() => null)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k === FRESHLY_CACHE ? null : caches.delete(k)))));
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+  const req = event.request;
+  if(req.method !== 'GET') return;
+
+  const url = new URL(req.url);
+  if(url.hostname.includes('script.google.com') || url.hostname.includes('googleusercontent.com')){
+    event.respondWith(fetch(req).catch(() => new Response(JSON.stringify({ok:false,message:'Freshly backend is offline.'}), {headers:{'Content-Type':'application/json'}})));
     return;
   }
-  if(r.headers.get('accept')&&r.headers.get('accept').includes('text/html')){
-    e.respondWith(fetch(r).then(res=>{const copy=res.clone();caches.open(FRESHLY_CACHE).then(c=>c.put(r,copy));return res;}).catch(()=>caches.match(r).then(c=>c||caches.match('./offline.html'))));
+
+  if(req.headers.get('accept') && req.headers.get('accept').includes('text/html')){
+    event.respondWith(fetch(req).then(res => {
+      const copy = res.clone();
+      caches.open(FRESHLY_CACHE).then(cache => cache.put(req, copy));
+      return res;
+    }).catch(() => caches.match(req).then(cached => cached || caches.match('./offline.html'))));
     return;
   }
-  e.respondWith(caches.match(r).then(c=>c||fetch(r).then(res=>{const copy=res.clone();caches.open(FRESHLY_CACHE).then(cache=>cache.put(r,copy));return res;})));
+
+  event.respondWith(caches.match(req).then(cached => cached || fetch(req).then(res => {
+    const copy = res.clone();
+    caches.open(FRESHLY_CACHE).then(cache => cache.put(req, copy));
+    return res;
+  })));
 });
