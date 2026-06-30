@@ -2126,3 +2126,132 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
   color:#065f46 !important;
   font-weight:900 !important;
 }
+
+
+/* Freshly V3.7.3 - mobile menu visibility and reliable banner carousel */
+@media(max-width:760px){
+  .nav .menu:not(.open):not(.freshly-mobile-menu-open),
+  .menu:not(.open):not(.freshly-mobile-menu-open){
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    transform:translateY(-8px) !important;
+  }
+
+  .nav .menu.open,
+  .nav .menu.freshly-mobile-menu-open,
+  .menu.open,
+  .menu.freshly-mobile-menu-open{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    position:fixed !important;
+    top:104px !important;
+    left:12px !important;
+    right:12px !important;
+    width:auto !important;
+    max-height:calc(100vh - 124px) !important;
+    overflow:auto !important;
+    background:#ffffff !important;
+    border:1px solid #dbe7ef !important;
+    border-radius:22px !important;
+    box-shadow:0 28px 80px rgba(15,23,42,.38) !important;
+    z-index:10030 !important;
+    padding:12px !important;
+    isolation:isolate !important;
+  }
+
+  body.freshly-menu-open::before,
+  body.freshly-mobile-nav-open::before{
+    content:"" !important;
+    position:fixed !important;
+    inset:0 !important;
+    background:rgba(15,23,42,.55) !important;
+    backdrop-filter:blur(2px) !important;
+    z-index:10020 !important;
+  }
+
+  .nav{
+    z-index:10040 !important;
+  }
+
+  .mobile-toggle{
+    z-index:10050 !important;
+  }
+
+  .freshly-app-search,
+  .promo-slider,
+  .freshly-mobile-home,
+  main,
+  .section{
+    z-index:1 !important;
+  }
+
+  .freshly-more-menu.hidden{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+  }
+
+  .freshly-more-menu:not(.hidden){
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    z-index:10060 !important;
+    background:rgba(15,23,42,.55) !important;
+  }
+}
+
+.promo-track{
+  transition:none !important;
+}
+
+.promo-slide{
+  width:100% !important;
+  flex:0 0 100% !important;
+}
+
+.promo-slide:not(.active){
+  display:none;
+}
+
+.promo-slide.active{
+  display:block !important;
+  opacity:1 !important;
+}
+
+.promo-dots [data-promo-dot],
+[data-promo-dot]{
+  cursor:pointer;
+}
+
+
+/* Freshly V3.7.4 - close mobile menu before opening shop */
+@media(max-width:760px){
+  body:not(.freshly-menu-open):not(.freshly-mobile-nav-open) .nav .menu:not(.open):not(.freshly-mobile-menu-open),
+  body:not(.freshly-menu-open):not(.freshly-mobile-nav-open) .menu:not(.open):not(.freshly-mobile-menu-open){
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+  }
+
+  .menu[aria-hidden="true"],
+  .nav .menu[aria-hidden="true"],
+  .freshly-more-menu.hidden,
+  #freshlyMoreMenu.hidden{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+  }
+
+  body:not(.freshly-menu-open):not(.freshly-mobile-nav-open)::before{
+    content:none !important;
+    display:none !important;
+  }
+}
