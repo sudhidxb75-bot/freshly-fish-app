@@ -1,4 +1,4 @@
-const FRESHLY_CACHE='freshly-desktop-mobile-v3-7-6-workingbase-revisions';
+const FRESHLY_CACHE='freshly-desktop-mobile-v3-7-2-category-routing';
 const APP_SHELL=[
   './',
   './index.html',
@@ -8,11 +8,11 @@ const APP_SHELL=[
   './assets/styles.css',
   './assets/app.js',
   './assets/config.js',
-  './assets/freshly-desktop-mobile-v3-7-6-workingbase-revisions',
-  './assets/freshly-desktop-mobile-v3-7-6-workingbase-revisions',
-  './assets/freshly-desktop-mobile-v3-7-6-workingbase-revisions',
-  './assets/freshly-desktop-mobile-v3-7-6-workingbase-revisions',
-  './assets/freshly-install-app.js','./assets/freshly-desktop-mobile-v3-7-6-workingbase-revisions',
+  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
+  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
+  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
+  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
+  './assets/freshly-install-app.js','./assets/freshly-desktop-mobile-v3-7-2-category-routing',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
