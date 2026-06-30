@@ -1,39 +1,74 @@
-const FRESHLY_CACHE='freshly-desktop-mobile-v3-7-2-category-routing';
-const APP_SHELL=[
-  './',
-  './index.html',
-  './track-order.html',
-  './customer-portal.html',
-  './offline.html',
-  './assets/styles.css',
-  './assets/app.js',
-  './assets/config.js',
-  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
-  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
-  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
-  './assets/freshly-desktop-mobile-v3-7-2-category-routing',
-  './assets/freshly-install-app.js','./assets/freshly-desktop-mobile-v3-7-2-category-routing',
-  './manifest.webmanifest',
-  './assets/icons/icon-192.png',
-  './assets/icons/icon-512.png',
-  './assets/freshly-logo-header.png',
-  './assets/images/banner-hub-partner-earnings.png',
-  './assets/images/banner-hub-partner.png',
-  './assets/images/banner-supplier.png'
-];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(FRESHLY_CACHE).then(c=>c.addAll(APP_SHELL).catch(()=>null)));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k===FRESHLY_CACHE?null:caches.delete(k)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{
-  const r=e.request;
-  if(r.method!=='GET') return;
-  const u=new URL(r.url);
-  if(u.hostname.includes('script.google.com')||u.hostname.includes('googleusercontent.com')){
-    e.respondWith(fetch(r).catch(()=>new Response(JSON.stringify({ok:false,message:'Freshly backend is offline.'}),{headers:{'Content-Type':'application/json'}})));
+const FRESHLY_CACHE = 'freshly-v3-7-4-cache-reset';
+const OFFLINE_URL = './offline.html';
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(FRESHLY_CACHE).then(cache => cache.addAll([OFFLINE_URL]).catch(() => null))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.filter(key => /freshly/i.test(key) && key !== FRESHLY_CACHE).map(key => caches.delete(key))
+    )).then(() => self.clients.claim())
+  );
+});
+
+function isFreshlyBackend(url){
+  return url.hostname.includes('script.google.com') ||
+         url.hostname.includes('googleusercontent.com') ||
+         url.hostname.includes('googleapis.com');
+}
+
+function isStaticAsset(request, url){
+  const accept = request.headers.get('accept') || '';
+  return /\.(css|js|json|webmanifest|png|jpg|jpeg|webp|gif|svg|ico|woff2?|ttf)$/i.test(url.pathname) ||
+         accept.includes('text/css') ||
+         accept.includes('javascript') ||
+         accept.includes('image/');
+}
+
+async function networkFirst(request){
+  const cache = await caches.open(FRESHLY_CACHE);
+  try{
+    const response = await fetch(request, {cache: 'no-store'});
+    if(response && response.ok) cache.put(request, response.clone()).catch(() => null);
+    return response;
+  }catch(err){
+    const cached = await cache.match(request);
+    if(cached) return cached;
+    throw err;
+  }
+}
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if(request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+
+  if(isFreshlyBackend(url)){
+    event.respondWith(fetch(request, {cache:'no-store'}).catch(() =>
+      new Response(JSON.stringify({ok:false,message:'Freshly backend is offline.'}), {
+        headers:{'Content-Type':'application/json'}
+      })
+    ));
     return;
   }
-  if(r.headers.get('accept')&&r.headers.get('accept').includes('text/html')){
-    e.respondWith(fetch(r).then(res=>{const copy=res.clone();caches.open(FRESHLY_CACHE).then(c=>c.put(r,copy));return res;}).catch(()=>caches.match(r).then(c=>c||caches.match('./offline.html'))));
+
+  if(request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')){
+    event.respondWith(
+      networkFirst(request).catch(() => caches.match(OFFLINE_URL))
+    );
     return;
   }
-  e.respondWith(caches.match(r).then(c=>c||fetch(r).then(res=>{const copy=res.clone();caches.open(FRESHLY_CACHE).then(cache=>cache.put(r,copy));return res;})));
+
+  if(url.origin === self.location.origin && isStaticAsset(request, url)){
+    event.respondWith(networkFirst(request).catch(() => caches.match(request)));
+    return;
+  }
+
+  event.respondWith(fetch(request).catch(() => caches.match(request)));
 });
