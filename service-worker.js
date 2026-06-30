@@ -1,4 +1,4 @@
-const FRESHLY_CACHE='freshly-desktop-mobile-v3-7-4-menu-close-shop';
+const FRESHLY_CACHE='freshly-desktop-mobile-v3-7-5-menu-banner-final-repair';
 const APP_SHELL=[
   './',
   './index.html',
@@ -8,11 +8,11 @@ const APP_SHELL=[
   './assets/styles.css',
   './assets/app.js',
   './assets/config.js',
-  './assets/freshly-desktop-mobile-v3-7-4-menu-close-shop',
-  './assets/freshly-desktop-mobile-v3-7-4-menu-close-shop',
-  './assets/freshly-desktop-mobile-v3-7-4-menu-close-shop',
-  './assets/freshly-desktop-mobile-v3-7-4-menu-close-shop',
-  './assets/freshly-install-app.js','./assets/freshly-desktop-mobile-v3-7-4-menu-close-shop',
+  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
+  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
+  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
+  './assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
+  './assets/freshly-install-app.js','./assets/freshly-desktop-mobile-v3-7-5-menu-banner-final-repair',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
