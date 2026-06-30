@@ -1,4 +1,20 @@
 
+## Freshly V3.7.2
+- Fixed all category menu items to open Shop and filter clicked category.
+- Added robust category name/ID resolver.
+- Product filtering now matches CategoryID, Category, CategoryName and aliases.
+- Bottom Shop resets category to All and opens Shop.
+- Added final route guard freshly-category-route-fix-v372.js.
+
+
+## Freshly V3.7.1
+- Removed old hardcoded backend URL from config.js.
+- Added backend URL localStorage override support.
+- Repaired customer login/signup frontend binding and validation.
+- Customer login now uses customerPasswordLogin and signup uses customerSignup.
+- Added bottom nav fix script for Home, Shop, Cart, Orders and Menu clicks.
+
+
 ## Freshly V3.7.0
 - Fixed banner images not loading on desktop and mobile.
 - Frontend now normalizes banner image alias columns before filtering banners.
