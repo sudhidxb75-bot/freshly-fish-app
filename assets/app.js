@@ -1,11 +1,21 @@
 (function(){
   const cfg = window.FRESHLY_CONFIG || {};
+  const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
+  const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();
+  if(backendOverride) cfg.BACKEND_URL = backendOverride;
+  else cfg.BACKEND_URL = String(cfg.BACKEND_URL || '').trim();
+  window.setFreshlyBackendUrl = function(url){
+    const clean = String(url || '').trim();
+    if(clean) localStorage.setItem(backendOverrideKey, clean);
+    else localStorage.removeItem(backendOverrideKey);
+    location.reload();
+  };
   const currency = cfg.CURRENCY || '₹';
   function phoneDigits_(v){ return String(v || '').replace(/\D/g,''); }
   function phoneMatch_(a,b){ const x=phoneDigits_(a), y=phoneDigits_(b); return x && y && (x===y || x.slice(-10)===y.slice(-10)); }
   const state = {
     products: [], categories: [], districts: [], hubs: [], areas: [], slots: [], districtPricing: [], banners: [], countries: [], settings: {},
-    selectedCategory: 'all', selectedCountry: localStorage.getItem('freshlyCountry') || cfg.DEFAULT_COUNTRY || 'India', selectedDistrict: localStorage.getItem('freshlyDistrict') || cfg.DEFAULT_DISTRICT_ID || '', selectedPincode: localStorage.getItem('freshlyPincode') || cfg.DEFAULT_PINCODE || '', selectedHub: localStorage.getItem('freshlyHub') || '',
+    selectedCategory: localStorage.getItem('freshlySelectedCategory') || 'all', selectedCountry: localStorage.getItem('freshlyCountry') || cfg.DEFAULT_COUNTRY || 'India', selectedDistrict: localStorage.getItem('freshlyDistrict') || cfg.DEFAULT_DISTRICT_ID || '', selectedPincode: localStorage.getItem('freshlyPincode') || cfg.DEFAULT_PINCODE || '', selectedHub: localStorage.getItem('freshlyHub') || '',
     cart: load('freshlyCart', []), customer: load('freshlyCustomer', null), admin: load('freshlyAdminSession', null)
   };
   const demo = {
@@ -43,7 +53,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', init);
-  function init(){ setYear(); applyConfiguredContacts(); bindNav(); bindLocationDropdown(); bindPromoSlider(); bindGenericForms(); bindPortalForms(); bindTrackOrder(); bindCheckout(); bindCheckoutLocation(); bindAdmin(); if(document.querySelector('#shop') || document.querySelector('#productGrid')) loadPublicData(); updateCustomerUI(); updateCartUI(); }
+  function init(){ setYear(); applyConfiguredContacts(); bindNav(); bindLocationDropdown(); bindPromoSlider(); bindGenericForms(); bindPortalForms(); bindCustomerAuthTabs(); bindTrackOrder(); bindCheckout(); bindCheckoutLocation(); bindAdmin(); if(document.querySelector('#shop') || document.querySelector('#productGrid')) loadPublicData(); updateCustomerUI(); updateCartUI(); }
   function setYear(){ document.querySelectorAll('#year').forEach(el => el.textContent = new Date().getFullYear()); }
   function cleanPhoneNumber(value){ return String(value || '').replace(/\D/g, ''); }
   function formatIndianPhone(value){
@@ -85,7 +95,17 @@
     document.querySelectorAll('[data-open-checkout]').forEach(btn=>btn.addEventListener('click',startCheckout));
     document.querySelectorAll('[data-close-modal]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('.modal')?.classList.remove('open'))); document.querySelectorAll('[data-product-window-close]').forEach(btn=>btn.addEventListener('click',()=>document.querySelector('#productWindowModal')?.classList.remove('open')));
     document.querySelectorAll('[data-logout]').forEach(btn=>btn.addEventListener('click',()=>{localStorage.removeItem('freshlyCustomer');state.customer=null;updateCustomerUI();toast('Logged out. You can still shop and login at checkout.')}));
-    document.querySelectorAll('[data-menu-cat]').forEach(a=>a.addEventListener('click',()=>{state.selectedCategory=a.dataset.menuCat; setTimeout(()=>{renderCategories(); renderProducts();},250)}));
+    document.querySelectorAll('[data-menu-cat],[data-mobile-category]').forEach(a=>{
+      if(a.dataset.categoryRouterBound === 'yes') return;
+      a.dataset.categoryRouterBound = 'yes';
+      a.addEventListener('click',e=>{
+        const cat = a.dataset.menuCat || a.dataset.mobileCategory || a.dataset.cat || a.textContent;
+        if(cat){
+          e.preventDefault();
+          openShopCategory_(cat,{clearSearch:true});
+        }
+      }, true);
+    });
   }
 
   function bindLocationDropdown(){
@@ -311,11 +331,200 @@
   }
   function saveLocation(){ localStorage.setItem('freshlyCountry',state.selectedCountry||''); localStorage.setItem('freshlyDistrict',state.selectedDistrict||''); localStorage.setItem('freshlyPincode',state.selectedPincode||''); localStorage.setItem('freshlyHub',state.selectedHub||''); }
 
+
+  function categoryKey_(v){
+    return String(v || '')
+      .toLowerCase()
+      .replace(/&/g,'and')
+      .replace(/\+/g,'and')
+      .replace(/[^a-z0-9]+/g,'')
+      .trim();
+  }
+
+  function fixedCategoryAlias_(input){
+    const k = categoryKey_(input);
+    const map = {
+      all:'all',
+      fish:'CAT-FISHSEA',
+      fishseafood:'CAT-FISHSEA',
+      fishandseafood:'CAT-FISHSEA',
+      seafood:'CAT-FISHSEA',
+      chicken:'CAT-CHICKEN',
+      mutton:'CAT-MUTTON',
+      meat:'CAT-MUTTON',
+      eggs:'CAT-EGGS',
+      egg:'CAT-EGGS',
+      fruitsvegetables:'CAT-FV',
+      fruitsandvegetables:'CAT-FV',
+      fruitsveg:'CAT-FV',
+      fruitsandveg:'CAT-FV',
+      fruits:'CAT-FV',
+      vegetables:'CAT-FV',
+      food:'CAT-FOOD',
+      groceries:'CAT-GROCERY',
+      grocery:'CAT-GROCERY',
+      dailyessentials:'CAT-ESSENTIALS',
+      essentials:'CAT-ESSENTIALS',
+      readytocook:'CAT-READY',
+      readycook:'CAT-READY',
+      combopacks:'CAT-COMBO',
+      combo:'CAT-COMBO',
+      freshlymart:'CAT-FRESHLYMART',
+      mart:'CAT-FRESHLYMART'
+    };
+    return map[k] || '';
+  }
+
+  function categoriesForRouting_(){
+    const fromSheet = activeRows(state.categories || []);
+    return fromSheet.length ? fromSheet : (demo.categories || []);
+  }
+
+  function resolveCategoryId_(input){
+    const raw = String(input || '').trim();
+    if(!raw || categoryKey_(raw) === 'all') return 'all';
+
+    const cats = categoriesForRouting_();
+    const key = categoryKey_(raw);
+
+    const direct = cats.find(c =>
+      categoryKey_(c.CategoryID) === key ||
+      categoryKey_(c.Name) === key ||
+      categoryKey_(c.CategoryName) === key ||
+      categoryKey_(c.Slug) === key
+    );
+    if(direct) return direct.CategoryID || direct.Name || raw;
+
+    const alias = fixedCategoryAlias_(raw);
+    if(alias){
+      const aliasCat = cats.find(c => categoryKey_(c.CategoryID) === categoryKey_(alias));
+      if(aliasCat) return aliasCat.CategoryID || alias;
+      return alias;
+    }
+
+    const partial = cats.find(c => {
+      const name = categoryKey_(c.Name || c.CategoryName);
+      const id = categoryKey_(c.CategoryID);
+      return (name && (name.includes(key) || key.includes(name))) || (id && (id.includes(key) || key.includes(id)));
+    });
+    return partial ? (partial.CategoryID || partial.Name || raw) : raw;
+  }
+
+  function categoryRouteLabels_(input){
+    const resolved = resolveCategoryId_(input);
+    const cats = categoriesForRouting_();
+    const selectedCat = cats.find(c => categoryKey_(c.CategoryID) === categoryKey_(resolved) || categoryKey_(c.Name) === categoryKey_(resolved));
+    const fixedId = fixedCategoryAlias_(input);
+    const fixedCat = fixedId ? cats.find(c => categoryKey_(c.CategoryID) === categoryKey_(fixedId)) : null;
+
+    const vals = [
+      input,
+      resolved,
+      fixedId,
+      selectedCat?.CategoryID,
+      selectedCat?.Name,
+      selectedCat?.CategoryName,
+      fixedCat?.CategoryID,
+      fixedCat?.Name,
+      fixedCat?.CategoryName
+    ].filter(Boolean);
+
+    return [...new Set(vals.map(categoryKey_).filter(Boolean))];
+  }
+
+  function productMatchesCategory_(p, selected){
+    if(!selected || selected === 'all') return true;
+    const labels = categoryRouteLabels_(selected);
+    const vals = [
+      p.CategoryID,
+      p.Category,
+      p.CategoryName,
+      p.CategoryLabel,
+      p.MainCategory,
+      p.ProductCategory,
+      p.Department,
+      p.SubCategory
+    ].map(categoryKey_).filter(Boolean);
+
+    return vals.some(v => labels.includes(v)) ||
+      vals.some(v => labels.some(l => v.includes(l) || l.includes(v)));
+  }
+
+  function refreshShopAfterCategory_(){
+    renderCategories();
+    renderProducts();
+    const mobileSearch = document.querySelector('#freshlyMobileSearch');
+    const catalog = document.querySelector('#catalogSearch');
+    if(mobileSearch && catalog) mobileSearch.value = catalog.value || '';
+  }
+
+  function closeMobileOverlays_(){
+    document.querySelector('.menu')?.classList.remove('open','show','active');
+    document.querySelector('#freshlyMoreMenu')?.classList.add('hidden');
+    document.querySelectorAll('.menu .dropdown.open').forEach(d => d.classList.remove('open'));
+    document.body.classList.remove('freshly-menu-open');
+  }
+
+  function openShopCategory_(category, opts){
+    const raw = String(category || 'all').trim() || 'all';
+    const resolved = resolveCategoryId_(raw);
+    state.selectedCategory = resolved || 'all';
+    localStorage.setItem('freshlySelectedCategory', state.selectedCategory);
+
+    const clearSearch = !opts || opts.clearSearch !== false;
+    if(clearSearch){
+      const catalog = document.querySelector('#catalogSearch');
+      const mobileSearch = document.querySelector('#freshlyMobileSearch');
+      const homeSearch = document.querySelector('#homeProductSearch');
+      if(catalog) catalog.value = '';
+      if(mobileSearch) mobileSearch.value = '';
+      if(homeSearch) homeSearch.value = '';
+    }
+
+    refreshShopAfterCategory_();
+
+    const shop = document.querySelector('#shop');
+    if(shop){
+      shop.scrollIntoView({behavior:'smooth', block:'start'});
+      try{ history.replaceState(null, '', 'index.html#shop'); }catch(e){}
+    }else if(location.pathname.split('/').pop() !== 'index.html'){
+      location.href = 'index.html#shop';
+    }
+
+    closeMobileOverlays_();
+    document.querySelectorAll('.freshly-bottom-nav a,.freshly-bottom-nav button').forEach(item=>{
+      const txt = (item.textContent || '').toLowerCase();
+      item.classList.toggle('active', txt.includes('shop'));
+    });
+
+    if(raw === 'Freshly Mart') localStorage.setItem('freshlyMartRequested','yes');
+  }
+
+  window.freshlyOpenCategory = function(category){ openShopCategory_(category, {clearSearch:true}); };
+  window.freshlyGoShop = function(resetCategory){
+    if(resetCategory !== false){
+      state.selectedCategory = 'all';
+      localStorage.setItem('freshlySelectedCategory','all');
+      const catalog = document.querySelector('#catalogSearch');
+      const mobileSearch = document.querySelector('#freshlyMobileSearch');
+      if(catalog) catalog.value = '';
+      if(mobileSearch) mobileSearch.value = '';
+      refreshShopAfterCategory_();
+    }
+    const shop = document.querySelector('#shop');
+    if(shop){
+      shop.scrollIntoView({behavior:'smooth', block:'start'});
+      try{ history.replaceState(null, '', 'index.html#shop'); }catch(e){}
+    }else{
+      location.href = 'index.html#shop';
+    }
+  };
+
   function renderCategories(){
     const box = document.querySelector('#categoryTabs'); if(!box) return;
     const cats = activeRows(state.categories).sort((a,b)=>(+a.SortOrder||0)-(+b.SortOrder||0));
     box.innerHTML = `<button class="tab ${state.selectedCategory==='all'?'active':''}" data-cat="all">All</button>` + cats.map(c=>`<button class="tab ${state.selectedCategory===c.CategoryID?'active':''}" data-cat="${esc(c.CategoryID)}">${esc(c.Name)}</button>`).join('');
-    box.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{state.selectedCategory=b.dataset.cat; renderCategories(); renderProducts();});
+    box.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{state.selectedCategory=resolveCategoryId_(b.dataset.cat); localStorage.setItem('freshlySelectedCategory',state.selectedCategory); renderCategories(); renderProducts();});
     const search = document.querySelector('#catalogSearch'); if(search) search.oninput = renderProducts;
     const homeSearch = document.querySelector('#homeProductSearch');
     if(homeSearch){
@@ -327,7 +536,7 @@
     const grid = document.querySelector('#productGrid'); if(!grid) return;
     const term = (document.querySelector('#catalogSearch')?.value || '').toLowerCase().trim();
     const products = activeRows(state.products).filter(p => String(p.ApprovalStatus||'Approved').toLowerCase()==='approved' && String(p.WebsiteStatus||'Active').toLowerCase()==='active')
-      .filter(p => state.selectedCategory==='all' || p.CategoryID===state.selectedCategory)
+      .filter(p => productMatchesCategory_(p, state.selectedCategory))
       .filter(p => !term || `${p.Name} ${p.Description||''} ${p.CategoryID||''}`.toLowerCase().includes(term));
     grid.innerHTML = products.length ? products.map(productCard).join('') : `<div class="card full"><h3>No active approved products found.</h3><p class="muted">No products are available for the selected category or location.</p></div>`;
     grid.querySelectorAll('[data-open-product]').forEach(btn=>btn.onclick=()=>openProductWindow(btn.dataset.openProduct));
@@ -414,6 +623,70 @@
     const form=document.querySelector('#detailSelectForm'); form.querySelectorAll('select,input').forEach(el=>el.addEventListener('change',()=>updateLineSummary(form,pr))); form.querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>updateLineSummary(form,pr))); updateLineSummary(form,pr);
     form.addEventListener('submit',e=>{ e.preventDefault(); const fd=new FormData(form); const selectedQty=Number(fd.get('SelectedQty')||1); const baseTotal=pr.basePrice*selectedQty; const opt=optionChargesFromForm(fd); const lineTotal=baseTotal+opt.extra; const selectedLabel=formatQty(selectedQty,pr.baseUnit); addToCart(p.ProductID, opt.notes.join(' | '), 1, lineTotal, selectedLabel, {SelectedQty:selectedQty,SelectedQtyLabel:selectedLabel,BaseUnit:pr.baseUnit,PriceBasis:pr.priceBasis,BasePrice:pr.basePrice,ProductTotal:baseTotal,OptionCharges:opt.extra,UnitPriceLabel:priceLabel(pr)}); toast('Added to cart. You can close this window and continue shopping.'); });
   }
+  
+  function bindCustomerAuthTabs(){
+    const syncForm = form => {
+      if(!form) return;
+      const checked = form.querySelector('input[name="AuthMode"]:checked');
+      const mode = checked ? checked.value : (form.querySelector('input[name="AuthMode"]')?.value || 'Login');
+      const signup = String(mode).toLowerCase() === 'signup';
+
+      form.querySelectorAll('[data-auth-login-field]').forEach(el=>el.classList.toggle('hidden', signup));
+      form.querySelectorAll('[data-auth-signup-field]').forEach(el=>el.classList.toggle('hidden', !signup));
+
+      const loginUser = form.querySelector('[data-auth-login-field] input[name="UserID"]');
+      const loginPass = form.querySelector('[data-auth-login-field] input[name="Password"]');
+      const signupName = form.querySelector('[data-auth-signup-field] input[name="Name"]');
+      const signupPhone = form.querySelector('[data-auth-signup-field] input[name="Phone"]');
+      const signupPass = form.querySelector('[data-auth-signup-field] input[name="SignupPassword"]');
+      const confirmPass = form.querySelector('[data-auth-signup-field] input[name="ConfirmPassword"]');
+
+      [loginUser, loginPass, signupName, signupPhone, signupPass, confirmPass].forEach(input=>{ if(input) input.required = false; });
+      if(signup){
+        if(signupName) signupName.required = true;
+        if(signupPhone) signupPhone.required = true;
+        if(signupPass) signupPass.required = true;
+        if(confirmPass) confirmPass.required = true;
+      }else{
+        if(loginUser) loginUser.required = true;
+        if(loginPass) loginPass.required = true;
+      }
+    };
+
+    document.querySelectorAll('#checkoutLoginForm').forEach(form=>{
+      form.querySelectorAll('input[name="AuthMode"]').forEach(r=>{
+        r.addEventListener('change',()=>syncForm(form));
+      });
+      form.addEventListener('submit',()=>{
+        const mode = form.querySelector('input[name="AuthMode"]:checked')?.value || 'Login';
+        if(String(mode).toLowerCase()==='signup'){
+          const sp = form.querySelector('input[name="SignupPassword"]');
+          let hp = form.querySelector('input[name="Password"][type="hidden"]');
+          if(!hp){
+            hp = document.createElement('input');
+            hp.type = 'hidden';
+            hp.name = 'Password';
+            form.appendChild(hp);
+          }
+          if(sp) hp.value = sp.value;
+        }
+      }, true);
+      syncForm(form);
+    });
+
+    document.querySelectorAll('[data-show-auth-tab]').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const tab = btn.dataset.showAuthTab;
+        document.querySelectorAll('[data-auth-tab]').forEach(el=>el.classList.toggle('hidden', el.dataset.authTab !== tab));
+        document.querySelectorAll('[data-show-auth-tab]').forEach(b=>b.classList.toggle('active', b.dataset.showAuthTab === tab));
+      });
+    });
+
+    if(location.hash === '#signup'){
+      document.querySelector('[data-show-auth-tab="signup"]')?.click();
+    }
+  }
+
   function bindCheckout(){ const login=document.querySelector('#checkoutLoginForm'); if(login) login.onsubmit=async e=>{e.preventDefault(); await customerAuth(new FormData(login));}; const order=document.querySelector('#checkoutOrderForm'); if(order) order.onsubmit=async e=>{e.preventDefault(); await placeOrder(new FormData(order));}; }
   function bindCheckoutLocation(){
     const btn=document.querySelector('#useCurrentLocationBtn');
@@ -440,9 +713,153 @@
       }, {enableHighAccuracy:true, timeout:12000, maximumAge:60000});
     });
   }
-  async function customerAuth(fd){ const data=Object.fromEntries(fd.entries()); if(!data.Phone){toast('Phone is required.');return;} try{ const res=cfg.BACKEND_URL?await api('customerAuth',data,'POST'):{ok:true,customer:{CustomerFreshlyID:'FLY-CUS-DEMO',Name:data.Name||'Freshly Customer',Phone:data.Phone,Email:data.Email||'',SessionToken:'DEMO'}}; if(!res.ok) throw new Error(res.message||'Login failed'); state.customer=res.customer||res.data?.customer; save('freshlyCustomer',state.customer); updateCustomerUI(); toast(`Logged in. Freshly ID: ${state.customer.CustomerFreshlyID||state.customer.CustomerID||''}`); }catch(err){toast(err.message);} }
-  async function placeOrder(fd){ if(!state.customer){toast('Please login/signup to checkout.');return;} const order=Object.fromEntries(fd.entries()); const hasManual = String(order.ManualAddress||order.HouseNo||order.BuildingName||order.Area||order.Landmark||'').trim().length>0; const hasLocation = String(order.Latitude||'').trim() && String(order.Longitude||'').trim(); if(!hasManual && !hasLocation){toast('Please use current location or add address manually.');return;} const payload={customer:state.customer,order,items:state.cart,clientTotal:cartTotal()}; try{ const res=cfg.BACKEND_URL?await api('placeOrder',payload,'POST'):{ok:true,orderId:'FLY-ORD-DEMO',message:'Demo order created.'}; if(!res.ok) throw new Error(res.message||'Order failed'); state.cart=[]; save('freshlyCart',state.cart); updateCartUI(); document.querySelector('#checkoutModal')?.classList.remove('open'); const box=document.querySelector('#orderSuccess'); if(box){box.classList.remove('hidden'); box.innerHTML=`<div class="notice"><h3>Order submitted</h3><p>Order ID: <b>${esc(res.orderId||res.data?.orderId||'')}</b>. You will receive order and payment updates from Freshly.</p></div>`;} toast('Order submitted successfully.'); }catch(err){toast(err.message);} }
-  function updateCustomerUI(){ document.querySelectorAll('[data-customer-state]').forEach(el=>el.innerHTML=state.customer?`<span class="login-badge">Logged in: ${esc(state.customer.CustomerFreshlyID||state.customer.Phone||'')}</span>`:`<span class="warning">Guest browsing. Login required only at checkout.</span>`); document.querySelectorAll('[data-checkout-auth]').forEach(el=>el.classList.toggle('hidden',!!state.customer)); document.querySelectorAll('[data-checkout-order]').forEach(el=>el.classList.toggle('hidden',!state.customer)); }
+  function normalizeCustomerAccount_(c){
+    c = c || {};
+    return {
+      CustomerFreshlyID: c.CustomerFreshlyID || c.CustomerID || c.UserID || ('FLY-CUS-' + Date.now()),
+      CustomerID: c.CustomerID || c.CustomerFreshlyID || c.UserID || ('FLY-CUS-' + Date.now()),
+      UserID: c.UserID || c.CustomerFreshlyID || c.Phone || c.Email || '',
+      Name: c.Name || c.CustomerName || c.FullName || c.name || 'Freshly Customer',
+      Phone: c.Phone || c.Mobile || '',
+      Email: c.Email || '',
+      SessionToken: c.SessionToken || ('LOCAL-' + Date.now())
+    };
+  }
+
+  function customerAccounts_(){ return load('freshlyCustomerAccounts', []); }
+  function saveCustomerAccounts_(rows){ save('freshlyCustomerAccounts', rows || []); }
+
+  function findCustomerAccount_(userId){
+    const u = String(userId || '').trim().toLowerCase();
+    const p = phoneDigits_(userId);
+    return customerAccounts_().find(a => {
+      const values = [a.UserID,a.CustomerFreshlyID,a.CustomerID,a.Phone,a.Email].map(v=>String(v||'').trim().toLowerCase());
+      return values.includes(u) || (p && phoneMatch_(a.Phone, p));
+    });
+  }
+
+  function localCustomerSignup_(data){
+    const phone = String(data.Phone || data.Mobile || '').trim();
+    const email = String(data.Email || '').trim();
+    const name = String(data.Name || data.CustomerName || '').trim();
+    const password = String(data.Password || data.SignupPassword || '').trim();
+    const confirm = String(data.ConfirmPassword || '').trim();
+
+    if(!name) return {ok:false,message:'Name is required.'};
+    if(!phone) return {ok:false,message:'Phone / WhatsApp number is required.'};
+    if(!password) return {ok:false,message:'Password is required.'};
+    if(confirm && password !== confirm) return {ok:false,message:'Passwords do not match.'};
+
+    const rows = customerAccounts_();
+    const existing = rows.find(a => phoneMatch_(a.Phone, phone) || (email && String(a.Email||'').toLowerCase() === email.toLowerCase()) || (data.UserID && String(a.UserID||'').toLowerCase() === String(data.UserID).toLowerCase()));
+    const customerId = existing?.CustomerFreshlyID || existing?.CustomerID || ('FLY-CUS-' + Date.now());
+    const userId = String(data.UserID || existing?.UserID || phone || email || customerId).trim();
+
+    const account = {
+      CustomerFreshlyID: customerId,
+      CustomerID: customerId,
+      UserID: userId,
+      Password: password,
+      Name: name || existing?.Name || 'Freshly Customer',
+      Phone: phone,
+      Email: email || existing?.Email || '',
+      WhatsAppOptIn: data.WhatsAppOptIn || existing?.WhatsAppOptIn || 'Yes',
+      CreatedAt: existing?.CreatedAt || new Date().toISOString(),
+      UpdatedAt: new Date().toISOString(),
+      Status: 'Active'
+    };
+
+    if(existing){
+      rows[rows.indexOf(existing)] = account;
+    }else{
+      rows.push(account);
+    }
+
+    saveCustomerAccounts_(rows);
+    return {ok:true,message:'Customer account created.',customer:normalizeCustomerAccount_(account)};
+  }
+
+  function localCustomerPasswordLogin_(data){
+    const userId = String(data.UserID || data.LoginID || data.Phone || data.Email || data.CustomerFreshlyID || '').trim();
+    const password = String(data.Password || '').trim();
+
+    if(!userId) return {ok:false,message:'User ID / Phone / Email / Freshly ID is required.'};
+    if(!password) return {ok:false,message:'Password is required.'};
+
+    const account = findCustomerAccount_(userId);
+    if(!account) return {ok:false,message:'Customer account not found. Please sign up first.'};
+    if(String(account.Password || '') !== password) return {ok:false,message:'Invalid password.'};
+
+    account.LastLoginAt = new Date().toISOString();
+    const rows = customerAccounts_();
+    const idx = rows.findIndex(a => a.CustomerFreshlyID === account.CustomerFreshlyID || a.UserID === account.UserID);
+    if(idx >= 0){ rows[idx] = account; saveCustomerAccounts_(rows); }
+
+    return {ok:true,message:'Login successful.',customer:normalizeCustomerAccount_(account)};
+  }
+
+  async function customerAuth(fd){
+    const data=Object.fromEntries(fd.entries());
+    const mode=String(data.AuthMode || data.Mode || (data.UserID && data.Password && !data.Phone ? 'Login' : 'Signup')).toLowerCase();
+
+    // Checkout signup has SignupPassword field. Copy it into Password before sending.
+    if(mode === 'signup' && !data.Password && data.SignupPassword) data.Password = data.SignupPassword;
+
+    if(mode === 'login'){
+      if(!data.UserID && !data.Phone && !data.Email && !data.CustomerFreshlyID){toast('User ID / Phone / Email / Freshly ID is required.');return;}
+      if(!data.Password){toast('Password is required.');return;}
+    }else{
+      if(!data.Name){toast('Name is required.');return;}
+      if(!data.Phone){toast('Phone / WhatsApp number is required.');return;}
+      if(!data.Password){toast('Password is required.');return;}
+      if(data.ConfirmPassword && data.Password !== data.ConfirmPassword){toast('Passwords do not match.');return;}
+    }
+
+    try{
+      let res = null;
+      if(cfg.BACKEND_URL){
+        const action = mode === 'login' ? 'customerPasswordLogin' : 'customerSignup';
+        res = await api(action, data, 'POST');
+      }else{
+        res = mode === 'login' ? localCustomerPasswordLogin_(data) : localCustomerSignup_(data);
+      }
+
+      if(!res || !res.ok){
+        if(!cfg.BACKEND_URL || cfg.ENABLE_LOCAL_CUSTOMER_AUTH_FALLBACK !== false){
+          res = mode === 'login' ? localCustomerPasswordLogin_(data) : localCustomerSignup_(data);
+        }
+      }
+
+      if(!res.ok) throw new Error(res.message || 'Customer authentication failed.');
+
+      state.customer = normalizeCustomerAccount_(res.customer || res.data?.customer || {});
+      save('freshlyCustomer', state.customer);
+      updateCustomerUI();
+
+      const status = document.querySelector('[data-customer-portal-status]');
+      if(status){
+        status.className = 'notice mini';
+        status.innerHTML = `<b>${mode === 'login' ? 'Login successful.' : 'Signup successful.'}</b><br>Freshly ID: ${esc(state.customer.CustomerFreshlyID || state.customer.CustomerID || '')}`;
+      }
+
+      toast(mode === 'login' ? 'Login successful.' : 'Signup successful.');
+    }catch(err){
+      toast(err.message);
+      const status = document.querySelector('[data-customer-portal-status]');
+      if(status){
+        status.className = 'warning mini';
+        status.textContent = err.message;
+      }
+    }
+  }
+
+  function updateCustomerUI(){
+    const name = state.customer ? (state.customer.Name || state.customer.CustomerName || 'Customer') : '';
+    const id = state.customer ? (state.customer.CustomerFreshlyID || state.customer.CustomerID || state.customer.UserID || state.customer.Phone || '') : '';
+    document.querySelectorAll('[data-customer-state]').forEach(el=>el.innerHTML=state.customer?`<span class="login-badge">Logged in: ${esc(name)}${id ? ' ('+esc(id)+')' : ''}</span>`:`<span class="warning">Guest browsing. Login required only at checkout.</span>`);
+    document.querySelectorAll('[data-checkout-auth]').forEach(el=>el.classList.toggle('hidden',!!state.customer));
+    document.querySelectorAll('[data-checkout-order]').forEach(el=>el.classList.toggle('hidden',!state.customer));
+  }
 
   function bindGenericForms(){ document.querySelectorAll('[data-freshly-form]').forEach(form=>form.onsubmit=async e=>{e.preventDefault(); const type=form.dataset.freshlyForm; const data=Object.fromEntries(new FormData(form).entries()); try{ const res=cfg.BACKEND_URL?await api('submitLeadForm',{type,data},'POST'):{ok:true,message:'Demo submission captured.'}; if(!res.ok) throw new Error(res.message||'Submission failed'); form.reset(); toast(res.message||'Submitted successfully.'); }catch(err){toast(err.message);} }); }
   function bindPortalForms(){ const stock=document.querySelector('#stockPriceUpdateForm'); if(stock) stock.onsubmit=async e=>{e.preventDefault(); await submitPortal('submitStockPriceUpdate',stock,'Stock/price update submitted for admin approval.');}; const comp=document.querySelector('#complianceUpdateForm'); if(comp) comp.onsubmit=async e=>{e.preventDefault(); await submitPortal('submitComplianceUpdate',comp,'Compliance details submitted.');}; const cust=document.querySelector('#customerPortalLoginForm'); if(cust) cust.onsubmit=async e=>{e.preventDefault(); await customerAuth(new FormData(cust));}; }

@@ -65,6 +65,7 @@ function buildBottom(){
 }
 function openCategory(category){
   const term=String(category||'').trim();if(!term)return;
+  if(window.freshlyOpenCategory){window.freshlyOpenCategory(term);return;}
   if(term==='Freshly Mart'){localStorage.setItem('freshlyMartRequested','yes')}
   const shop=document.querySelector('#shop');if(shop)shop.scrollIntoView({behavior:'smooth',block:'start'});
   setTimeout(()=>{
@@ -92,9 +93,9 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',ini
   function openCategoryFromTop(category){
     const term = String(category || '').trim();
     if(!term) return;
+    if(window.freshlyOpenCategory){ window.freshlyOpenCategory(term); return; }
     const shop = document.querySelector('#shop');
     if(shop) shop.scrollIntoView({behavior:'smooth', block:'start'});
-
     setTimeout(() => {
       const tabs = [...document.querySelectorAll('.tab,[data-category],[data-filter],button')];
       const target = tabs.find(t => {
@@ -104,14 +105,10 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',ini
         const c = term.toLowerCase();
         return text === c || data === c || text.includes(c) || c.includes(text);
       });
-      if(target){
-        target.click();
-      } else {
+      if(target) target.click();
+      else {
         const search = document.querySelector('#catalogSearch');
-        if(search){
-          search.value = term;
-          search.dispatchEvent(new Event('input', {bubbles:true}));
-        }
+        if(search){ search.value = term; search.dispatchEvent(new Event('input', {bubbles:true})); }
       }
     }, 260);
   }

@@ -95,27 +95,21 @@
   function openCategory(category){
     const term = String(category || '').trim();
     if(!term) return;
-
+    if(window.freshlyOpenCategory){ window.freshlyOpenCategory(term); return; }
     const shop = document.querySelector('#shop');
-    closeMenu();
     if(shop) shop.scrollIntoView({behavior:'smooth', block:'start'});
-
+    const search = document.querySelector('#catalogSearch');
     setTimeout(() => {
-      const search = document.querySelector('#catalogSearch');
-      const tabs = [...document.querySelectorAll('.tab,[data-category],[data-filter]')];
+      const tabs = [...document.querySelectorAll('.tab,[data-category],[data-filter],button')];
       const c = term.toLowerCase();
-
       const target = tabs.find(t => {
+        if(t.closest('.freshly-top-category-rail') || t.closest('.freshly-more-category-grid') || t.closest('.menu')) return false;
         const text = (t.textContent || '').trim().toLowerCase();
         const data = (t.dataset.category || t.dataset.filter || '').trim().toLowerCase();
         return text === c || data === c || text.includes(c) || c.includes(text);
       });
-
       if(target) target.click();
-      else if(search){
-        search.value = term;
-        search.dispatchEvent(new Event('input', {bubbles:true}));
-      }
+      else if(search){ search.value = term; search.dispatchEvent(new Event('input', {bubbles:true})); }
     }, 280);
   }
 

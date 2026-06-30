@@ -1928,3 +1928,33 @@ body:not(#home) .hero-mini h1{
     object-position:center top !important;
   }
 }
+
+
+/* Freshly V3.7.1 - bottom navigation and auth repair */
+.freshly-bottom-nav a.active,
+.freshly-bottom-nav button.active{
+  color:#0f9d58 !important;
+  font-weight:900 !important;
+}
+
+.freshly-bottom-nav a.active .nav-icon,
+.freshly-bottom-nav button.active .nav-icon{
+  transform:translateY(-1px);
+}
+
+.customer-auth-switch button.active{
+  background:#fff !important;
+  color:#065f46 !important;
+  box-shadow:0 6px 16px rgba(15,23,42,.08) !important;
+}
+
+
+/* Freshly V3.7.2 - category menu routing */
+.freshly-top-category-rail [data-mobile-category].active,
+.freshly-more-category-grid [data-mobile-category].active,
+.menu [data-menu-cat].active,
+.menu [data-mobile-category].active{
+  background:#dcfce7 !important;
+  color:#065f46 !important;
+  font-weight:900 !important;
+}
