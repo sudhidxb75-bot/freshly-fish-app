@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-7-4-cache-reset';
+const FRESHLY_CACHE = 'freshly-v3-7-6-full-mobile-fix';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
