@@ -1,4 +1,4 @@
-const FRESHLY_CACHE='freshly-v3-8-0-clean-working';
+const FRESHLY_CACHE='freshly-v3-8-1-core';
 const APP_SHELL=[
   './',
   './index.html',
@@ -8,8 +8,8 @@ const APP_SHELL=[
   './assets/config.js',
   './assets/styles.css',
   './assets/app.js',
-  './assets/freshly-mobile-app-v2.css',
-  './assets/freshly-mobile-app-v2.js',
+  './assets/freshly-v3-8-1-core',
+  './assets/freshly-v3-8-1-core',
   './assets/freshly-install-app.js',
   './manifest.webmanifest',
   './assets/icons/icon-192.png',
