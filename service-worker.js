@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-0-cancel-order';
+const FRESHLY_CACHE = 'freshly-v3-8-5-cutoff-time-display-fix';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
