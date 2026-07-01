@@ -1,0 +1,42 @@
+Freshly Mart PWA V7 - Freshly Model Features
+
+This is a full revised package, not a patch file.
+
+New features included:
+1. Checkout current location option
+   - Customer can tap Use Current Location during checkout.
+   - Browser captures latitude/longitude with customer permission.
+   - A Google Maps link is saved with the order and included in order notes.
+
+2. Freshly Mart hub selection like Freshly
+   - Customer enters pincode.
+   - Website checks backend HubAreas/Hubs.
+   - Customer can select the Freshly Mart hub during checkout.
+   - Delivery slots and pickup/home delivery rules update based on selected hub.
+
+3. Customer login/signup portal
+   - New files: customer-login.html and customer-dashboard.html.
+   - Customer signup creates a customer record in the Customers sheet.
+   - Customer receives a LoginCode.
+   - Customer login uses Phone + LoginCode.
+   - Checkout auto-fills logged-in customer details.
+   - Customer dashboard shows saved details, selected hub and recent orders.
+
+4. Install app option
+   - Header includes Install App button.
+   - PWA install prompt is retained.
+   - Android/Chrome shows install prompt when available.
+   - iPhone users will see Add to Home Screen instruction.
+
+Backend steps:
+1. Replace the Apps Script with FreshlyMart_AppsScript.gs from this package.
+2. Run setupFreshlyMart() once.
+3. Redeploy the existing Web App using Manage deployments > New version.
+4. Paste the Web App URL into assets/app.js BACKEND_URL if not already set.
+5. Upload all package files to GitHub Pages.
+
+Important:
+- Existing design has been retained.
+- Existing seller/admin/payment/GST/FSSAI/reporting functions are retained.
+- If you already have a Freshly Mart backend sheet, use the same Google Sheet and same Apps Script project.
+- Running setupFreshlyMart() repairs/adds missing sheets/columns and does not clear existing data.

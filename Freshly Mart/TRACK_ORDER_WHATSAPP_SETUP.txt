@@ -1,0 +1,18 @@
+Freshly Mart V8 - Track Order and WhatsApp Notification Setup
+
+1. Upload all files from this package to GitHub Pages.
+2. Replace Apps Script with FreshlyMart_AppsScript.gs.
+3. Run setupFreshlyMart(). This adds OrderStatusHistory and WhatsAppNotifications sheets.
+4. Redeploy Apps Script as a new Web App version.
+5. Paste the Web App URL in assets/app.js as BACKEND_URL.
+
+New customer features:
+- track-order.html page
+- customer dashboard order history with full order details and order number
+- Track Order links from customer dashboard and order success page
+
+WhatsApp notification integration:
+- Each order creates a WhatsApp notification log.
+- Admin can update order status and generate/send WhatsApp notifications from admin-dashboard.html.
+- Default mode is WhatsApp link generation. Links are saved in WhatsAppNotifications sheet.
+- Optional Cloud API mode can be enabled by adding WhatsAppCloudPhoneNumberID and WhatsAppCloudToken in Settings and setting WhatsAppNotificationMode = CloudAPI.
