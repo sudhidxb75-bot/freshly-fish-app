@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-7-7-login-option-fix';
+const FRESHLY_CACHE = 'freshly-v3-8-0-cancel-order';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
