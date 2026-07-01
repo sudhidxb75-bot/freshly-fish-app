@@ -1,0 +1,33 @@
+Freshly Mart V9 - Cancellation Setup
+
+This version adds a complete cancellation request workflow.
+
+Customer side:
+- Customers can open Track Order.
+- After entering Order ID and phone number, eligible orders show a Cancel Order option.
+- Cancellation request captures reason, refund UPI ID if already paid, remarks and order details.
+- Customer dashboard order history includes a Cancel Order button for eligible orders.
+
+Backend side:
+- New Cancellations sheet is created by setupFreshlyMart().
+- OrderStatusHistory records cancellation status changes.
+- WhatsAppNotifications logs cancellation request/approval/rejection notification links.
+- Refunds sheet gets a cancellation refund entry when a paid order cancellation is approved.
+
+Admin side:
+- Admin Dashboard includes a Cancellations tab.
+- Admin can approve or reject cancellation requests.
+- Approved paid orders become Cancelled + Refund Pending.
+- Approved unpaid orders become Cancelled + Cancelled - No Payment.
+- Rejected requests restore the previous order status.
+
+Required setup:
+1. Replace all package files on GitHub.
+2. Replace Apps Script with FreshlyMart_AppsScript.gs included in this package.
+3. Run setupFreshlyMart() once.
+4. Redeploy Apps Script as a new version.
+5. Update assets/app.js BACKEND_URL if your deployment URL changed.
+
+Important:
+- This is a full package, not patch files.
+- No cash payment is added; UPI-only model remains unchanged.

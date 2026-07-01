@@ -1,0 +1,38 @@
+Freshly Mart V11 - Set Your Location Feature
+
+This full package adds a Freshly-style Set Your Location flow without changing the design structure.
+
+Included:
+1. Header location button changed to Set Location.
+2. Set Location popup/modal available across frontend pages.
+3. Customer can use current location; Google Maps link is saved locally and passed to checkout/order.
+4. Customer can enter pincode and load serviceable Freshly Mart hubs from backend.
+5. Customer can select Freshly Mart Hub.
+6. Delivery slots preview updates based on selected hub.
+7. Selected pincode, area, hub and location are saved locally.
+8. Logged-in customer profile is updated with selected pincode/hub/location.
+9. Checkout auto-fills saved location, selected hub and map link.
+10. If pincode is not serviceable, customer can request service through Contact page.
+
+Backend sheets used:
+- HubAreas
+- Hubs
+- DeliverySlots
+- Customers
+- Orders
+
+Apps Script route used:
+- checkPincode
+- updateCustomer
+- saveOrder
+
+After upload:
+1. Replace website files with this full package.
+2. Replace Apps Script with included FreshlyMart_AppsScript.gs.
+3. Run setupFreshlyMart().
+4. Redeploy Apps Script as a new version.
+5. Update assets/app.js BACKEND_URL if needed.
+
+Test sample pincodes if sample data is installed:
+- 673571
+- 673008
