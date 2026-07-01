@@ -1,0 +1,31 @@
+Freshly Mart PWA V10 - Feature Verification
+
+Changes completed:
+- Seller Login removed from public frontend header/footer links.
+- Sell With Us placed in the previous Seller header position.
+- Seller login/dashboard files remain inside the package for backend/seller operations, but they are not promoted in the public frontend navigation.
+
+Verified retained features:
+- Checkout option to Use Current Location.
+- Google Maps location link saved with the order.
+- Checkout option to select Freshly Mart Hub.
+- Hub dropdown loads based on pincode from backend.
+- Delivery slot updates based on selected hub.
+- Customer Login / Signup portal.
+- Customer dashboard with saved profile, selected hub, recent orders and order history.
+- Checkout auto-fills logged-in customer details.
+- Website Install App option.
+- Existing PWA install prompt retained.
+- Existing design structure retained.
+- Seller/admin/payment/GST/FSSAI/reporting features retained.
+- Track Order, WhatsApp notifications and cancellation option retained.
+
+Setup:
+1. Upload full package files to GitHub.
+2. Replace Apps Script with included FreshlyMart_AppsScript.gs.
+3. Run setupFreshlyMart().
+4. Redeploy Apps Script as a new version.
+5. Update assets/app.js BACKEND_URL if needed.
+
+
+V11 Added: Freshly-style Set Your Location popup; current location capture; backend pincode/hub loading; delivery slot preview by selected hub; saved location auto-fills checkout and customer profile.
