@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><script>
 window.FRESHLY_BUILD_VERSION='3.8.0-cancel-order';
-window.FRESHLY_MART_URL='https://sudhidxb75-bot.github.io/freshlymart-pwa/';
+window.FRESHLY_MART_URL='freshlymart/';
 (function(){
   var resetVersion='FRESHLY_CACHE_RESET_VERSION_3_8_0';
   try{
@@ -171,11 +171,11 @@ window.FRESHLY_MART_URL='https://sudhidxb75-bot.github.io/freshlymart-pwa/';
 <script src="assets/freshly-category-route-fix-v372.js?v=3.8.0"></script>
 <script>
 (function(){
-  var freshlyMartUrl = window.FRESHLY_MART_URL || 'https://sudhidxb75-bot.github.io/freshlymart-pwa/';
+  var freshlyMartUrl = window.FRESHLY_MART_URL || 'freshlymart/';
   document.querySelectorAll('[data-freshlymart-link]').forEach(function(link){
     link.setAttribute('href', freshlyMartUrl);
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'noopener');
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
   });
 })();
 </script>
