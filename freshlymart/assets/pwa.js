@@ -5,10 +5,14 @@
     <a href="category.html?cat=all" data-nav="categories"><span>🛒</span><small>Shop</small></a>
     <a href="track-order.html" data-nav="track"><span>📦</span><small>Track</small></a>
     <a href="cart.html" data-nav="cart"><span>🧺</span><small>Cart</small><b class="bottom-cart-count" data-cart-count>0</b></a>
-    <a href="sell-with-us.html" data-nav="sell"><span>🏪</span><small>Sell with us</small></a>
-    <a href="#" data-nav="install" data-pwa-install><span>📲</span><small>Install App</small></a>
     <a href="customer-login.html" data-nav="account"><span>👤</span><small>Account</small></a>
   </nav>`;
+
+  const TOP_ACTIONS = `
+  <div class="fm-top-actions" aria-label="Freshly Mart quick actions">
+    <a class="fm-top-action" href="sell-with-us.html">🏪 <span>Sell with us</span></a>
+    <button class="fm-top-action" type="button" data-pwa-install>📲 <span>Install App</span></button>
+  </div>`;
 
   const INSTALL_BANNER = `
   <div class="pwa-install-card" id="pwaInstallCard" hidden>
@@ -25,6 +29,80 @@
     return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   }
 
+  function addTopActionStyles(){
+    if(document.getElementById('fmTopActionsStyle')) return;
+    const style = document.createElement('style');
+    style.id = 'fmTopActionsStyle';
+    style.textContent = `
+      @media (max-width: 760px){
+        .fm-top-actions{
+          display:flex;
+          gap:8px;
+          align-items:center;
+          justify-content:flex-start;
+          padding:8px 14px;
+          background:#fff;
+          border-bottom:1px solid rgba(15,23,42,.08);
+          overflow-x:auto;
+          -webkit-overflow-scrolling:touch;
+          position:relative;
+          z-index:20;
+        }
+        .fm-top-actions .fm-top-action{
+          flex:0 0 auto;
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          gap:5px;
+          min-height:34px;
+          padding:7px 12px;
+          border-radius:999px;
+          border:1px solid rgba(22,163,74,.22);
+          background:#f0fdf4;
+          color:#166534;
+          font-size:12px;
+          font-weight:800;
+          line-height:1;
+          text-decoration:none;
+          white-space:nowrap;
+          cursor:pointer;
+        }
+        .fm-top-actions .fm-top-action span{display:inline-block;}
+      }
+      @media (min-width: 761px){
+        .fm-top-actions{display:none;}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function addTopActionButtons(){
+    if (adminPages.includes(page)) return;
+    if (document.querySelector('.fm-top-actions')) return;
+
+    addTopActionStyles();
+
+    const locationTarget = document.querySelector([
+      '[data-location-btn]',
+      '[data-open-location]',
+      '[data-set-location]',
+      '.set-location-btn',
+      '.location-btn',
+      '.location-chip',
+      '.header-location',
+      '.fm-location-btn',
+      '#setLocationBtn'
+    ].join(','));
+
+    if(locationTarget){
+      locationTarget.insertAdjacentHTML('afterend', TOP_ACTIONS);
+    }else{
+      const headerTarget = document.querySelector('header,.site-header,.topbar,.navbar,.main-header,.app-header,.page-header');
+      if(headerTarget) headerTarget.insertAdjacentHTML('afterend', TOP_ACTIONS);
+      else document.body.insertAdjacentHTML('afterbegin', TOP_ACTIONS);
+    }
+  }
+
   function addMobileNav(){
     if (adminPages.includes(page)) return;
     if (document.querySelector('.mobile-bottom-nav')) return;
@@ -37,8 +115,7 @@
     else if(page === 'track-order.html') active = 'track';
     else if(page === 'fresh-items.html') active = 'categories';
     else if(page === 'category.html' || page === 'product.html' || page === 'local-stores.html') active = 'categories';
-    else if(page === 'sell-with-us.html' || page === 'seller-login.html' || page === 'seller-dashboard.html') active = 'sell';
-    else if(page === 'customer-login.html' || page === 'customer-dashboard.html' || page === 'join-hub.html' || page === 'refer.html') active = 'account';
+    else if(page === 'customer-login.html' || page === 'customer-dashboard.html' || page === 'seller-login.html' || page === 'seller-dashboard.html' || page === 'sell-with-us.html' || page === 'join-hub.html' || page === 'refer.html') active = 'account';
 
     nav.querySelectorAll('a,button').forEach(item => item.classList.toggle('active', item.dataset.nav === active));
   }
@@ -131,8 +208,10 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     addMobileNav();
+    addTopActionButtons();
     addInstallBanner();
     wireManualInstallButtons();
+    setTimeout(() => { addTopActionButtons(); wireManualInstallButtons(); }, 500);
     registerSW();
     document.body.classList.add('pwa-ready');
   });
