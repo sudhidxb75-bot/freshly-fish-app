@@ -6,14 +6,14 @@
     <a href="track-order.html" data-nav="track"><span>📦</span><small>Track</small></a>
     <a href="cart.html" data-nav="cart"><span>🧺</span><small>Cart</small><b class="bottom-cart-count" data-cart-count>0</b></a>
     <a href="sell-with-us.html" data-nav="sell"><span>🏪</span><small>Sell with us</small></a>
-    <a href="#" data-nav="install" data-pwa-install><span>📲</span><small>Install</small></a>
+    <a href="#" data-nav="install" data-pwa-install><span>📲</span><small>Install App</small></a>
     <a href="customer-login.html" data-nav="account"><span>👤</span><small>Account</small></a>
   </nav>`;
 
   const INSTALL_BANNER = `
   <div class="pwa-install-card" id="pwaInstallCard" hidden>
     <div><strong>Install Freshly Mart</strong><p>Add to home screen for an app-like shopping experience.</p></div>
-    <button class="btn small" id="pwaInstallBtn" type="button">Install</button>
+    <button class="btn small" id="pwaInstallBtn" type="button">Install App</button>
     <button class="pwa-close" id="pwaInstallClose" type="button" aria-label="Close">×</button>
   </div>`;
 
