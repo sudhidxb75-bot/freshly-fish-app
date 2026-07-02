@@ -16,7 +16,7 @@
 
   const INSTALL_BANNER = `
   <div class="pwa-install-card" id="pwaInstallCard" hidden>
-    <div><strong>Install Freshly Mart</strong><p>Add to home screen for an app-like shopping experience.</p></div>
+    <div><strong>Install <span class="fm-nowrap">Freshly Mart</span></strong><p>Add to home screen for an app-like shopping experience.</p></div>
     <button class="btn small" id="pwaInstallBtn" type="button">Install App</button>
     <button class="pwa-close" id="pwaInstallClose" type="button" aria-label="Close">×</button>
   </div>`;
@@ -34,6 +34,10 @@
     const style = document.createElement('style');
     style.id = 'fmTopActionsStyle';
     style.textContent = `
+      .fm-nowrap{white-space:nowrap;}
+      @media (max-width: 760px){
+        .brand,.brand-name,.logo-text,.site-title,.app-title,.navbar-brand,.header-title,.fm-brand,.fm-logo,.logo,header h1{white-space:nowrap !important;}
+      }
       @media (max-width: 760px){
         .fm-top-actions{
           display:flex;
