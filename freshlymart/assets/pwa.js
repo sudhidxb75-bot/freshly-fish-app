@@ -5,6 +5,8 @@
     <a href="category.html?cat=all" data-nav="categories"><span>🛒</span><small>Shop</small></a>
     <a href="track-order.html" data-nav="track"><span>📦</span><small>Track</small></a>
     <a href="cart.html" data-nav="cart"><span>🧺</span><small>Cart</small><b class="bottom-cart-count" data-cart-count>0</b></a>
+    <a href="sell-with-us.html" data-nav="sell"><span>🏪</span><small>Sell with us</small></a>
+    <a href="#" data-nav="install" data-pwa-install><span>📲</span><small>Install</small></a>
     <a href="customer-login.html" data-nav="account"><span>👤</span><small>Account</small></a>
   </nav>`;
 
@@ -19,7 +21,9 @@
   const page = location.pathname.split('/').pop() || 'index.html';
   const adminPages = ['admin-login.html','admin-dashboard.html'];
 
-  function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }
+  function isStandalone(){
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  }
 
   function addMobileNav(){
     if (adminPages.includes(page)) return;
@@ -27,13 +31,16 @@
     document.body.insertAdjacentHTML('beforeend', PUBLIC_BOTTOM_NAV);
     const nav = document.querySelector('.mobile-bottom-nav');
     if(!nav) return;
+
     let active = 'home';
     if(page === 'cart.html' || page === 'checkout.html' || page === 'order-success.html') active = 'cart';
     else if(page === 'track-order.html') active = 'track';
     else if(page === 'fresh-items.html') active = 'categories';
     else if(page === 'category.html' || page === 'product.html' || page === 'local-stores.html') active = 'categories';
-    else if(page === 'customer-login.html' || page === 'customer-dashboard.html' || page === 'seller-login.html' || page === 'seller-dashboard.html' || page === 'sell-with-us.html' || page === 'join-hub.html' || page === 'refer.html') active = 'account';
-    nav.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.nav === active));
+    else if(page === 'sell-with-us.html' || page === 'seller-login.html' || page === 'seller-dashboard.html') active = 'sell';
+    else if(page === 'customer-login.html' || page === 'customer-dashboard.html' || page === 'join-hub.html' || page === 'refer.html') active = 'account';
+
+    nav.querySelectorAll('a,button').forEach(item => item.classList.toggle('active', item.dataset.nav === active));
   }
 
   function addInstallBanner(){
@@ -43,14 +50,31 @@
     const card = document.getElementById('pwaInstallCard');
     const btn = document.getElementById('pwaInstallBtn');
     const close = document.getElementById('pwaInstallClose');
-    close?.addEventListener('click', () => { card.hidden = true; localStorage.setItem('fm_pwa_install_dismissed', Date.now().toString()); });
+
+    close?.addEventListener('click', () => {
+      card.hidden = true;
+      localStorage.setItem('fm_pwa_install_dismissed', Date.now().toString());
+    });
+
     btn?.addEventListener('click', async () => {
-      if(!deferredPrompt){ card.hidden = true; return; }
+      if(!deferredPrompt){
+        showManualInstallHelp();
+        card.hidden = true;
+        return;
+      }
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
       deferredPrompt = null;
       card.hidden = true;
     });
+  }
+
+  function showManualInstallHelp(){
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const msg = isIOS
+      ? 'To install on iPhone: tap Share, then Add to Home Screen.'
+      : 'Open this site in Chrome/Edge and use Add to Home Screen or Install App from the browser menu.';
+    alert(msg);
   }
 
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -72,7 +96,18 @@
 
   function wireManualInstallButtons(){
     document.querySelectorAll('[data-pwa-install]').forEach(btn => {
-      btn.addEventListener('click', async () => {
+      if(btn.dataset.pwaInstallBound === 'yes') return;
+      btn.dataset.pwaInstallBound = 'yes';
+
+      btn.addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if(isStandalone()){
+          alert('Freshly Mart is already installed on this device.');
+          return;
+        }
+
         if(deferredPrompt){
           deferredPrompt.prompt();
           await deferredPrompt.userChoice;
@@ -81,11 +116,8 @@
           if(card) card.hidden = true;
           return;
         }
-        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-        const msg = isIOS
-          ? 'To install on iPhone: tap Share, then Add to Home Screen.'
-          : 'Open this site in Chrome/Edge and use Add to Home Screen or Install App from the browser menu.';
-        alert(msg);
+
+        showManualInstallHelp();
       });
     });
   }
