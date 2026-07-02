@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-5-cutoff-time-display-fix';
+const FRESHLY_CACHE = 'freshly-v3-8-6-clean-banner-cutoff-fix';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
