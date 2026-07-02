@@ -1973,3 +1973,142 @@ body:not(#home) .hero-mini h1{
 .promo-slider{overflow:hidden;}
 .promo-track,[data-promo-track]{display:flex;flex-wrap:nowrap;will-change:transform;}
 .promo-track > .promo-slide{flex:0 0 100%;min-width:100%;max-width:100%;}
+
+/* Freshly V3.8.1 - final desktop banner fit fix
+   Purpose: make homepage banners fit correctly on desktop without breaking mobile layout. */
+@media (min-width: 761px){
+  body#home .promo-slider,
+  body#home .freshly-promo-slider,
+  body#home .hero-slider,
+  body#home .banner-slider{
+    width:100% !important;
+    max-width:100% !important;
+    height:clamp(300px, 28.125vw, 500px) !important;
+    min-height:300px !important;
+    max-height:500px !important;
+    margin:0 auto 22px !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    overflow:hidden !important;
+    background:#ffffff !important;
+  }
+
+  body#home .promo-track,
+  body#home [data-promo-track]{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    transition:transform .55s ease !important;
+    will-change:transform !important;
+  }
+
+  body#home .promo-track > .promo-slide,
+  body#home [data-promo-track] > .promo-slide,
+  body#home .promo-slide{
+    flex:0 0 100% !important;
+    width:100% !important;
+    min-width:100% !important;
+    max-width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    max-height:100% !important;
+    margin:0 !important;
+    overflow:hidden !important;
+  }
+
+  /* Designed image banners: show the full artwork on desktop */
+  body#home .promo-slide.image-only{
+    display:block !important;
+    padding:0 !important;
+    background:#ffffff !important;
+  }
+
+  body#home .promo-slide.image-only .banner-image-link,
+  body#home .promo-slide .banner-image-link,
+  body#home .promo-slide a:has(img){
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+  }
+
+  body#home .promo-slide.image-only img,
+  body#home .promo-slide.backend-banner img,
+  body#home .promo-slide.has-image img,
+  body#home .promo-slide img{
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    min-width:100% !important;
+    min-height:100% !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    object-fit:contain !important;
+    object-position:center center !important;
+    margin:0 !important;
+    padding:0 !important;
+    transform:none !important;
+    background:#ffffff !important;
+  }
+
+  /* Backend background-image banners */
+  body#home .promo-slide.backend-banner,
+  body#home .promo-slide.backend-banner.has-image{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:24px !important;
+    padding:34px max(6vw,32px) 54px !important;
+    background-size:contain !important;
+    background-position:center center !important;
+    background-repeat:no-repeat !important;
+    background-color:#ffffff !important;
+  }
+
+  body#home .promo-slide.backend-banner:not(.has-image){
+    background-size:cover !important;
+    background-color:#ecfdf5 !important;
+  }
+
+  body#home .promo-slide.backend-banner h2{
+    font-size:clamp(28px,4vw,56px) !important;
+    max-width:860px !important;
+    line-height:1.05 !important;
+  }
+
+  body#home .promo-slide.backend-banner p{
+    font-size:18px !important;
+    max-width:700px !important;
+  }
+
+  body#home .promo-dots{
+    bottom:14px !important;
+    z-index:20 !important;
+  }
+}
+
+/* Keep existing compact mobile banner behaviour unchanged */
+@media (max-width: 760px){
+  body#home .promo-slider,
+  body#home .freshly-promo-slider,
+  body#home .hero-slider,
+  body#home .banner-slider{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 auto 18px !important;
+    overflow:hidden !important;
+  }
+}
