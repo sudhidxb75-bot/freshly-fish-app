@@ -9,7 +9,7 @@ window.FRESHLY_CONFIG = {
    * Example:
    * BACKEND_URL: 'https://script.google.com/macros/s/AKfycbxxxx/exec',
    */
-  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbxo3bMFQujTWBn_lYxKi8xlOe9apsBpECqj2ufdPENwN7SLFrDs3RMSdKdzdZ-dzEJQBg/exec',
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbyDEGwuC2T2TsRr_w9GGDctfkyh6ADDnBak5dZfXR-xq8kC_Nr4iqHoqdh8bpxZqI4s7Q/exec',
 
   /*
    * Optional quick override without editing files:
