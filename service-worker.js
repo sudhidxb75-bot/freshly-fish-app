@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-7-mobile-desktop-banner-control';
+const FRESHLY_CACHE = 'freshly-v3-8-9-clean-subcategory-display';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
