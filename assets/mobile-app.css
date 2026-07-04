@@ -1,0 +1,66 @@
+
+/* Freshly Mobile App / PWA refinements */
+@media(max-width:760px){
+  body{
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-y:contain;
+  }
+  .top-strip{
+    display:none !important;
+  }
+  .nav{
+    position:sticky !important;
+    top:0 !important;
+    z-index:90 !important;
+  }
+  .nav-top-row{
+    justify-content:center !important;
+  }
+  .nav-inner{
+    min-height:58px !important;
+  }
+  .menu.open{
+    max-height:calc(100vh - 64px);
+    overflow:auto;
+  }
+  .btn{
+    min-height:44px;
+  }
+  .input,select,textarea{
+    min-height:44px;
+    font-size:16px;
+  }
+  .cart-float{
+    right:14px !important;
+    bottom:14px !important;
+  }
+  .drawer{
+    width:100vw !important;
+    right:-100vw;
+  }
+  .drawer.open{
+    right:0;
+  }
+  .modal-card{
+    width:96vw;
+    border-radius:20px;
+  }
+  .product-card{
+    border-radius:18px;
+  }
+  .product-img{
+    height:190px;
+  }
+}
+@media(display-mode:standalone){
+  body::before{
+    content:'';
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:env(safe-area-inset-top);
+    background:#ffffff;
+    z-index:999;
+  }
+}
