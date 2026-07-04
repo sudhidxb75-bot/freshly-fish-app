@@ -23,7 +23,200 @@ window.FRESHLY_BUILD_VERSION='3.8.0-cancel-order';
     });
   }catch(e){}
 })();
-</script><title>Freshly - Community Fresh Commerce</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=3.8.0"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16a34a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Freshly"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="assets/icons/icon-180.png"><link rel="stylesheet" href="assets/mobile-app.css?v=3.8.0"><link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.8.0"></head><body id="home">
+</script><title>Freshly - Community Fresh Commerce</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=3.8.0"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16a34a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Freshly"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="assets/icons/icon-180.png"><link rel="stylesheet" href="assets/mobile-app.css?v=3.8.0"><link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.8.0">
+<style id="freshly-bgp-banner-style">
+/* Freshly backend controlled banner - BdealsGlobal Properties style */
+.freshly-property-banner{
+  position:relative;
+  width:100%;
+  margin:0;
+  overflow:hidden;
+  background:#052e16;
+  isolation:isolate;
+}
+.freshly-property-banner .promo-viewport{
+  width:100%;
+  overflow:hidden;
+}
+.freshly-property-banner .promo-track{
+  display:flex;
+  width:100%;
+  transition:transform .65s ease;
+  will-change:transform;
+}
+.freshly-property-banner .promo-slide{
+  position:relative;
+  flex:0 0 100%;
+  width:100%;
+  min-height:var(--slide-height,420px);
+  display:grid;
+  align-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(34,197,94,.22), transparent 38%),
+    linear-gradient(120deg, #052e16 0%, #166534 52%, #0f172a 100%);
+}
+.freshly-property-banner .promo-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:var(--slide-fit,cover);
+  object-position:var(--slide-pos,center);
+  z-index:0;
+}
+.freshly-property-banner .promo-slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    linear-gradient(90deg, rgba(5,46,22,.92) 0%, rgba(5,46,22,.70) 44%, rgba(5,46,22,.18) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.18));
+  pointer-events:none;
+}
+.freshly-property-banner .container.promo-content{
+  position:relative;
+  z-index:2;
+  max-width:1180px;
+  width:100%;
+  padding-top:46px;
+  padding-bottom:54px;
+}
+.freshly-property-banner .promo-content .eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.24);
+  color:#dcfce7;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:12px;
+  backdrop-filter:blur(8px);
+}
+.freshly-property-banner .promo-content h1,
+.freshly-property-banner .promo-content h2{
+  max-width:760px;
+  margin:16px 0 12px;
+  color:#fff;
+  font-size:clamp(34px,5vw,68px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  font-weight:900;
+  text-shadow:0 12px 34px rgba(0,0,0,.26);
+}
+.freshly-property-banner .promo-content p{
+  max-width:660px;
+  margin:0;
+  color:rgba(255,255,255,.90);
+  font-size:clamp(16px,2vw,21px);
+  line-height:1.55;
+  font-weight:500;
+}
+.freshly-property-banner .promo-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:24px;
+}
+.freshly-property-banner .promo-actions .btn,
+.freshly-property-banner .promo-content > .btn{
+  min-width:132px;
+  justify-content:center;
+  box-shadow:0 16px 34px rgba(0,0,0,.26);
+}
+.freshly-property-banner .promo-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:4;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;
+  background:rgba(15,23,42,.34);
+  color:#fff;
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  backdrop-filter:blur(8px);
+}
+.freshly-property-banner .promo-prev{left:18px;}
+.freshly-property-banner .promo-next{right:18px;}
+.freshly-property-banner .promo-arrow:hover{background:rgba(22,163,74,.82);}
+.freshly-property-banner .promo-dots{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  z-index:5;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+}
+.freshly-property-banner .promo-dot{
+  width:9px;
+  height:9px;
+  border-radius:999px;
+  border:0;
+  padding:0;
+  background:rgba(255,255,255,.46);
+  cursor:pointer;
+}
+.freshly-property-banner .promo-dot.is-active{
+  width:27px;
+  background:#fff;
+}
+.freshly-property-banner .promo-slide.image-only::after{display:none;}
+.freshly-property-banner .promo-slide.image-only .promo-content{display:none;}
+.freshly-property-banner .promo-slide.image-only .promo-bg{object-fit:var(--slide-fit,cover);}
+@media (max-width: 768px){
+  .freshly-property-banner .promo-slide{
+    min-height:var(--slide-mobile-height,250px);
+  }
+  .freshly-property-banner .container.promo-content{
+    padding:34px 18px 48px;
+  }
+  .freshly-property-banner .promo-content h1,
+  .freshly-property-banner .promo-content h2{
+    max-width:92%;
+    font-size:clamp(30px,10vw,44px);
+    letter-spacing:-.04em;
+  }
+  .freshly-property-banner .promo-content p{
+    max-width:94%;
+    font-size:15px;
+  }
+  .freshly-property-banner .promo-arrow{
+    width:34px;
+    height:34px;
+    font-size:24px;
+  }
+  .freshly-property-banner .promo-prev{left:10px;}
+  .freshly-property-banner .promo-next{right:10px;}
+  .freshly-property-banner .promo-dots{bottom:12px;}
+}
+@media (max-width: 480px){
+  .freshly-property-banner .promo-slide{
+    min-height:var(--slide-mobile-height,230px);
+  }
+  .freshly-property-banner .promo-slide::after{
+    background:linear-gradient(90deg, rgba(5,46,22,.88), rgba(5,46,22,.54), rgba(5,46,22,.12));
+  }
+  .freshly-property-banner .promo-actions .btn{
+    min-width:118px;
+    padding-left:16px;
+    padding-right:16px;
+  }
+}
+</style></head><body id="home">
 <div class="top-strip"><div class="container"><span>Freshness Delivered.</span><span>Contact Us: <a href="https://wa.me/918921696649" target="_blank" rel="noopener">WhatsApp</a></span></div></div>
 <nav class="nav">
 <div class="container nav-top-row">
@@ -75,13 +268,21 @@ window.FRESHLY_BUILD_VERSION='3.8.0-cancel-order';
   <a class="login-icon-link" href="customer-portal.html" title="Customer Login" aria-label="Customer Login">👤</a></div>
 </div></nav>
 
-<section class="promo-slider" aria-label="Freshly promotions and offers">
-  <div class="promo-track" data-promo-track>
-    <article class="promo-slide backend-banner">
-      <div><span class="eyebrow">Freshly</span><h2>Today’s Fresh Offer</h2><p>Fresh products delivered through your nearby hub.</p></div>
-      <a class="btn btn-primary" href="#shop">Shop Now</a>
-    </article>
+<section class="promo-slider freshly-property-banner" aria-label="Freshly promotions and offers" data-freshly-backend-banners>
+  <div class="promo-viewport">
+    <div class="promo-track" data-promo-track>
+      <article class="promo-slide backend-banner is-active" style="--slide-height:420px;--slide-mobile-height:250px;--slide-fit:cover;--slide-pos:center;">
+        <div class="container promo-content">
+          <span class="eyebrow">Freshly</span>
+          <h1>Freshness Delivered.</h1>
+          <p>Fresh fish, meat, fruits, vegetables, food and daily essentials delivered through your nearby Freshly Hub.</p>
+          <div class="promo-actions"><a class="btn btn-primary" href="#shop">Shop Now</a></div>
+        </div>
+      </article>
+    </div>
   </div>
+  <button class="promo-arrow promo-prev" type="button" aria-label="Previous banner" data-promo-prev>‹</button>
+  <button class="promo-arrow promo-next" type="button" aria-label="Next banner" data-promo-next>›</button>
   <div class="promo-dots" data-promo-dots></div>
 </section>
 
@@ -152,4 +353,228 @@ window.FRESHLY_BUILD_VERSION='3.8.0-cancel-order';
 <script src="assets/freshly-mobile-layout-safe-v368.js?v=3.8.0"></script>
 <script src="assets/freshly-bottom-nav-fix-v371.js?v=3.8.0"></script>
 <script src="assets/freshly-category-route-fix-v372.js?v=3.8.0"></script>
+
+<script id="freshly-backend-banner-loader">
+(function(){
+  'use strict';
+
+  var fallbackBanners = [{
+    Title: 'Freshness Delivered.',
+    Subtitle: 'Fresh fish, meat, fruits, vegetables, food and daily essentials delivered through your nearby Freshly Hub.',
+    ButtonText: 'Shop Now',
+    ButtonLink: '#shop',
+    Eyebrow: 'Freshly',
+    SortOrder: 1,
+    Status: 'Active',
+    DisplayPage: 'Home',
+    BannerHeight: '420',
+    MobileBannerHeight: '250'
+  }];
+
+  function firstValue(row, keys){
+    for(var i=0;i<keys.length;i++){
+      var key = keys[i];
+      if(row && row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') return String(row[key]).trim();
+    }
+    return '';
+  }
+
+  function parseBoolNo(value){
+    value = String(value || '').trim().toLowerCase();
+    return value === 'no' || value === 'false' || value === '0' || value === 'hide' || value === 'hidden';
+  }
+
+  function dateOK(row){
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var start = firstValue(row, ['StartDate','Start Date','ValidFrom','FromDate']);
+    var end = firstValue(row, ['EndDate','End Date','ValidTo','ToDate']);
+    if(start){
+      var s = new Date(start);
+      if(!isNaN(s.getTime())){ s.setHours(0,0,0,0); if(today < s) return false; }
+    }
+    if(end){
+      var e = new Date(end);
+      if(!isNaN(e.getTime())){ e.setHours(23,59,59,999); if(today > e) return false; }
+    }
+    return true;
+  }
+
+  function pageOK(row){
+    var page = firstValue(row, ['DisplayPage','Page','ShowOnPage','BannerPage']).toLowerCase();
+    if(!page) return true;
+    return ['home','homepage','index','all','freshly','main'].indexOf(page) !== -1;
+  }
+
+  function statusOK(row){
+    var status = firstValue(row, ['Status','Active','IsActive','DisplayStatus']);
+    if(!status) return true;
+    status = status.toLowerCase();
+    return ['active','yes','y','true','1','show','published'].indexOf(status) !== -1;
+  }
+
+  function normalizeBanner(row){
+    var desktopImage = firstValue(row, ['DesktopImageURL','Desktop Image URL','ImageURL','Image URL','BannerImageURL','Banner Image URL','Image','BannerImage']);
+    var mobileImage = firstValue(row, ['MobileImageURL','Mobile Image URL','MobileBannerURL','Mobile Banner URL']);
+    var displayMode = firstValue(row, ['DisplayMode','Display Mode','BannerMode']).toLowerCase();
+    var showText = firstValue(row, ['ShowTextOverlay','Show Text Overlay','TextOverlay','ShowOverlay']);
+    var hideText = firstValue(row, ['HideTextOverlay','Hide Text Overlay','HideOverlay']);
+    var isImageOnly = displayMode === 'imageonly' || displayMode === 'image-only' || parseBoolNo(showText) || ['yes','true','1','hide','hidden'].indexOf(String(hideText || '').toLowerCase()) !== -1;
+
+    return {
+      eyebrow: firstValue(row, ['Eyebrow','SmallTitle','Small Title','Tag','Badge']) || 'Freshly',
+      title: firstValue(row, ['BannerTitle','Banner Title','Title','Heading','Headline']) || 'Freshness Delivered.',
+      subtitle: firstValue(row, ['BannerSubtitle','Banner Subtitle','Subtitle','Description','ShortDescription','Caption']) || '',
+      buttonText: firstValue(row, ['ButtonText','Button Text','CTA','CTAText']) || 'Shop Now',
+      buttonLink: firstValue(row, ['ButtonLink','Button Link','URL','Link','CTAURL']) || '#shop',
+      desktopImage: desktopImage,
+      mobileImage: mobileImage || desktopImage,
+      imageFit: firstValue(row, ['ImageFit','Image Fit','ObjectFit','Object Fit']) || 'cover',
+      objectPosition: firstValue(row, ['ObjectPosition','Object Position','ImagePosition','Image Position']) || 'center',
+      height: firstValue(row, ['BannerHeight','Banner Height','DesktopHeight','Desktop Height']) || '420',
+      mobileHeight: firstValue(row, ['MobileBannerHeight','Mobile Banner Height','MobileHeight','Mobile Height']) || '250',
+      openNew: ['yes','true','1','new','blank'].indexOf(firstValue(row, ['OpenInNewTab','Open New Tab','NewTab']).toLowerCase()) !== -1,
+      imageOnly: isImageOnly,
+      sort: parseInt(firstValue(row, ['SortOrder','Sort Order','Order','Priority']) || '999', 10)
+    };
+  }
+
+  function pickBanners(payload){
+    if(!payload) return [];
+    var data = payload.data || payload;
+    var possible = [
+      data.banners, data.Banners, data.bannerData, data.BannerData,
+      data.homeBanners, data.HomeBanners, payload.banners, payload.Banners
+    ];
+    var rows = [];
+    for(var i=0;i<possible.length;i++){
+      if(Array.isArray(possible[i])){ rows = possible[i]; break; }
+    }
+    return rows.filter(function(row){ return statusOK(row) && dateOK(row) && pageOK(row); })
+      .map(normalizeBanner)
+      .sort(function(a,b){ return (a.sort || 999) - (b.sort || 999); });
+  }
+
+  function buildEndpointCandidates(){
+    var urls = [];
+    function add(u){ if(u && typeof u === 'string' && urls.indexOf(u) === -1) urls.push(u); }
+    var cfg = window.FRESHLY_CONFIG || window.FreshlyConfig || window.freshlyConfig || {};
+    [
+      window.FRESHLY_BANNER_BACKEND_URL,
+      window.FRESHLY_PUBLIC_DATA_URL,
+      window.FRESHLY_BACKEND_URL,
+      cfg.PUBLIC_DATA_URL,
+      cfg.PublicDataUrl,
+      cfg.publicDataUrl,
+      cfg.BACKEND_URL,
+      cfg.BackendUrl,
+      cfg.backendUrl,
+      cfg.WEB_APP_URL,
+      cfg.WebAppUrl,
+      cfg.webAppUrl,
+      cfg.API_URL,
+      cfg.ApiUrl,
+      cfg.apiUrl
+    ].forEach(function(u){
+      if(!u) return;
+      add(String(u));
+      var sep = String(u).indexOf('?') === -1 ? '?' : '&';
+      add(String(u) + sep + 'action=publicData');
+      add(String(u) + sep + 'action=getPublicData');
+      add(String(u) + sep + 'action=getBanners');
+    });
+    return urls;
+  }
+
+  function escapeHTML(value){
+    return String(value || '').replace(/[&<>"']/g, function(ch){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch];
+    });
+  }
+
+  function renderBanners(banners){
+    var slider = document.querySelector('[data-freshly-backend-banners]');
+    if(!slider) return;
+    var track = slider.querySelector('[data-promo-track]');
+    var dots = slider.querySelector('[data-promo-dots]');
+    var prev = slider.querySelector('[data-promo-prev]');
+    var next = slider.querySelector('[data-promo-next]');
+    if(!track || !dots) return;
+    if(!banners || !banners.length) banners = fallbackBanners.map(normalizeBanner);
+
+    track.innerHTML = banners.map(function(banner, index){
+      var style = '--slide-height:' + escapeHTML(String(banner.height).replace('px','')) + 'px;--slide-mobile-height:' + escapeHTML(String(banner.mobileHeight).replace('px','')) + 'px;--slide-fit:' + escapeHTML(banner.imageFit) + ';--slide-pos:' + escapeHTML(banner.objectPosition) + ';';
+      var image = banner.desktopImage ? '<picture><source media="(max-width: 768px)" srcset="' + escapeHTML(banner.mobileImage || banner.desktopImage) + '"><img class="promo-bg" src="' + escapeHTML(banner.desktopImage) + '" alt="' + escapeHTML(banner.title) + '"></picture>' : '';
+      var target = banner.openNew ? ' target="_blank" rel="noopener"' : '';
+      var content = '<div class="container promo-content"><span class="eyebrow">' + escapeHTML(banner.eyebrow) + '</span><h1>' + escapeHTML(banner.title) + '</h1>' + (banner.subtitle ? '<p>' + escapeHTML(banner.subtitle) + '</p>' : '') + '<div class="promo-actions"><a class="btn btn-primary" href="' + escapeHTML(banner.buttonLink || '#shop') + '"' + target + '>' + escapeHTML(banner.buttonText || 'Shop Now') + '</a></div></div>';
+      return '<article class="promo-slide backend-banner ' + (index === 0 ? 'is-active ' : '') + (banner.imageOnly ? 'image-only' : '') + '" style="' + style + '">' + image + content + '</article>';
+    }).join('');
+
+    dots.innerHTML = banners.map(function(_, index){
+      return '<button class="promo-dot ' + (index === 0 ? 'is-active' : '') + '" type="button" aria-label="Go to banner ' + (index + 1) + '" data-banner-dot="' + index + '"></button>';
+    }).join('');
+
+    var current = 0;
+    var timer;
+    function goTo(index){
+      if(!banners.length) return;
+      current = (index + banners.length) % banners.length;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      Array.prototype.forEach.call(track.children, function(slide, i){ slide.classList.toggle('is-active', i === current); });
+      Array.prototype.forEach.call(dots.children, function(dot, i){ dot.classList.toggle('is-active', i === current); });
+    }
+    function play(){
+      clearInterval(timer);
+      if(banners.length > 1) timer = setInterval(function(){ goTo(current + 1); }, 5200);
+    }
+    if(prev) prev.onclick = function(){ goTo(current - 1); play(); };
+    if(next) next.onclick = function(){ goTo(current + 1); play(); };
+    dots.onclick = function(event){
+      var dot = event.target.closest('[data-banner-dot]');
+      if(!dot) return;
+      goTo(parseInt(dot.getAttribute('data-banner-dot'), 10) || 0);
+      play();
+    };
+    if(prev) prev.style.display = banners.length > 1 ? 'grid' : 'none';
+    if(next) next.style.display = banners.length > 1 ? 'grid' : 'none';
+    dots.style.display = banners.length > 1 ? 'flex' : 'none';
+    play();
+  }
+
+  function tryExistingData(){
+    var existing = pickBanners(window.FRESHLY_PUBLIC_DATA || window.FRESHLY_DATA || window.FreshlyPublicData || null);
+    if(existing.length) return existing;
+    if(Array.isArray(window.FRESHLY_BANNERS)) return window.FRESHLY_BANNERS.filter(function(row){ return statusOK(row) && dateOK(row) && pageOK(row); }).map(normalizeBanner);
+    if(Array.isArray(window.freshlyBanners)) return window.freshlyBanners.filter(function(row){ return statusOK(row) && dateOK(row) && pageOK(row); }).map(normalizeBanner);
+    return [];
+  }
+
+  function loadFromBackend(){
+    var existing = tryExistingData();
+    if(existing.length){ renderBanners(existing); return; }
+
+    var urls = buildEndpointCandidates();
+    if(!urls.length){ renderBanners([]); return; }
+
+    var chain = Promise.resolve(null);
+    urls.forEach(function(url){
+      chain = chain.then(function(found){
+        if(found && found.length) return found;
+        var sep = url.indexOf('?') === -1 ? '?' : '&';
+        return fetch(url + sep + '_=' + Date.now(), { cache:'no-store' })
+          .then(function(resp){ return resp.ok ? resp.json() : null; })
+          .then(function(json){ return pickBanners(json); })
+          .catch(function(){ return []; });
+      });
+    });
+    chain.then(function(banners){ renderBanners(banners && banners.length ? banners : []); });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(loadFromBackend, 250); });
+  }else{
+    setTimeout(loadFromBackend, 250);
+  }
+})();
+</script>
 </body></html>
