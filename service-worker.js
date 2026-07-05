@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-10-subcategory-click-fix';
+const FRESHLY_CACHE = 'freshly-v3-8-12-config-backend-clean';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
