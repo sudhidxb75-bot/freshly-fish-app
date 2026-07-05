@@ -2033,9 +2033,20 @@ body:not(#home) .hero-mini h1{
 .shop-toolbar{align-items:flex-start}.shop-toolbar>div{display:grid;gap:8px;flex:1}.subcategory-tabs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}.subcategory-tabs.hidden{display:none!important}.subcat-label{font-size:12px;font-weight:900;color:#64748b;text-transform:uppercase;letter-spacing:.04em;margin-right:2px}.tab.subtab{padding:8px 12px;font-size:13px;border-color:#bbf7d0;background:#f8fafc}.tab.subtab.active,.tab.subtab:hover{background:#15803d;color:#fff;border-color:#15803d}.product-subcategory{display:inline-flex;width:max-content;max-width:100%;border-radius:999px;background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;padding:4px 9px;font-size:12px;font-weight:900}.detail-subcategory{margin:0 0 8px 0}@media(max-width:760px){.shop-toolbar{display:grid;gap:12px}.shop-toolbar .search-box{max-width:100%}.subcategory-tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.subcategory-tabs .tab{white-space:nowrap}}
 
 
-/* Freshly V3.8.16 - ProductOptions multiple option dropdown styling */
+/* Freshly V3.8.17 - ProductOptions multiple option dropdown styling */
 .product-option-field label{display:flex;align-items:center;gap:6px;color:#14532d;}
 .product-option-select{background:#fff;border-color:#bbf7d0;font-weight:700;}
 .product-option-select:focus{outline:none;border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.12);}
 .line-summary b{color:#14532d;}
 @media(max-width:620px){.product-option-field{grid-column:1/-1;}.product-option-select{min-height:46px;}}
+
+
+/* Freshly V3.8.17 footer/bottom cart fix */
+.drawer{z-index:180!important;}
+.drawer.open{right:0!important;}
+.modal{z-index:190!important;}
+.freshly-bottom-nav{z-index:140!important;}
+.freshly-bottom-nav button[data-open-cart]{cursor:pointer;touch-action:manipulation;}
+.promo-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.freshly-mart-nav-link{font-weight:800;color:#0f766e!important}
+@media(max-width:768px){.promo-actions{justify-content:center}.freshly-mart-nav-link{display:block}}

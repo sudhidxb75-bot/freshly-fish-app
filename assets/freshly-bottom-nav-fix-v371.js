@@ -1,4 +1,6 @@
 (function(){
+  'use strict';
+
   function isIndexPage(){
     const path = location.pathname.split('/').pop() || 'index.html';
     return path === 'index.html' || path === '';
@@ -20,64 +22,86 @@
   }
 
   function goHome(e){
-    e.preventDefault();
+    if(e){ e.preventDefault(); e.stopPropagation(); }
     if(!isIndexPage()){
       location.href = 'index.html#home';
-      return;
+      return false;
     }
     window.scrollTo({top:0, behavior:'smooth'});
-    history.replaceState(null,'','index.html#home');
+    try{ history.replaceState(null,'','index.html#home'); }catch(err){}
     setActive('home');
+    return false;
   }
 
   function goShop(e){
-    e.preventDefault();
+    if(e){ e.preventDefault(); e.stopPropagation(); }
     if(!isIndexPage()){
-      localStorage.setItem('freshlySelectedCategory','all');
+      try{ localStorage.setItem('freshlySelectedCategory','all'); }catch(err){}
       location.href = 'index.html#shop';
-      return;
+      return false;
     }
     if(window.freshlyGoShop) window.freshlyGoShop(true);
     else scrollToTarget('#shop');
     try{history.replaceState(null,'','index.html#shop');}catch(err){}
     setActive('shop');
+    return false;
   }
 
   function openCart(e){
-    e.preventDefault();
-    const cartBtn = document.querySelector('.cart-float,[data-open-cart]:not(.freshly-bottom-nav [data-open-cart])');
-    if(cartBtn) cartBtn.click();
-    else document.querySelector('#cartDrawer')?.classList.add('open');
+    if(e){ e.preventDefault(); e.stopPropagation(); }
+    try{
+      if(typeof window.freshlyOpenCart === 'function'){
+        window.freshlyOpenCart();
+      }else{
+        const drawer = document.getElementById('cartDrawer');
+        if(drawer){
+          drawer.classList.add('open');
+          drawer.setAttribute('aria-hidden','false');
+          try{ drawer.scrollTop = 0; }catch(err){}
+        }
+      }
+    }catch(err){
+      const drawer = document.getElementById('cartDrawer');
+      if(drawer) drawer.classList.add('open');
+    }
     setActive('cart');
+    return false;
   }
 
   function openMenu(e){
-    e.preventDefault();
+    if(e){ e.preventDefault(); e.stopPropagation(); }
     const menu = document.querySelector('#freshlyMoreMenu');
     if(menu) menu.classList.remove('hidden');
     const mainMenu = document.querySelector('.menu');
     if(!menu && mainMenu) mainMenu.classList.add('open');
     setActive('menu');
+    return false;
+  }
+
+  function assignKeys(nav){
+    const items = Array.from(nav.querySelectorAll('a,button'));
+    items.forEach(item=>{
+      if(item.dataset.navKey) return;
+      const txt = (item.textContent || item.getAttribute('aria-label') || '').toLowerCase();
+      if(item.matches('[data-open-cart]') || txt.includes('cart')) item.dataset.navKey = 'cart';
+      else if(item.matches('[data-open-more]') || txt.includes('menu')) item.dataset.navKey = 'menu';
+      else if(txt.includes('home')) item.dataset.navKey = 'home';
+      else if(txt.includes('shop')) item.dataset.navKey = 'shop';
+      else if(txt.includes('order') || txt.includes('track')) item.dataset.navKey = 'orders';
+    });
   }
 
   function init(){
     const nav = document.querySelector('.freshly-bottom-nav');
-    if(!nav || nav.dataset.fixedV371 === 'yes') return;
-    nav.dataset.fixedV371 = 'yes';
+    if(!nav) return;
+    assignKeys(nav);
+    if(nav.dataset.fixedV3817 === 'yes') return;
+    nav.dataset.fixedV3817 = 'yes';
 
-    const items = [...nav.querySelectorAll('a,button')];
-    items.forEach(item=>{
-      const txt = (item.textContent || '').toLowerCase();
-      if(txt.includes('home')) item.dataset.navKey = 'home';
-      else if(txt.includes('shop')) item.dataset.navKey = 'shop';
-      else if(txt.includes('cart')) item.dataset.navKey = 'cart';
-      else if(txt.includes('order')) item.dataset.navKey = 'orders';
-      else if(txt.includes('menu')) item.dataset.navKey = 'menu';
-    });
-
-    nav.addEventListener('click', e=>{
+    nav.addEventListener('click', function(e){
       const item = e.target.closest('a,button');
       if(!item || !nav.contains(item)) return;
+      assignKeys(nav);
       const key = item.dataset.navKey;
       if(key === 'home') return goHome(e);
       if(key === 'shop') return goShop(e);
@@ -94,9 +118,16 @@
     else setActive('home');
   }
 
+  // Extra direct safety binding for cart buttons created after app.js init.
+  document.addEventListener('click', function(e){
+    const cartTrigger = e.target.closest('.freshly-bottom-nav [data-open-cart], .freshly-quick-actions [data-open-cart], #freshlyMoreMenu [data-open-cart]');
+    if(cartTrigger) return openCart(e);
+  }, true);
+
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 
-  setTimeout(init, 500);
-  setTimeout(init, 1500);
+  setTimeout(init, 300);
+  setTimeout(init, 900);
+  setTimeout(init, 1800);
 })();

@@ -1,5 +1,5 @@
 (function(){
-  // Freshly V3.8.16: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
+  // Freshly V3.8.18: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
   const cfg = window.FRESHLY_CONFIG || {};
   const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
   const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();
@@ -35,6 +35,8 @@
     location.reload();
   };
   window.checkFreshlyBackend = async function(){ return await api('ping', {}, 'GET'); };
+  window.checkFreshlyBackendHealth = async function(){ return await api('healthCheck', {}, 'GET'); };
+  window.checkFreshlyPublicData = async function(){ return await api('getPublicData', {}, 'GET'); };
   const currency = cfg.CURRENCY || '₹';
   function phoneDigits_(v){ return String(v || '').replace(/\D/g,''); }
   function phoneMatch_(a,b){ const x=phoneDigits_(a), y=phoneDigits_(b); return x && y && (x===y || x.slice(-10)===y.slice(-10)); }
@@ -1303,7 +1305,26 @@
     document.querySelectorAll('[data-cart-count]').forEach(el=>el.textContent=state.cart.reduce((s,x)=>s+(+x.Qty||0),0)); document.querySelectorAll('[data-cart-total]').forEach(el=>el.textContent=currency+num(cartTotal()));
     const box=document.querySelector('#cartItems'); if(box){ box.innerHTML=state.cart.length?state.cart.map((x,i)=>`<div class="cart-line"><div><strong>${esc(x.Name)}</strong><br><span class="muted">Selected: ${esc(x.SelectedQtyLabel||x.PackSize)} • Rate: ${esc(x.UnitPriceLabel||currency+num(x.BasePrice||x.Price))}</span><br><span class="muted">Product: ${currency}${num(x.ProductTotal||x.Price)}${(+x.OptionCharges||0)?` • Options: ${currency}${num(x.OptionCharges)}`:''}</span>${x.Note?`<br><span class="muted">Options/Note: ${esc(x.Note)}</span>`:''}<div style="margin-top:8px"><button class="btn btn-small" data-minus="${i}">−</button> <strong>${x.Qty}</strong> <button class="btn btn-small" data-plus="${i}">+</button></div></div><div><strong>${currency}${num((+x.Price||0)*(+x.Qty||0))}</strong><br><button class="btn btn-small btn-danger" data-remove="${i}">Remove</button></div></div>`).join(''):'<p class="muted">Your cart is empty.</p>'; box.querySelectorAll('[data-minus]').forEach(b=>b.onclick=()=>changeQty(+b.dataset.minus,-1)); box.querySelectorAll('[data-plus]').forEach(b=>b.onclick=()=>changeQty(+b.dataset.plus,1)); box.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>removeFromCart(+b.dataset.remove)); }
   }
-  function openCart(){document.querySelector('#cartDrawer')?.classList.add('open');} function closeCart(){document.querySelector('#cartDrawer')?.classList.remove('open');}
+  function openCart(){
+    const drawer=document.querySelector('#cartDrawer');
+    if(drawer){
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden','false');
+      try{ drawer.scrollTop=0; }catch(e){}
+    }
+  }
+  function closeCart(){
+    const drawer=document.querySelector('#cartDrawer');
+    if(drawer){
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden','true');
+    }
+  }
+  try{
+    window.freshlyOpenCart=openCart;
+    window.freshlyCloseCart=closeCart;
+    window.freshlyUpdateCartUI=updateCartUI;
+  }catch(e){}
   function startCheckout(){ if(!state.cart.length){toast('Please add products before checkout.');return;} closeCart(); renderCheckoutLines(); renderCheckoutLocationControls(); updateCustomerUI(); document.querySelector('#checkoutModal')?.classList.add('open'); }
   function renderCheckoutLines(){ const box=document.querySelector('#checkoutLines'); if(!box)return; box.innerHTML=state.cart.map(x=>`<div class="split-line"><span>${esc(x.Name)} (${esc(x.SelectedQtyLabel||x.PackSize)}) × ${x.Qty}${(x.Note||x.SelectedOptions)?`<br><small class="muted">${esc(x.SelectedOptions||x.Note)}</small>`:''}</span><strong>${currency}${num(x.Price*x.Qty)}</strong></div>`).join('')+`<hr><div class="split-line"><strong>Total</strong><strong>${currency}${num(cartTotal())}</strong></div>`; }
   function renderCheckoutLocationControls(){

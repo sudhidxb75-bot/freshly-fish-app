@@ -2313,3 +2313,10 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
 
 /* Freshly V3.8.11 - mobile subcategory rail support */
 @media(max-width:760px){.subcategory-tabs{display:flex;gap:8px;overflow-x:auto;flex-wrap:nowrap;padding:2px 2px 6px}.subcategory-tabs .tab{flex:0 0 auto}.product-subcategory{font-size:11px;padding:3px 8px}}
+
+
+/* Freshly V3.8.17 footer/bottom cart fix */
+.drawer{z-index:180!important;}
+.modal{z-index:190!important;}
+.freshly-bottom-nav{z-index:140!important;}
+.freshly-bottom-nav button[data-open-cart]{cursor:pointer;touch-action:manipulation;}
