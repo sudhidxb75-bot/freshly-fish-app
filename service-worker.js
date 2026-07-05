@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-13-backend-hubslot-fix';
+const FRESHLY_CACHE = 'freshly-v3-8-15-backend-verified-product-options';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
