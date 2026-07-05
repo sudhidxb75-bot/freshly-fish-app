@@ -9,8 +9,7 @@ window.FRESHLY_CONFIG = {
    * Example:
    * BACKEND_URL: 'https://script.google.com/macros/s/AKfycbxxxx/exec',
    */
-  BACKEND_URL: 'window.FRESHLY_CONFIG = {
-  VERSION: '3.8.10',
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbzghIW_wJqUazvrwRf7xWc4P0lfRYQdiB_uin4Ywkw2kfAock2J97_wLU6nwqe6-7fzjg/exec',
 
   /*
    * IMPORTANT:
