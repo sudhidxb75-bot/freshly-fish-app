@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-15-backend-verified-product-options';
+const FRESHLY_CACHE = 'freshly-v3-8-18-backend-health-verified';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
