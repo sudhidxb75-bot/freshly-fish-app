@@ -1,16 +1,40 @@
 (function(){
-  // Freshly V3.8.10: backend-controlled banners + clean category/subcategory display.
+  // Freshly V3.8.13: backend hub/slot time fix + banners + clean category/subcategory display.
   const cfg = window.FRESHLY_CONFIG || {};
   const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
   const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();
   if(backendOverride) cfg.BACKEND_URL = backendOverride;
   else cfg.BACKEND_URL = String(cfg.BACKEND_URL || '').trim();
+
+  function freshlyHtmlEsc_(v){return String(v ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function backendUrlLooksValid_(url){return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/(exec|dev)(\?.*)?$/i.test(String(url || '').trim());}
+  function showBackendConnectionNotice_(message, detail){
+    try{
+      let box = document.querySelector('#freshlyBackendNotice');
+      if(!box){
+        box = document.createElement('div');
+        box.id = 'freshlyBackendNotice';
+        box.className = 'notice freshly-backend-notice';
+        box.style.cssText = 'position:sticky;top:0;z-index:9999;margin:0;padding:12px 16px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#7c2d12;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.08);';
+        document.body.prepend(box);
+      }
+      box.innerHTML = '<div>⚠️ '+freshlyHtmlEsc_(message)+'</div>' + (detail ? '<div style="font-weight:400;margin-top:4px;font-size:13px;">'+freshlyHtmlEsc_(detail)+'</div>' : '');
+    }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    if(!cfg.BACKEND_URL){
+      showBackendConnectionNotice_('Freshly backend URL is not configured.', 'Open assets/config.js and paste your deployed Apps Script Web App URL in BACKEND_URL. It must end with /exec.');
+    }else if(!backendUrlLooksValid_(cfg.BACKEND_URL)){
+      showBackendConnectionNotice_('Freshly backend URL format looks incorrect.', 'Use the deployed Apps Script Web App URL in this format: https://script.google.com/macros/s/.../exec');
+    }
+  });
   window.setFreshlyBackendUrl = function(url){
     const clean = String(url || '').trim();
     if(clean) localStorage.setItem(backendOverrideKey, clean);
     else localStorage.removeItem(backendOverrideKey);
     location.reload();
   };
+  window.checkFreshlyBackend = async function(){ return await api('ping', {}, 'GET'); };
   const currency = cfg.CURRENCY || '₹';
   function phoneDigits_(v){ return String(v || '').replace(/\D/g,''); }
   function phoneMatch_(a,b){ const x=phoneDigits_(a), y=phoneDigits_(b); return x && y && (x===y || x.slice(-10)===y.slice(-10)); }
@@ -435,7 +459,7 @@
       state.countries = p.countries || p.Countries || demo.countries || [];
       state.settings = p.settings || p.Settings || demo.settings || {};
       applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage();
-    }catch(err){ console.error(err); if(cfg.DEMO_MODE_WHEN_BACKEND_EMPTY){ Object.assign(state, demo); applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage(); } else toast('Could not load catalogue. Check backend URL.'); }
+    }catch(err){ console.error(err); if(cfg.DEMO_MODE_WHEN_BACKEND_EMPTY){ Object.assign(state, demo); applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage(); } else { showBackendConnectionNotice_('Could not connect to Freshly backend.', err.message || 'Check Apps Script Web App URL and deployment access.'); toast('Could not load catalogue. Check backend URL.'); } }
   }
 
   function cleanKey_(v){ return String(v || '').trim().toLowerCase().replace(/[^a-z0-9]+/g,''); }
@@ -1841,7 +1865,25 @@
   function table(selector,rows){ const box=document.querySelector(selector); if(!box)return; if(!rows.length){box.innerHTML='<p class="muted">No records to show.</p>';return;} const keys=Object.keys(rows[0]).slice(0,8); box.innerHTML=`<table class="table"><thead><tr>${keys.map(k=>`<th>${esc(k)}</th>`).join('')}</tr></thead><tbody>${rows.slice(0,20).map(r=>`<tr>${keys.map(k=>`<td>${esc(r[k])}</td>`).join('')}</tr>`).join('')}</tbody></table>`; }
   function demoAdminData(){ return {ok:true,data:{metrics:{'Today Orders':8,'Pending Payments':3,'Pending Approvals':2,'Active Products':27,'Active Hubs':5,'WhatsApp Pending':4,'Customers':128,'Revenue Today':'₹12,450'},recentOrders:[{OrderFreshlyID:'FLY-ORD-000001',CustomerName:'Demo Customer',HubID:'FLY-LHB-000001',Total:560,Status:'Received',PaymentStatus:'Pending'}],products:demo.products,pendingApprovals:[{UpdateID:'UPD-DEMO',SupplierID:'FLY-SUP-000001',ProductID:'FLY-PRD-000001',ApprovalStatus:'Pending'}],freshlyIds:[{FreshlyID:'FLY-CUS-000001',EntityType:'Customer',Name:'Demo Customer',Status:'Active'}],adminUsers:[{AdminFreshlyID:'FLY-ADM-000001',Name:'Super Admin',Role:'Super Admin',Status:'Active'}],whatsappQueue:[{MessageID:'WA-DEMO',RecipientType:'Customer',Status:'Pending'}],settings:[{Key:'WHATSAPP_MODE',Value:'LOG_ONLY'}]}}; }
 
-  async function api(action,data={},method='POST'){ if(!cfg.BACKEND_URL) throw new Error('Backend URL is not configured.'); if(method==='GET'){ const r=await fetch(cfg.BACKEND_URL+'?action='+encodeURIComponent(action)); return await r.json(); } const r=await fetch(cfg.BACKEND_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,data})}); return await r.json(); }
+  async function api(action,data={},method='POST'){
+    const base = String(cfg.BACKEND_URL || '').trim();
+    if(!base) throw new Error('Backend URL is not configured in assets/config.js.');
+    if(!backendUrlLooksValid_(base)) throw new Error('Backend URL format is incorrect. Use the Apps Script Web App URL ending with /exec.');
+    const controller = new AbortController();
+    const timer = setTimeout(()=>controller.abort(), 18000);
+    try{
+      if(method==='GET'){
+        const sep = base.includes('?') ? '&' : '?';
+        const r = await fetch(base + sep + 'action=' + encodeURIComponent(action), {cache:'no-store', signal:controller.signal});
+        return await r.json();
+      }
+      const r = await fetch(base,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,data}),cache:'no-store',signal:controller.signal});
+      return await r.json();
+    }catch(err){
+      if(err && err.name === 'AbortError') throw new Error('Backend request timed out. Check Apps Script deployment/access.');
+      throw err;
+    }finally{ clearTimeout(timer); }
+  }
   function activeRows(rows){ return (rows||[]).filter(r=>String(r.Status||'Active').toLowerCase()==='active' || String(r.Status||'').toLowerCase()==='yes'); }
   function save(k,v){localStorage.setItem(k,JSON.stringify(v));} function load(k,f){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f));}catch(e){return f;}}
   function num(v){return (+v||0).toLocaleString('en-IN');} function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
