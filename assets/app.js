@@ -1,5 +1,5 @@
 (function(){
-  // Freshly V3.8.17: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
+  // Freshly V3.8.18: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
   const cfg = window.FRESHLY_CONFIG || {};
   const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
   const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();
@@ -35,6 +35,8 @@
     location.reload();
   };
   window.checkFreshlyBackend = async function(){ return await api('ping', {}, 'GET'); };
+  window.checkFreshlyBackendHealth = async function(){ return await api('healthCheck', {}, 'GET'); };
+  window.checkFreshlyPublicData = async function(){ return await api('getPublicData', {}, 'GET'); };
   const currency = cfg.CURRENCY || '₹';
   function phoneDigits_(v){ return String(v || '').replace(/\D/g,''); }
   function phoneMatch_(a,b){ const x=phoneDigits_(a), y=phoneDigits_(b); return x && y && (x===y || x.slice(-10)===y.slice(-10)); }
