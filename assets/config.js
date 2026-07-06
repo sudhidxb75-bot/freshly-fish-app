@@ -1,0 +1,31 @@
+window.FRESHLY_CONFIG = {
+  VERSION: '3.8.17',
+
+  /*
+   * Current deployed Apps Script Web App URL.
+   * The URL must end with /exec.
+   */
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbzghIW_wJqUazvrwRf7xWc4P0lfRYQdiB_uin4Ywkw2kfAock2J97_wLU6nwqe6-7fzjg/exec',
+
+  // Keep true for live use. If BACKEND_URL is empty, the app shows a setup warning instead of silently using demo data.
+  BACKEND_URL_REQUIRED_FOR_LIVE_DATA: true,
+
+  /*
+   * Optional quick override without editing files:
+   * Open browser console and run:
+   * localStorage.setItem('freshlyBackendUrl', 'YOUR_NEW_WEB_APP_URL');
+   * location.reload();
+   */
+  BACKEND_URL_STORAGE_KEY: 'freshlyBackendUrl',
+
+  CURRENCY: '₹',
+  DEFAULT_COUNTRY: 'India',
+  DEMO_MODE_WHEN_BACKEND_EMPTY: false,
+  DEFAULT_DISTRICT_ID: 'FLY-DST-000001',
+  DEFAULT_PINCODE: '673571',
+
+  // Use country code + number only. Do not use +, spaces, brackets or dashes here.
+  WHATSAPP_NUMBER: '918921696649',
+  WHATSAPP_DISPLAY_NUMBER: '+91 89216 96649',
+  SUPPORT_PHONE: '+91 89216 96649'
+};
