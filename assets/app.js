@@ -1,5 +1,5 @@
 (function(){
-  // Freshly V3.8.20: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
+  // Freshly V3.8.22: backend controlled categories + click-to-open Fresh Meat submenu + password toggles.
   const cfg = window.FRESHLY_CONFIG || {};
   const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
   const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();
@@ -68,24 +68,24 @@
     districts:[{DistrictID:'FLY-DST-000001',DistrictName:'Kozhikode',State:'Kerala',Status:'Active'},{DistrictID:'FLY-DST-000002',DistrictName:'Malappuram',State:'Kerala',Status:'Coming Soon'}],
     categories:[
       {CategoryID:'CAT-FISHSEA',Name:'Fish & Seafood',SortOrder:1,Status:'Active'},
-      {CategoryID:'CAT-CHICKEN',Name:'Chicken',SortOrder:2,Status:'Active'},
-      {CategoryID:'CAT-MUTTON',Name:'Mutton',SortOrder:3,Status:'Active'},
-      {CategoryID:'CAT-EGGS',Name:'Eggs',SortOrder:4,Status:'Active'},
-      {CategoryID:'CAT-FV',Name:'Fruits & Vegetables',SortOrder:5,Status:'Active'},
-      {CategoryID:'CAT-FOOD',Name:'Food',SortOrder:6,Status:'Active'},
-      {CategoryID:'CAT-GROCERY',Name:'Groceries',SortOrder:7,Status:'Active'},
-      {CategoryID:'CAT-ESSENTIALS',Name:'Daily Essentials',SortOrder:8,Status:'Active'},
-      {CategoryID:'CAT-READY',Name:'Ready to Cook',SortOrder:9,Status:'Active'},
-      {CategoryID:'CAT-COMBO',Name:'Combo Packs',SortOrder:10,Status:'Active'},
-      {CategoryID:'CAT-FRESHLYMART',Name:'Freshly Mart',SortOrder:11,Status:'Active'}
+      {CategoryID:'CAT-MEAT',Name:'Fresh Meat',SortOrder:2,Status:'Active'},
+      {CategoryID:'CAT-EGGS',Name:'Eggs',SortOrder:3,Status:'Active'},
+      {CategoryID:'CAT-FV',Name:'Fruits & Vegetables',SortOrder:4,Status:'Active'},
+      {CategoryID:'CAT-FOOD',Name:'Food',SortOrder:5,Status:'Active'},
+      {CategoryID:'CAT-GROCERY',Name:'Groceries',SortOrder:6,Status:'Active'},
+      {CategoryID:'CAT-ESSENTIALS',Name:'Daily Essentials',SortOrder:7,Status:'Active'},
+      {CategoryID:'CAT-READY',Name:'Ready to Cook',SortOrder:8,Status:'Active'},
+      {CategoryID:'CAT-COMBO',Name:'Combo Packs',SortOrder:9,Status:'Active'},
+      {CategoryID:'CAT-FRESHLYMART',Name:'Freshly Mart',SortOrder:10,Status:'Active'}
     ],
     subcategories:[
       {SubCategoryID:'SUB-SEA-FISH',CategoryID:'CAT-FISHSEA',Name:'Sea Fish',SortOrder:1,Status:'Active'},
       {SubCategoryID:'SUB-FRESHWATER-FISH',CategoryID:'CAT-FISHSEA',Name:'Freshwater Fish',SortOrder:2,Status:'Active'},
       {SubCategoryID:'SUB-PRAWNS-SEAFOOD',CategoryID:'CAT-FISHSEA',Name:'Prawns & Seafood',SortOrder:3,Status:'Active'},
       {SubCategoryID:'SUB-DRY-FISH',CategoryID:'CAT-FISHSEA',Name:'Dry Fish',SortOrder:4,Status:'Active'},
-      {SubCategoryID:'SUB-CHICKEN',CategoryID:'CAT-CHICKEN',Name:'Chicken Cuts',SortOrder:1,Status:'Active'},
-      {SubCategoryID:'SUB-MUTTON',CategoryID:'CAT-MUTTON',Name:'Mutton Cuts',SortOrder:1,Status:'Active'},
+      {SubCategoryID:'SUB-MEAT-BEEF',CategoryID:'CAT-MEAT',Name:'Beef',SortOrder:1,Status:'Active'},
+      {SubCategoryID:'SUB-MEAT-CHICKEN',CategoryID:'CAT-MEAT',Name:'Chicken',SortOrder:2,Status:'Active'},
+      {SubCategoryID:'SUB-MEAT-MUTTON',CategoryID:'CAT-MEAT',Name:'Mutton',SortOrder:3,Status:'Active'},
       {SubCategoryID:'SUB-FRUITS',CategoryID:'CAT-FV',Name:'Fruits',SortOrder:1,Status:'Active'},
       {SubCategoryID:'SUB-VEGETABLES',CategoryID:'CAT-FV',Name:'Vegetables',SortOrder:2,Status:'Active'},
       {SubCategoryID:'SUB-BREAKFAST',CategoryID:'CAT-FOOD',Name:'Breakfast Items',SortOrder:1,Status:'Active'},
@@ -99,7 +99,7 @@
     products:[
       {ProductID:'FLY-PRD-000001',SKU:'FISH-MATHI-500',Name:'Fresh Sardine / Mathi',CategoryID:'CAT-FISHSEA',SubCategoryID:'SUB-SEA-FISH',SubCategory:'Sea Fish',PackSize:'Price per kg',Description:'Fresh sardine cleaned on request and packed for same-day hub dispatch.',FreshnessNote:'Freshly sourced and quality checked before packing.',Unit:'kg',PriceBasis:'Per Kg',BaseUnit:'kg',BasePrice:220,MinimumQty:0.5,MaximumQty:5,QtyStep:0.5,AllowedQtyOptions:'0.5,1,1.5,2,2.5,3,4,5',DefaultQty:0.5,Price:220,MRP:260,StockQty:50,StockStatus:'Available',ImageURL:'',ApprovalStatus:'Approved',WebsiteStatus:'Active',CleaningAvailable:'Yes',CuttingAvailable:'Yes',MarinationAvailable:'No'},
       {ProductID:'FLY-PRD-000002',SKU:'FISH-SEER',Name:'Seer Fish Slices',CategoryID:'CAT-FISHSEA',SubCategoryID:'SUB-SEA-FISH',SubCategory:'Sea Fish',PackSize:'Price per kg',Description:'Premium seer fish slices suitable for fry and curry.',FreshnessNote:'Limited daily stock based on fresh arrival.',Unit:'kg',PriceBasis:'Per Kg',BaseUnit:'kg',BasePrice:780,MinimumQty:0.5,MaximumQty:5,QtyStep:0.5,AllowedQtyOptions:'0.5,1,1.5,2,2.5,3,4,5',DefaultQty:0.5,Price:780,MRP:850,StockQty:12,StockStatus:'Limited',ImageURL:'',ApprovalStatus:'Approved',WebsiteStatus:'Active',CleaningAvailable:'Yes',CuttingAvailable:'Yes',MarinationAvailable:'Yes'},
-      {ProductID:'FLY-PRD-000003',SKU:'CHICK-CURRY',Name:'Chicken Curry Cut',CategoryID:'CAT-CHICKEN',SubCategoryID:'SUB-CHICKEN',SubCategory:'Chicken Cuts',PackSize:'Price per kg',Description:'Fresh chicken curry cut, packed after quality check.',FreshnessNote:'Freshly processed and packed after quality check.',Unit:'kg',PriceBasis:'Per Kg',BaseUnit:'kg',BasePrice:240,MinimumQty:0.5,MaximumQty:5,QtyStep:0.5,AllowedQtyOptions:'0.5,1,1.5,2,3,5',DefaultQty:1,Price:240,MRP:270,StockQty:40,StockStatus:'Available',ImageURL:'',ApprovalStatus:'Approved',WebsiteStatus:'Active',CleaningAvailable:'No',CuttingAvailable:'Yes',MarinationAvailable:'Yes'},
+      {ProductID:'FLY-PRD-000003',SKU:'CHICK-CURRY',Name:'Chicken Curry Cut',CategoryID:'CAT-MEAT',SubCategoryID:'SUB-MEAT-CHICKEN',SubCategory:'Chicken',PackSize:'Price per kg',Description:'Fresh chicken curry cut, packed after quality check.',FreshnessNote:'Freshly processed and packed after quality check.',Unit:'kg',PriceBasis:'Per Kg',BaseUnit:'kg',BasePrice:240,MinimumQty:0.5,MaximumQty:5,QtyStep:0.5,AllowedQtyOptions:'0.5,1,1.5,2,3,5',DefaultQty:1,Price:240,MRP:270,StockQty:40,StockStatus:'Available',ImageURL:'',ApprovalStatus:'Approved',WebsiteStatus:'Active',CleaningAvailable:'No',CuttingAvailable:'Yes',MarinationAvailable:'Yes'},
       {ProductID:'FLY-PRD-000004',SKU:'VEG-COMBO',Name:'Vegetable Combo',CategoryID:'CAT-FV',SubCategoryID:'SUB-VEGETABLES',SubCategory:'Vegetables',PackSize:'Per combo',Description:'Assorted daily vegetable combo for home cooking.',FreshnessNote:'Availability depends on fresh daily procurement.',Unit:'combo',PriceBasis:'Per Combo',BaseUnit:'combo',BasePrice:199,MinimumQty:1,MaximumQty:5,QtyStep:1,AllowedQtyOptions:'1,2,3,4,5',DefaultQty:1,Price:199,MRP:230,StockQty:30,StockStatus:'Available',ImageURL:'',ApprovalStatus:'Approved',WebsiteStatus:'Active',CleaningAvailable:'No',CuttingAvailable:'No',MarinationAvailable:'No'}
     ],
     districtPricing:[{DistrictID:'FLY-DST-000001',ProductID:'FLY-PRD-000001',PriceBasis:'Per Kg',BaseUnit:'kg',SellingPrice:220,OfferPrice:200,MRP:260,StockQty:50,Status:'Active'},{DistrictID:'FLY-DST-000001',ProductID:'FLY-PRD-000002',PriceBasis:'Per Kg',BaseUnit:'kg',SellingPrice:780,OfferPrice:'',MRP:850,StockQty:12,Status:'Active'},{DistrictID:'FLY-DST-000001',ProductID:'FLY-PRD-000003',PriceBasis:'Per Kg',BaseUnit:'kg',SellingPrice:240,OfferPrice:'',MRP:270,StockQty:40,Status:'Active'},{DistrictID:'FLY-DST-000001',ProductID:'FLY-PRD-000004',PriceBasis:'Per Combo',BaseUnit:'combo',SellingPrice:199,OfferPrice:'',MRP:230,StockQty:30,Status:'Active'}],
@@ -151,14 +151,31 @@
     document.querySelectorAll('[data-open-checkout]').forEach(btn=>btn.addEventListener('click',startCheckout));
     document.querySelectorAll('[data-close-modal]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('.modal')?.classList.remove('open'))); document.querySelectorAll('[data-product-window-close]').forEach(btn=>btn.addEventListener('click',()=>document.querySelector('#productWindowModal')?.classList.remove('open')));
     document.querySelectorAll('[data-logout]').forEach(btn=>btn.addEventListener('click',()=>{localStorage.removeItem('freshlyCustomer');state.customer=null;updateCustomerUI();toast('Logged out. You can still shop and login at checkout.')}));
-    document.querySelectorAll('[data-menu-cat],[data-mobile-category]').forEach(a=>{
+    document.querySelectorAll('[data-freshly-menu-group-toggle]').forEach(btn=>{
+      if(btn.dataset.groupToggleBound === 'yes') return;
+      btn.dataset.groupToggleBound = 'yes';
+      btn.addEventListener('click', e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const group = btn.closest('[data-freshly-menu-group], .freshly-menu-group');
+        if(!group) return;
+        const willOpen = !group.classList.contains('open');
+        const panel = group.closest('.dropdown-panel');
+        if(panel) panel.querySelectorAll('.freshly-menu-group.open').forEach(g=>{ if(g !== group){ g.classList.remove('open'); g.querySelector('[data-freshly-menu-group-toggle]')?.setAttribute('aria-expanded','false'); } });
+        group.classList.toggle('open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      }, true);
+    });
+    document.querySelectorAll('[data-menu-cat],[data-mobile-category],[data-menu-subcat],[data-mobile-subcategory]').forEach(a=>{
       if(a.dataset.categoryRouterBound === 'yes') return;
       a.dataset.categoryRouterBound = 'yes';
       a.addEventListener('click',e=>{
         const cat = a.dataset.menuCat || a.dataset.mobileCategory || a.dataset.cat || a.textContent;
-        if(cat){
+        const subcat = a.dataset.menuSubcat || a.dataset.mobileSubcategory || '';
+        if(cat || subcat){
           e.preventDefault();
-          openShopCategory_(cat,{clearSearch:true});
+          if(subcat) openShopSubCategory_(cat || 'CAT-MEAT', subcat, {clearSearch:true});
+          else openShopCategory_(cat,{clearSearch:true});
         }
       }, true);
     });
@@ -473,8 +490,8 @@
       state.banners = p.banners || p.Banners || demo.banners || [];
       state.countries = p.countries || p.Countries || demo.countries || [];
       state.settings = p.settings || p.Settings || demo.settings || {};
-      applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage();
-    }catch(err){ console.error(err); if(cfg.DEMO_MODE_WHEN_BACKEND_EMPTY){ Object.assign(state, demo); applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage(); } else { showBackendConnectionNotice_('Could not connect to Freshly backend.', err.message || 'Check Apps Script Web App URL and deployment access.'); toast('Could not load catalogue. Check backend URL.'); } }
+      applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderBackendCategoryMenus(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage();
+    }catch(err){ console.error(err); if(cfg.DEMO_MODE_WHEN_BACKEND_EMPTY){ Object.assign(state, demo); applyConfiguredContacts(); renderLocationSelectors(); renderPromoSlider(); renderBackendCategoryMenus(); renderCategories(); renderProducts(); renderCheckoutLocationControls(); renderProductDetailsPage(); } else { showBackendConnectionNotice_('Could not connect to Freshly backend.', err.message || 'Check Apps Script Web App URL and deployment access.'); toast('Could not load catalogue. Check backend URL.'); } }
   }
 
   function cleanKey_(v){ return String(v || '').trim().toLowerCase().replace(/[^a-z0-9]+/g,''); }
@@ -741,6 +758,49 @@
       .trim();
   }
 
+
+  function isMeatCategoryKey_(key){
+    key = categoryKey_(key);
+    return key === 'catmeat' || key === 'freshmeat' || key === 'meat' || key === 'catbeef' || key === 'catchicken' || key === 'catmutton' || key === 'beef' || key === 'chicken' || key === 'mutton';
+  }
+  function meatSubcategoryForInput_(input){
+    const k = categoryKey_(input);
+    if(k.includes('beef')) return 'SUB-MEAT-BEEF';
+    if(k.includes('chicken')) return 'SUB-MEAT-CHICKEN';
+    if(k.includes('mutton')) return 'SUB-MEAT-MUTTON';
+    return '';
+  }
+  function meatKindFromText_(text){
+    const k = categoryKey_(text);
+    if(k.includes('beef')) return 'beef';
+    if(k.includes('chicken')) return 'chicken';
+    if(k.includes('mutton')) return 'mutton';
+    return '';
+  }
+  function productMeatKind_(p){
+    return meatKindFromText_([p?.CategoryID, p?.Category, p?.CategoryName, p?.SubCategoryID, p?.SubCategory, p?.SubCategoryName, p?.Name, p?.SKU].filter(Boolean).join(' '));
+  }
+  function normalizeCategoryRows_(rows){
+    const raw = activeRows(rows || []);
+    if(!raw.length) return [];
+    let sawMeat = false, sawLegacyMeat = false, meatSort = 2;
+    const out = [];
+    raw.forEach(c => {
+      const id = valueFrom_(c, ['CategoryID','Category ID','ID','Code']) || c.CategoryID || c.Name || c.CategoryName;
+      const name = valueFrom_(c, ['Name','CategoryName','Category Name','Title']) || id;
+      const k = categoryKey_(id || name);
+      const nameKey = categoryKey_(name);
+      const legacyMeat = ['catchicken','catmutton','catbeef','chicken','mutton','beef'].includes(k) || ['chicken','mutton','beef'].includes(nameKey);
+      if(k === 'catmeat' || nameKey === 'freshmeat') sawMeat = true;
+      if(legacyMeat){ sawLegacyMeat = true; meatSort = Math.min(meatSort, Number(c.SortOrder || 2)); return; }
+      out.push(c);
+    });
+    if(!sawMeat && sawLegacyMeat){
+      out.push({CategoryID:'CAT-MEAT', Name:'Fresh Meat', SortOrder:meatSort || 2, Status:'Active'});
+    }
+    return out.sort((a,b)=>(+a.SortOrder||999)-(+b.SortOrder||999));
+  }
+
   function fixedCategoryAlias_(input){
     const k = categoryKey_(input);
     const map = {
@@ -749,9 +809,11 @@
       fishseafood:'CAT-FISHSEA',
       fishandseafood:'CAT-FISHSEA',
       seafood:'CAT-FISHSEA',
-      chicken:'CAT-CHICKEN',
-      mutton:'CAT-MUTTON',
-      meat:'CAT-MUTTON',
+      freshmeat:'CAT-MEAT',
+      meat:'CAT-MEAT',
+      beef:'CAT-MEAT',
+      chicken:'CAT-MEAT',
+      mutton:'CAT-MEAT',
       eggs:'CAT-EGGS',
       egg:'CAT-EGGS',
       fruitsvegetables:'CAT-FV',
@@ -776,8 +838,8 @@
   }
 
   function categoriesForRouting_(){
-    const fromSheet = activeRows(state.categories || []);
-    return fromSheet.length ? fromSheet : (demo.categories || []);
+    const fromSheet = normalizeCategoryRows_(state.categories || []);
+    return fromSheet.length ? fromSheet : normalizeCategoryRows_(demo.categories || []);
   }
 
   function resolveCategoryId_(input){
@@ -786,6 +848,7 @@
 
     const cats = categoriesForRouting_();
     const key = categoryKey_(raw);
+    if(['freshmeat','meat','beef','chicken','mutton','catbeef','catchicken','catmutton'].includes(key)) return 'CAT-MEAT';
 
     const direct = cats.find(c =>
       categoryKey_(c.CategoryID) === key ||
@@ -844,6 +907,10 @@
     if(!selected || selected === 'all') return true;
     const labels = categoryRouteLabels_(selected);
     const vals = productCategoryValues_(p).map(categoryKey_).filter(Boolean);
+    if(labels.some(isMeatCategoryKey_)){
+      if(productMeatKind_(p)) return true;
+      if(vals.some(v => ['catmeat','catchicken','catmutton','catbeef'].includes(v))) return true;
+    }
     if(!vals.length) return false;
     return vals.some(v => labels.includes(v)) ||
       vals.some(v => labels.some(l => v.includes(l) || l.includes(v)));
@@ -882,6 +949,10 @@
   }
   function productMatchesSubCategory_(p, selected){
     if(!selected || selected === 'all') return true;
+    const wantedMeat = meatKindFromText_(selected);
+    if(wantedMeat){
+      return productMeatKind_(p) === wantedMeat;
+    }
     const labels = subcategoryRouteLabels_(selected);
     if(!labels.length) return true;
     const vals = productSubcategoryValues_(p).map(categoryKey_).filter(Boolean);
@@ -894,6 +965,7 @@
   function subcategoryBelongsToCategory_(s, selectedCategory){
     if(!selectedCategory || categoryKey_(selectedCategory) === 'all') return false;
     const labels = categoryRouteLabels_(selectedCategory);
+    if(labels.some(isMeatCategoryKey_) && meatKindFromText_([subcategoryId_(s), subcategoryName_(s), subcategoryCategory_(s)].join(' '))) return true;
     const vals = [subcategoryCategory_(s), s.CategoryID, s.Category, s.CategoryName, s.MainCategory, s.ParentCategoryID].map(categoryKey_).filter(Boolean);
     if(!vals.length) return false;
     return vals.some(v => labels.includes(v)) || vals.some(v => labels.some(l => v.includes(l) || l.includes(v)));
@@ -922,6 +994,13 @@
       out.push({id, name, categoryId:categoryId || '', SortOrder:Number(sortOrder || 999)});
     }
 
+    if(categoryRouteLabels_(state.selectedCategory).some(isMeatCategoryKey_)){
+      add('SUB-MEAT-BEEF','Beef','CAT-MEAT',1);
+      add('SUB-MEAT-CHICKEN','Chicken','CAT-MEAT',2);
+      add('SUB-MEAT-MUTTON','Mutton','CAT-MEAT',3);
+      return out.sort((a,b)=>(a.SortOrder||999)-(b.SortOrder||999) || a.name.localeCompare(b.name));
+    }
+
     activeRows(state.subcategories).forEach(s => {
       const sid = subcategoryId_(s);
       const sname = subcategoryName_(s);
@@ -942,6 +1021,7 @@
       const name = productSubcategoryName_(p);
       if(id || name) add(id || name, name || id, productCategoryValues_(p)[0] || '', 999);
     });
+
 
     return out.sort((a,b)=>(a.SortOrder||999)-(b.SortOrder||999) || a.name.localeCompare(b.name));
   }
@@ -1062,9 +1142,9 @@
     setTimeout(closeMobileOverlays_, 60);
 
     state.selectedCategory = resolved || 'all';
-    state.selectedSubCategory = 'all';
+    state.selectedSubCategory = meatSubcategoryForInput_(raw) || 'all';
     localStorage.setItem('freshlySelectedCategory', state.selectedCategory);
-    localStorage.setItem('freshlySelectedSubCategory','all');
+    localStorage.setItem('freshlySelectedSubCategory', state.selectedSubCategory);
 
     const clearSearch = !opts || opts.clearSearch !== false;
     if(clearSearch){
@@ -1097,8 +1177,34 @@
   }
 
 
+
+  function openShopSubCategory_(category, subcategory, opts){
+    const rawCat = String(category || 'CAT-MEAT').trim() || 'CAT-MEAT';
+    const rawSub = String(subcategory || '').trim();
+    const resolvedCat = resolveCategoryId_(rawCat);
+    closeMobileOverlays_();
+    setTimeout(closeMobileOverlays_, 60);
+    state.selectedCategory = resolvedCat || 'all';
+    state.selectedSubCategory = rawSub || 'all';
+    localStorage.setItem('freshlySelectedCategory', state.selectedCategory);
+    localStorage.setItem('freshlySelectedSubCategory', state.selectedSubCategory);
+    const clearSearch = !opts || opts.clearSearch !== false;
+    if(clearSearch){
+      const catalog = document.querySelector('#catalogSearch');
+      const mobileSearch = document.querySelector('#freshlyMobileSearch');
+      const homeSearch = document.querySelector('#homeProductSearch');
+      if(catalog) catalog.value = '';
+      if(mobileSearch) mobileSearch.value = '';
+      if(homeSearch) homeSearch.value = '';
+    }
+    refreshShopAfterCategory_();
+    if(document.querySelector('#shop')) setTimeout(scrollToShopSafely_, window.innerWidth <= 760 ? 140 : 20);
+    else location.href = 'index.html#shop';
+  }
+
   window.freshlyCloseMobileOverlays = closeMobileOverlays_;
   window.freshlyOpenCategory = function(category){ openShopCategory_(category, {clearSearch:true}); };
+  window.freshlyOpenSubCategory = function(category, subcategory){ openShopSubCategory_(category, subcategory, {clearSearch:true}); };
   window.freshlyGoShop = function(resetCategory){
     closeMobileOverlays_();
     if(resetCategory !== false){
@@ -1120,9 +1226,103 @@
   };
 
 
+
+  function categoryIdForUi_(c){ return valueFrom_(c, ['CategoryID','Category ID','ID','Code']) || c.CategoryID || c.Name || c.CategoryName || ''; }
+  function categoryNameForUi_(c){ return valueFrom_(c, ['Name','CategoryName','Category Name','Title']) || c.Name || c.CategoryName || categoryIdForUi_(c); }
+  function categoryIconForUi_(id, name){
+    const s = categoryKey_((id || '') + ' ' + (name || ''));
+    if(s.includes('fish') || s.includes('seafood')) return '🐟';
+    if(isMeatCategoryKey_(s)) return '🥩';
+    if(s.includes('egg')) return '🥚';
+    if(s.includes('fruit') || s.includes('veg')) return '🥦';
+    if(s.includes('food')) return '🍱';
+    if(s.includes('grocery')) return '🍚';
+    if(s.includes('essential')) return '🛒';
+    if(s.includes('ready')) return '🍳';
+    if(s.includes('combo')) return '🏷️';
+    if(s.includes('mart')) return '🛍️';
+    return '🛒';
+  }
+  function isFreshlyMartCategory_(c){
+    const k = categoryKey_((categoryIdForUi_(c) || '') + ' ' + (categoryNameForUi_(c) || ''));
+    return k.includes('freshlymart') || k === 'mart';
+  }
+  function menuSubcategoriesForCategory_(c){
+    const cid = categoryIdForUi_(c);
+    const selectedLabels = categoryRouteLabels_(cid || categoryNameForUi_(c));
+    const subs = [];
+    const seen = {};
+    function add(id, name, sortOrder){
+      id = String(id || name || '').trim(); name = String(name || id || '').trim();
+      if(!id || !name) return;
+      const k = categoryKey_(id || name);
+      if(seen[k]) return;
+      seen[k] = true;
+      subs.push({id, name, SortOrder:Number(sortOrder || 999)});
+    }
+    if(selectedLabels.some(isMeatCategoryKey_) || isMeatCategoryKey_(cid) || categoryKey_(categoryNameForUi_(c)) === 'freshmeat'){
+      add('SUB-MEAT-BEEF','Beef',1);
+      add('SUB-MEAT-CHICKEN','Chicken',2);
+      add('SUB-MEAT-MUTTON','Mutton',3);
+      return subs.sort((a,b)=>(+a.SortOrder||999)-(+b.SortOrder||999));
+    }
+    activeRows(state.subcategories || []).forEach(s=>{
+      if(subcategoryBelongsToCategory_(s, cid || categoryNameForUi_(c))){
+        add(subcategoryId_(s), subcategoryName_(s), s.SortOrder);
+      }
+    });
+    return subs.sort((a,b)=>(+a.SortOrder||999)-(+b.SortOrder||999));
+  }
+  function buildBackendCategoryLinksHtml_(opts){
+    opts = opts || {};
+    const cats = categoriesForRouting_().filter(c => !isFreshlyMartCategory_(c));
+    const includeSubcategories = opts.includeSubcategories !== false;
+    const links = [];
+    cats.forEach(c=>{
+      const id = categoryIdForUi_(c);
+      const name = categoryNameForUi_(c);
+      const icon = valueFrom_(c, ['Icon','Emoji']) || categoryIconForUi_(id, name);
+      const subcats = (includeSubcategories && isMeatCategoryKey_(id || name)) ? menuSubcategoriesForCategory_(c) : [];
+      if(subcats.length){
+        links.push(`<div class="freshly-menu-group" data-freshly-menu-group><button type="button" class="freshly-menu-group-toggle" data-freshly-menu-group-toggle aria-expanded="false"><span>${esc(icon)} ${esc(name)}</span><span class="freshly-menu-group-arrow">›</span></button><div class="freshly-menu-subgroup" data-freshly-menu-subgroup>`);
+        subcats.forEach(s=>{
+          links.push(`<a href="index.html#shop" class="freshly-menu-subcategory" data-menu-cat="${esc(id)}" data-mobile-category="${esc(id)}" data-menu-subcat="${esc(s.id)}" data-mobile-subcategory="${esc(s.id)}">↳ ${esc(s.name)}</a>`);
+        });
+        links.push('</div></div>');
+      }else{
+        links.push(`<a href="index.html#shop" class="freshly-menu-category" data-menu-cat="${esc(id)}" data-mobile-category="${esc(id)}">${esc(icon)} ${esc(name)}</a>`);
+      }
+    });
+    links.push('<a href="freshlymart/" target="_blank" rel="noopener" data-freshly-mart-link>🛍️ Freshly Mart Website</a>');
+    return links.join('');
+  }
+  function buildMobileCategoryRailHtml_(){
+    return categoriesForRouting_().filter(c => !isFreshlyMartCategory_(c)).map(c=>{
+      const id = categoryIdForUi_(c), name = categoryNameForUi_(c), icon = valueFrom_(c,['Icon','Emoji']) || categoryIconForUi_(id,name);
+      return `<button data-mobile-category="${esc(id)}">${esc(icon)} ${esc(name)}</button>`;
+    }).join('') + '<a href="freshlymart/" target="_blank" rel="noopener">🛍️ Freshly Mart</a>';
+  }
+  function buildMobileCategoryCardsHtml_(){
+    return categoriesForRouting_().filter(c => !isFreshlyMartCategory_(c)).map(c=>{
+      const id = categoryIdForUi_(c), name = categoryNameForUi_(c), icon = valueFrom_(c,['Icon','Emoji']) || categoryIconForUi_(id,name);
+      return `<a class="freshly-mobile-cat" href="#shop" data-mobile-category="${esc(id)}"><span class="icon">${esc(icon)}</span><span>${esc(name)}</span></a>`;
+    }).join('') + '<a class="freshly-mobile-cat" href="freshlymart/" target="_blank" rel="noopener"><span class="icon">🛍️</span><span>Freshly Mart</span></a>';
+  }
+  function renderBackendCategoryMenus(){
+    window.freshlyBackendCategoryLinks = function(opts){ return buildBackendCategoryLinksHtml_(opts || {includeSubcategories:true}); };
+    window.freshlyRenderBackendCategories = renderBackendCategoryMenus;
+    document.querySelectorAll('[data-backend-category-panel], .freshly-desktop-categories .dropdown-panel').forEach(panel=>{
+      panel.innerHTML = buildBackendCategoryLinksHtml_({includeSubcategories:true});
+    });
+    document.querySelectorAll('.freshly-top-category-rail').forEach(box=>{ box.innerHTML = buildMobileCategoryRailHtml_(); });
+    document.querySelectorAll('.freshly-mobile-cats').forEach(box=>{ box.innerHTML = buildMobileCategoryCardsHtml_(); });
+    document.querySelectorAll('.freshly-more-category-grid').forEach(box=>{ box.innerHTML = buildBackendCategoryLinksHtml_({includeSubcategories:false}); });
+    bindNav();
+  }
+
   function renderCategories(){
     const box = document.querySelector('#categoryTabs'); if(!box) return;
-    const cats = activeRows(state.categories).sort((a,b)=>(+a.SortOrder||0)-(+b.SortOrder||0));
+    const cats = categoriesForRouting_().sort((a,b)=>(+a.SortOrder||0)-(+b.SortOrder||0));
     const selectedLabels = categoryRouteLabels_(state.selectedCategory);
     box.innerHTML = `<button class="tab ${state.selectedCategory==='all'?'active':''}" data-cat="all">All</button>` + cats.map(c=>{
       const id = c.CategoryID || c.Name;
@@ -1293,7 +1493,7 @@
     form.addEventListener('submit', e=>{ e.preventDefault(); const fd=new FormData(form); const selectedQty=Number(fd.get('SelectedQty')||1); const baseTotal=pr.basePrice*selectedQty; const opt=optionChargesFromForm(fd); const lineTotal=baseTotal+opt.extra; const selectedLabel=formatQty(selectedQty,pr.baseUnit); addToCart(p.ProductID, opt.notes.join(' | '), 1, lineTotal, selectedLabel, {SelectedQty:selectedQty,SelectedQtyLabel:selectedLabel,BaseUnit:pr.baseUnit,PriceBasis:pr.priceBasis,BasePrice:pr.basePrice,ProductTotal:baseTotal,OptionCharges:opt.extra,UnitPriceLabel:priceLabel(pr)}); modal.classList.remove('open'); openCart(); });
     modal.classList.add('open');
   }
-  function categoryEmoji(cat){ const s=String(cat||'').toLowerCase(); if(s.includes('fish')) return '🐟'; if(s.includes('chicken')) return '🍗'; if(s.includes('mutton')) return '🥩'; if(s.includes('egg')) return '🥚'; if(s.includes('veg')||s.includes('fruit')) return '🥬'; if(s.includes('grocery')||s.includes('essential')) return '🛒'; return '🥗'; }
+  function categoryEmoji(cat){ const s=String(cat||'').toLowerCase(); if(s.includes('fish')) return '🐟'; if(s.includes('meat')||s.includes('beef')||s.includes('mutton')) return '🥩'; if(s.includes('chicken')) return '🍗'; if(s.includes('egg')) return '🥚'; if(s.includes('veg')||s.includes('fruit')) return '🥬'; if(s.includes('grocery')||s.includes('essential')) return '🛒'; return '🥗'; }
   function stockClass(status, qty){ const s=String(status||'Available').toLowerCase(); if(s.includes('sold')||s.includes('out')||Number(qty)===0) return {cls:'out',label:'Sold Out'}; if(s.includes('limited')||Number(qty)<10) return {cls:'limited',label:'Limited'}; return {cls:'ok',label:'Available'}; }
   function addToCart(id, note='', qty=1, priceOverride=null, packLabel='', meta={}){ const p=state.products.find(x=>String(x.ProductID)===String(id)); if(!p) return; const pr=effectivePrice(p); const finalPrice=priceOverride==null?pr.price:(+priceOverride||pr.price); const finalPack=packLabel||p.PackSize||p.Unit||'Pack'; const finalMeta=Object.assign({SelectedQty:meta.SelectedQty||1,SelectedQtyLabel:finalPack,BaseUnit:meta.BaseUnit||pr.baseUnit,PriceBasis:meta.PriceBasis||pr.priceBasis,BasePrice:meta.BasePrice||pr.basePrice,ProductTotal:meta.ProductTotal||finalPrice,OptionCharges:meta.OptionCharges||0,UnitPriceLabel:meta.UnitPriceLabel||priceLabel(pr)}, meta||{}); const line=state.cart.find(x=>String(x.ProductID)===String(id) && String(x.Note||'')===String(note||'') && String(x.PackSize||'')===String(finalPack)); if(line) line.Qty += (+qty||1); else state.cart.push(Object.assign({ProductID:p.ProductID,Name:p.Name,PackSize:finalPack,Unit:finalMeta.BaseUnit,Price:finalPrice,Qty:+qty||1,SelectedOptions:note,Note:note}, finalMeta)); save('freshlyCart',state.cart); updateCartUI(); toast(`${p.Name} added to cart`); }
   function removeFromCart(i){ state.cart.splice(i,1); save('freshlyCart',state.cart); updateCartUI(); }
@@ -2135,7 +2335,7 @@
 
 
   document.addEventListener("DOMContentLoaded", initPartnerDashboard);
-  // Freshly V3.8.20: show/hide password support for login and signup forms.
+  // Freshly V3.8.21: show/hide password support for login and signup forms.
   function initFreshlyPasswordToggles(){
     if(document.__freshlyPasswordToggleReady) return;
     document.__freshlyPasswordToggleReady = true;

@@ -1,5 +1,10 @@
 (function(){
-  const CATEGORY_LINKS = `<a href="index.html#shop" data-menu-cat="Fish & Seafood" data-mobile-category="Fish & Seafood">🐟 Fish & Seafood</a><a href="index.html#shop" data-menu-cat="Chicken" data-mobile-category="Chicken">🍗 Chicken</a><a href="index.html#shop" data-menu-cat="Mutton" data-mobile-category="Mutton">🥩 Mutton</a><a href="index.html#shop" data-menu-cat="Eggs" data-mobile-category="Eggs">🥚 Eggs</a><a href="index.html#shop" data-menu-cat="Fruits & Vegetables" data-mobile-category="Fruits & Vegetables">🥦 Fruits & Vegetables</a><a href="index.html#shop" data-menu-cat="Food" data-mobile-category="Food">🍱 Food</a><a href="index.html#shop" data-menu-cat="Groceries" data-mobile-category="Groceries">🍚 Groceries</a><a href="index.html#shop" data-menu-cat="Daily Essentials" data-mobile-category="Daily Essentials">🛒 Daily Essentials</a><a href="index.html#shop" data-menu-cat="Ready to Cook" data-mobile-category="Ready to Cook">🍳 Ready to Cook</a><a href="index.html#shop" data-menu-cat="Combo Packs" data-mobile-category="Combo Packs">🏷️ Combo Packs</a><a href="index.html#shop" data-menu-cat="Freshly Mart" data-mobile-category="Freshly Mart">🛍️ Freshly Mart</a>`;
+  function defaultCategoryLinks(){
+    return `<a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-FISHSEA" data-mobile-category="CAT-FISHSEA">🐟 Fish & Seafood</a><div class="freshly-menu-group" data-freshly-menu-group><button type="button" class="freshly-menu-group-toggle" data-freshly-menu-group-toggle aria-expanded="false"><span>🥩 Fresh Meat</span><span class="freshly-menu-group-arrow">›</span></button><div class="freshly-menu-subgroup" data-freshly-menu-subgroup><a href="index.html#shop" class="freshly-menu-subcategory" data-menu-cat="CAT-MEAT" data-mobile-category="CAT-MEAT" data-menu-subcat="SUB-MEAT-BEEF" data-mobile-subcategory="SUB-MEAT-BEEF">↳ Beef</a><a href="index.html#shop" class="freshly-menu-subcategory" data-menu-cat="CAT-MEAT" data-mobile-category="CAT-MEAT" data-menu-subcat="SUB-MEAT-CHICKEN" data-mobile-subcategory="SUB-MEAT-CHICKEN">↳ Chicken</a><a href="index.html#shop" class="freshly-menu-subcategory" data-menu-cat="CAT-MEAT" data-mobile-category="CAT-MEAT" data-menu-subcat="SUB-MEAT-MUTTON" data-mobile-subcategory="SUB-MEAT-MUTTON">↳ Mutton</a></div></div><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-EGGS" data-mobile-category="CAT-EGGS">🥚 Eggs</a><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-FV" data-mobile-category="CAT-FV">🥦 Fruits & Vegetables</a><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-FOOD" data-mobile-category="CAT-FOOD">🍱 Food</a><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-GROCERY" data-mobile-category="CAT-GROCERY">🍚 Groceries</a><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-ESSENTIALS" data-mobile-category="CAT-ESSENTIALS">🛒 Daily Essentials</a><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-READY" data-mobile-category="CAT-READY">🍳 Ready to Cook</a><a href="index.html#shop" class="freshly-menu-category" data-menu-cat="CAT-COMBO" data-mobile-category="CAT-COMBO">🏷️ Combo Packs</a><a href="freshlymart/" target="_blank" rel="noopener">🛍️ Freshly Mart</a>`;
+  }
+  function categoryLinks(){
+    return (typeof window.freshlyBackendCategoryLinks === 'function') ? window.freshlyBackendCategoryLinks({includeSubcategories:true}) : defaultCategoryLinks();
+  }
 
   function isMobile(){
     return window.innerWidth <= 760;
@@ -21,7 +26,7 @@
     if(!drop){
       drop = document.createElement('div');
       drop.className = 'dropdown freshly-mobile-categories-dropdown';
-      drop.innerHTML = '<button class="dropdown-btn" type="button" data-submenu-toggle>Categories ▾</button><div class="dropdown-panel" data-submenu-panel>' + CATEGORY_LINKS + '</div>';
+      drop.innerHTML = '<button class="dropdown-btn" type="button" data-submenu-toggle>Categories ▾</button><div class="dropdown-panel" data-submenu-panel>' + categoryLinks() + '</div>';
       const shop = [...m.querySelectorAll('a')].find(a => /Shop/i.test(a.textContent || ''));
       if(shop) shop.insertAdjacentElement('afterend', drop);
       else m.insertBefore(drop, m.firstChild);
@@ -44,7 +49,7 @@
       }
       panel.className = 'dropdown-panel';
       panel.setAttribute('data-submenu-panel','');
-      panel.innerHTML = CATEGORY_LINKS;
+      panel.innerHTML = categoryLinks();
     }
   }
 
@@ -92,11 +97,13 @@
     else openMenu();
   }
 
-  function openCategory(category){
+  function openCategory(category, subcategory){
     const term = String(category || '').trim();
-    if(!term) return;
+    const sub = String(subcategory || '').trim();
+    if(!term && !sub) return;
     closeMenu();
     if(window.freshlyCloseMobileOverlays) window.freshlyCloseMobileOverlays();
+    if(sub && window.freshlyOpenSubCategory){ window.freshlyOpenSubCategory(term || 'CAT-MEAT', sub); setTimeout(closeMenu, 60); return; }
     if(window.freshlyOpenCategory){ window.freshlyOpenCategory(term); setTimeout(closeMenu, 60); return; }
     const shop = document.querySelector('#shop');
     if(shop) shop.scrollIntoView({behavior:'smooth', block:'start'});
@@ -152,11 +159,26 @@
           return;
         }
 
+        const groupBtn = e.target.closest('[data-freshly-menu-group-toggle]');
+        if(groupBtn){
+          e.preventDefault();
+          e.stopPropagation();
+          const group = groupBtn.closest('[data-freshly-menu-group], .freshly-menu-group');
+          if(group){
+            const willOpen = !group.classList.contains('open');
+            const panel = group.closest('.dropdown-panel');
+            if(panel) panel.querySelectorAll('.freshly-menu-group.open').forEach(g=>{ if(g !== group){ g.classList.remove('open'); g.querySelector('[data-freshly-menu-group-toggle]')?.setAttribute('aria-expanded','false'); } });
+            group.classList.toggle('open', willOpen);
+            groupBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+          }
+          return;
+        }
+
         const cat = e.target.closest('[data-menu-cat], [data-mobile-category]');
         if(cat){
           e.preventDefault();
           e.stopPropagation();
-          openCategory(cat.dataset.menuCat || cat.dataset.mobileCategory);
+          openCategory(cat.dataset.menuCat || cat.dataset.mobileCategory, cat.dataset.menuSubcat || cat.dataset.mobileSubcategory);
           return;
         }
 
