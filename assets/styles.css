@@ -2052,7 +2052,7 @@ body:not(#home) .hero-mini h1{
 @media(max-width:768px){.promo-actions{justify-content:center}.freshly-mart-nav-link{display:block}}
 
 
-/* Freshly V3.8.19 - robust footer/bottom cart refix */
+/* Freshly V3.8.20 - robust footer/bottom cart refix */
 .drawer#cartDrawer,
 #cartDrawer.drawer{
   z-index:99999!important;
@@ -2090,3 +2090,43 @@ body.freshly-cart-open #cartDrawer{
     right:0!important;
   }
 }
+
+
+/* Freshly V3.8.20: show/hide password toggle */
+.password-field{
+  position:relative;
+  display:flex;
+  align-items:center;
+  width:100%;
+}
+.password-field .input{
+  width:100%;
+  padding-right:82px;
+}
+.password-toggle{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:#ecfdf5;
+  color:#047857;
+  font-weight:800;
+  font-size:13px;
+  line-height:1;
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 1px 3px rgba(15,23,42,.10);
+  z-index:2;
+}
+.password-toggle:hover,
+.password-toggle:focus{
+  background:#d1fae5;
+  outline:2px solid rgba(22,163,74,.18);
+}
+.password-toggle[aria-pressed="true"]{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+

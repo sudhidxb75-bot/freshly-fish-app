@@ -1,5 +1,5 @@
 (function(){
-  // Freshly V3.8.19: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
+  // Freshly V3.8.20: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
   const cfg = window.FRESHLY_CONFIG || {};
   const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
   const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();
@@ -2135,4 +2135,25 @@
 
 
   document.addEventListener("DOMContentLoaded", initPartnerDashboard);
+  // Freshly V3.8.20: show/hide password support for login and signup forms.
+  function initFreshlyPasswordToggles(){
+    if(document.__freshlyPasswordToggleReady) return;
+    document.__freshlyPasswordToggleReady = true;
+    document.addEventListener('click', function(event){
+      const btn = event.target.closest('[data-password-toggle]');
+      if(!btn) return;
+      const wrapper = btn.closest('.password-field') || btn.parentElement;
+      if(!wrapper) return;
+      const input = wrapper.querySelector('input[type="password"], input[data-password-visible="true"], input[type="text"]');
+      if(!input) return;
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      input.setAttribute('data-password-visible', show ? 'true' : 'false');
+      btn.textContent = show ? 'Hide' : 'Show';
+      btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+    });
+  }
+  initFreshlyPasswordToggles();
+
 })();
