@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-20-password-toggle';
+const FRESHLY_CACHE = 'freshly-v3-8-22-fresh-meat-click-submenu';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
