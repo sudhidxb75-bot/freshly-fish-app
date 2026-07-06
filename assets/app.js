@@ -1,5 +1,5 @@
 (function(){
-  // Freshly V3.8.18: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
+  // Freshly V3.8.19: multiple ProductOptions support + backend hub/slot time fix + banners + clean category/subcategory display.
   const cfg = window.FRESHLY_CONFIG || {};
   const backendOverrideKey = cfg.BACKEND_URL_STORAGE_KEY || 'freshlyBackendUrl';
   const backendOverride = (localStorage.getItem(backendOverrideKey) || '').trim();

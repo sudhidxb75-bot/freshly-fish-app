@@ -2322,7 +2322,7 @@ body{background:linear-gradient(180deg,#f0fdf4 0,#f6f8fb 250px,#f6f8fb 100%)!imp
 .freshly-bottom-nav button[data-open-cart]{cursor:pointer;touch-action:manipulation;}
 
 
-/* Freshly V3.8.18 - robust footer/bottom cart refix */
+/* Freshly V3.8.19 - robust footer/bottom cart refix */
 .drawer#cartDrawer,
 #cartDrawer.drawer{
   z-index:99999!important;

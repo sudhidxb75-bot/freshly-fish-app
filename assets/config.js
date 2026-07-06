@@ -1,5 +1,5 @@
 window.FRESHLY_CONFIG = {
-  VERSION: '3.8.18',
+  VERSION: '3.8.19',
 
   /*
    * Current deployed Apps Script Web App URL.

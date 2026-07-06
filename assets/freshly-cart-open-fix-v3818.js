@@ -1,4 +1,4 @@
-/* Freshly V3.8.18 - Robust footer/bottom cart refix
+/* Freshly V3.8.19 - Robust footer/bottom cart refix
    Based on working V3.8.17 package. This file only fixes cart opening from
    footer/bottom nav/quick action buttons and keeps backend/frontend logic unchanged. */
 (function(){

@@ -2052,7 +2052,7 @@ body:not(#home) .hero-mini h1{
 @media(max-width:768px){.promo-actions{justify-content:center}.freshly-mart-nav-link{display:block}}
 
 
-/* Freshly V3.8.18 - robust footer/bottom cart refix */
+/* Freshly V3.8.19 - robust footer/bottom cart refix */
 .drawer#cartDrawer,
 #cartDrawer.drawer{
   z-index:99999!important;
