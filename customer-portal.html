@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Customer Login / Sign Up - Freshly</title>
 <meta name="description" content="Freshly customer login and signup.">
-<link rel="manifest" href="manifest.webmanifest?v=3.8.19">
+<link rel="manifest" href="manifest.webmanifest?v=3.8.20">
 <meta name="theme-color" content="#0f9d58">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Freshly">
 <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
-<link rel="stylesheet" href="assets/styles.css?v=3.8.19">
+<link rel="stylesheet" href="assets/styles.css?v=3.8.20">
 <link rel="stylesheet" href="assets/mobile-app.css?v=3.0">
-<link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.8.19">
+<link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.8.20">
 </head>
 <body>
 <div id="statusBox" class="status-box"></div>
@@ -46,7 +46,7 @@
       <p class="muted">Use your User ID, phone number, email or Freshly ID.</p>
       <div class="form-grid single">
         <div><label>User ID / Phone / Email / Freshly ID</label><input class="input" name="UserID" autocomplete="username" required></div>
-        <div><label>Password</label><input class="input" name="Password" type="password" autocomplete="current-password" required></div>
+        <div><label>Password</label><div class="password-field"><input class="input" name="Password" type="password" autocomplete="current-password" required><button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button></div></div>
       </div>
       <br><button class="btn btn-primary" type="submit">Login</button>
     </form>
@@ -60,8 +60,8 @@
         <div><label>Phone / WhatsApp</label><input class="input" name="Phone" required></div>
         <div><label>Email</label><input class="input" name="Email" type="email"></div>
         <div><label>User ID</label><input class="input" name="UserID" placeholder="Optional"></div>
-        <div><label>Password</label><input class="input" name="Password" type="password" autocomplete="new-password" required></div>
-        <div><label>Confirm Password</label><input class="input" name="ConfirmPassword" type="password" autocomplete="new-password" required></div>
+        <div><label>Password</label><div class="password-field"><input class="input" name="Password" type="password" autocomplete="new-password" required><button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button></div></div>
+        <div><label>Confirm Password</label><div class="password-field"><input class="input" name="ConfirmPassword" type="password" autocomplete="new-password" required><button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button></div></div>
         <div><label>WhatsApp Updates</label><select class="input" name="WhatsAppOptIn"><option>Yes</option><option>No</option></select></div>
       </div>
       <br><button class="btn btn-primary" type="submit">Sign Up</button>
@@ -90,10 +90,10 @@
   </div>
 </div></section>
 
-<script src="assets/config.js?v=3.8.19"></script>
-<script src="assets/app.js?v=3.8.19"></script>
-<script src="assets/freshly-mobile-app-v2.js?v=3.8.19"></script>
-<script src="assets/freshly-install-app.js?v=3.8.19"></script>
+<script src="assets/config.js?v=3.8.20"></script>
+<script src="assets/app.js?v=3.8.20"></script>
+<script src="assets/freshly-mobile-app-v2.js?v=3.8.20"></script>
+<script src="assets/freshly-install-app.js?v=3.8.20"></script>
 <script>
 (function(){
   function show(tab){
@@ -114,10 +114,10 @@
   });
 })();
 </script>
-<script src="assets/freshly-mobile-menu-fix-v34.js?v=3.8.19"></script>
-<script src="assets/freshly-mobile-layout-safe-v368.js?v=3.8.19"></script>
-<script src="assets/freshly-cart-open-fix-v3819.js?v=3.8.19"></script>
-<script src="assets/freshly-bottom-nav-fix-v371.js?v=3.8.19"></script>
-<script src="assets/freshly-category-route-fix-v372.js?v=3.8.19"></script>
+<script src="assets/freshly-mobile-menu-fix-v34.js?v=3.8.20"></script>
+<script src="assets/freshly-mobile-layout-safe-v368.js?v=3.8.20"></script>
+<script src="assets/freshly-cart-open-fix-v3820.js?v=3.8.20"></script>
+<script src="assets/freshly-bottom-nav-fix-v371.js?v=3.8.20"></script>
+<script src="assets/freshly-category-route-fix-v372.js?v=3.8.20"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-const FRESHLY_CACHE = 'freshly-v3-8-18-cart-refix-clean';
+const FRESHLY_CACHE = 'freshly-v3-8-20-password-toggle';
 const OFFLINE_URL = './offline.html';
 
 self.addEventListener('install', event => {
