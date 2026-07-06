@@ -1,8 +1,8 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><script>
-window.FRESHLY_BUILD_VERSION='3.8.20-password-show-toggle';
+window.FRESHLY_BUILD_VERSION='3.8.21-fresh-meat-category';
 window.FRESHLY_MART_URL='freshlymart/';
 (function(){
-  var resetVersion='FRESHLY_CACHE_RESET_VERSION_3_8_20';
+  var resetVersion='FRESHLY_CACHE_RESET_VERSION_3_8_21';
   try{
     if(localStorage.getItem('freshlyCacheResetVersion')===resetVersion) return;
     var baseParts=location.pathname.split('/').filter(Boolean);
@@ -24,7 +24,7 @@ window.FRESHLY_MART_URL='freshlymart/';
     });
   }catch(e){}
 })();
-</script><title>Freshly - Community Fresh Commerce</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=3.8.20"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16a34a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Freshly"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="assets/icons/icon-180.png"><link rel="stylesheet" href="assets/mobile-app.css?v=3.8.20"><link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.8.20"><style>.promo-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.freshly-mart-nav-link{font-weight:800;color:#0f766e}@media(max-width:768px){.promo-actions{justify-content:center}.freshly-mart-nav-link{display:block}}</style></head><body id="home">
+</script><title>Freshly - Community Fresh Commerce</title><meta name="description" content="Freshly community-driven fresh commerce platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=3.8.21"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#16a34a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Freshly"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="assets/icons/icon-180.png"><link rel="stylesheet" href="assets/mobile-app.css?v=3.8.21"><link rel="stylesheet" href="assets/freshly-mobile-app-v2.css?v=3.8.21"><style>.promo-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.freshly-mart-nav-link{font-weight:800;color:#0f766e}.category-menu-group{border-top:1px solid rgba(15,118,110,.12);border-bottom:1px solid rgba(15,118,110,.12);margin:4px 0;padding:4px 0}.category-menu-parent{font-weight:900;color:#0f766e}.category-menu-child{display:block;padding-left:26px!important;font-size:.95em}.category-menu-child:before{content:'↳ ';color:#16a34a;font-weight:900}@media(max-width:768px){.promo-actions{justify-content:center}.freshly-mart-nav-link{display:block}.category-menu-child{padding-left:28px!important}}</style></head><body id="home">
 <div class="top-strip"><div class="container"><span>Freshness Delivered.</span><span>Contact Us: <a href="https://wa.me/918921696649" target="_blank" rel="noopener">WhatsApp</a></span></div></div>
 <nav class="nav">
 <div class="container nav-top-row">
@@ -52,8 +52,12 @@ window.FRESHLY_MART_URL='freshlymart/';
     <a href="index.html#shop">Shop</a>
     <div class="dropdown freshly-desktop-categories"><button class="dropdown-btn" type="button" data-submenu-toggle>Categories ▾</button><div class="dropdown-panel" data-submenu-panel>
       <a href="index.html#shop" data-menu-cat="Fish & Seafood" data-mobile-category="Fish & Seafood">🐟 Fish & Seafood</a>
-      <a href="index.html#shop" data-menu-cat="Chicken" data-mobile-category="Chicken">🍗 Chicken</a>
-      <a href="index.html#shop" data-menu-cat="Mutton" data-mobile-category="Mutton">🥩 Mutton</a>
+      <div class="category-menu-group">
+        <a href="index.html#shop" class="category-menu-parent" data-menu-cat="Fresh Meat" data-mobile-category="Fresh Meat">🥩 Fresh Meat</a>
+        <a href="index.html#shop" class="category-menu-child" data-menu-cat="Fresh Meat" data-menu-subcat="Beef" data-mobile-category="Fresh Meat" data-mobile-subcategory="Beef">Beef</a>
+        <a href="index.html#shop" class="category-menu-child" data-menu-cat="Fresh Meat" data-menu-subcat="Chicken" data-mobile-category="Fresh Meat" data-mobile-subcategory="Chicken">Chicken</a>
+        <a href="index.html#shop" class="category-menu-child" data-menu-cat="Fresh Meat" data-menu-subcat="Mutton" data-mobile-category="Fresh Meat" data-mobile-subcategory="Mutton">Mutton</a>
+      </div>
       <a href="index.html#shop" data-menu-cat="Eggs" data-mobile-category="Eggs">🥚 Eggs</a>
       <a href="index.html#shop" data-menu-cat="Fruits & Vegetables" data-mobile-category="Fruits & Vegetables">🥦 Fruits & Vegetables</a>
       <a href="index.html#shop" data-menu-cat="Food" data-mobile-category="Food">🍱 Food</a>
@@ -149,9 +153,64 @@ window.FRESHLY_MART_URL='freshlymart/';
   <div><h4>Policies</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="refund-policy.html">Refund Policy</a><a href="delivery-policy.html">Delivery Policy</a></div>
   <div><h4>Freshly</h4><a href="index.html#home">Home</a><a href="freshlymart/" target="_blank" rel="noopener" data-freshly-mart-link>Freshly Mart</a><a href="contact.html">Contact</a><p>© <span id="year"></span> Freshly</p></div>
 </div></footer><div id="statusBox" class="status-box"></div>
-<script src="assets/config.js?v=3.8.20"></script><script src="assets/app.js?v=3.8.20"></script><script src="assets/pwa-install.js?v=3.8.20"></script><script src="assets/freshly-mobile-app-v2.js?v=3.8.20"></script><script src="assets/freshly-install-app.js?v=3.8.20"></script><button class="btn btn-primary install-app-btn" type="button" data-install-app>📲 Install App</button><script src="assets/freshly-mobile-menu-fix-v34.js?v=3.8.20"></script>
-<script src="assets/freshly-mobile-layout-safe-v368.js?v=3.8.20"></script>
-<script src="assets/freshly-cart-open-fix-v3820.js?v=3.8.20"></script>
-<script src="assets/freshly-bottom-nav-fix-v371.js?v=3.8.20"></script>
-<script src="assets/freshly-category-route-fix-v372.js?v=3.8.20"></script>
+<script src="assets/config.js?v=3.8.21"></script><script src="assets/app.js?v=3.8.21"></script><script src="assets/pwa-install.js?v=3.8.21"></script><script src="assets/freshly-mobile-app-v2.js?v=3.8.21"></script><script src="assets/freshly-install-app.js?v=3.8.21"></script><button class="btn btn-primary install-app-btn" type="button" data-install-app>📲 Install App</button><script src="assets/freshly-mobile-menu-fix-v34.js?v=3.8.21"></script>
+<script src="assets/freshly-mobile-layout-safe-v368.js?v=3.8.21"></script>
+<script src="assets/freshly-cart-open-fix-v3820.js?v=3.8.21"></script>
+<script src="assets/freshly-bottom-nav-fix-v371.js?v=3.8.21"></script>
+<script src="assets/freshly-category-route-fix-v372.js?v=3.8.21"></script>
+
+<script>
+(function(){
+  function norm(v){ return String(v || '').replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF]/gu,'').replace(/\s+/g,' ').trim().toLowerCase(); }
+  function clickMatching(containerId, wanted){
+    if(!wanted) return false;
+    var box=document.getElementById(containerId);
+    if(!box) return false;
+    var target=norm(wanted);
+    var nodes=Array.prototype.slice.call(box.querySelectorAll('button,a,[data-category],[data-subcategory]'));
+    for(var i=0;i<nodes.length;i++){
+      var el=nodes[i];
+      var values=[el.textContent, el.getAttribute('data-category'), el.getAttribute('data-menu-cat'), el.getAttribute('data-subcategory'), el.getAttribute('data-menu-subcat')];
+      if(values.some(function(v){ return norm(v)===target; })){
+        el.click();
+        return true;
+      }
+    }
+    return false;
+  }
+  function applyFreshMeatSubcategory(category, subcategory){
+    if(!category) return;
+    var tries=0;
+    var timer=setInterval(function(){
+      tries++;
+      var catOk=clickMatching('categoryTabs', category);
+      if(catOk && subcategory){
+        setTimeout(function(){ clickMatching('subcategoryTabs', subcategory); }, 150);
+      }
+      if(catOk || tries>25) clearInterval(timer);
+    }, 160);
+  }
+  document.addEventListener('click', function(e){
+    var link=e.target.closest('[data-menu-subcat],[data-mobile-subcategory]');
+    if(!link) return;
+    var category=link.getAttribute('data-menu-cat') || link.getAttribute('data-mobile-category') || 'Fresh Meat';
+    var subcategory=link.getAttribute('data-menu-subcat') || link.getAttribute('data-mobile-subcategory');
+    try{
+      sessionStorage.setItem('freshlyPendingCategory', category);
+      sessionStorage.setItem('freshlyPendingSubCategory', subcategory || '');
+    }catch(err){}
+    setTimeout(function(){ applyFreshMeatSubcategory(category, subcategory); }, 250);
+  });
+  window.addEventListener('DOMContentLoaded', function(){
+    var category='', subcategory='';
+    try{
+      category=sessionStorage.getItem('freshlyPendingCategory') || '';
+      subcategory=sessionStorage.getItem('freshlyPendingSubCategory') || '';
+      sessionStorage.removeItem('freshlyPendingCategory');
+      sessionStorage.removeItem('freshlyPendingSubCategory');
+    }catch(err){}
+    if(category) applyFreshMeatSubcategory(category, subcategory);
+  });
+})();
+</script>
 </body></html>
