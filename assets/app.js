@@ -35,8 +35,6 @@
     location.reload();
   };
   window.checkFreshlyBackend = async function(){ return await api('ping', {}, 'GET'); };
-  window.checkFreshlyBackendHealth = async function(){ return await api('healthCheck', {}, 'GET'); };
-  window.checkFreshlyPublicData = async function(){ return await api('getPublicData', {}, 'GET'); };
   const currency = cfg.CURRENCY || '₹';
   function phoneDigits_(v){ return String(v || '').replace(/\D/g,''); }
   function phoneMatch_(a,b){ const x=phoneDigits_(a), y=phoneDigits_(b); return x && y && (x===y || x.slice(-10)===y.slice(-10)); }
@@ -1308,21 +1306,39 @@
   function openCart(){
     const drawer=document.querySelector('#cartDrawer');
     if(drawer){
-      drawer.classList.add('open');
+      updateCartUI();
+      drawer.classList.add('open','active','show');
       drawer.setAttribute('aria-hidden','false');
+      drawer.style.right='0';
+      drawer.style.visibility='visible';
+      drawer.style.display='block';
+      drawer.style.pointerEvents='auto';
+      drawer.style.zIndex='99999';
+      document.body.classList.add('freshly-cart-open');
       try{ drawer.scrollTop=0; }catch(e){}
+    }else if(location.pathname.split('/').pop() !== 'index.html'){
+      try{sessionStorage.setItem('freshlyOpenCartOnLoad','yes');}catch(e){}
+      location.href='index.html#cart';
     }
   }
   function closeCart(){
     const drawer=document.querySelector('#cartDrawer');
     if(drawer){
-      drawer.classList.remove('open');
+      drawer.classList.remove('open','active','show');
       drawer.setAttribute('aria-hidden','true');
+      drawer.style.right='';
+      drawer.style.visibility='';
+      drawer.style.display='';
+      drawer.style.pointerEvents='';
     }
+    document.body.classList.remove('freshly-cart-open');
   }
   try{
     window.freshlyOpenCart=openCart;
+    window.openFreshlyCart=openCart;
+    window.freshlyCartRefixOpen=openCart;
     window.freshlyCloseCart=closeCart;
+    window.closeFreshlyCart=closeCart;
     window.freshlyUpdateCartUI=updateCartUI;
   }catch(e){}
   function startCheckout(){ if(!state.cart.length){toast('Please add products before checkout.');return;} closeCart(); renderCheckoutLines(); renderCheckoutLocationControls(); updateCustomerUI(); document.querySelector('#checkoutModal')?.classList.add('open'); }

@@ -48,16 +48,25 @@
   }
 
   function openCart(e){
-    if(e){ e.preventDefault(); e.stopPropagation(); }
+    if(e){ e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation) e.stopImmediatePropagation(); }
     try{
-      if(typeof window.freshlyOpenCart === 'function'){
+      if(typeof window.openFreshlyCart === 'function'){
+        window.openFreshlyCart();
+      }else if(typeof window.freshlyOpenCart === 'function'){
         window.freshlyOpenCart();
       }else{
         const drawer = document.getElementById('cartDrawer');
         if(drawer){
-          drawer.classList.add('open');
+          drawer.classList.add('open','active','show');
           drawer.setAttribute('aria-hidden','false');
-          try{ drawer.scrollTop = 0; }catch(err){}
+          drawer.style.right='0';
+          drawer.style.visibility='visible';
+          drawer.style.display='block';
+          drawer.style.zIndex='99999';
+          document.body.classList.add('freshly-cart-open');
+        }else if(!isIndexPage()){
+          try{sessionStorage.setItem('freshlyOpenCartOnLoad','yes');}catch(err){}
+          location.href='index.html#cart';
         }
       }
     }catch(err){
@@ -95,8 +104,8 @@
     const nav = document.querySelector('.freshly-bottom-nav');
     if(!nav) return;
     assignKeys(nav);
-    if(nav.dataset.fixedV3817 === 'yes') return;
-    nav.dataset.fixedV3817 = 'yes';
+    if(nav.dataset.fixedV3818 === 'yes') return;
+    nav.dataset.fixedV3818 = 'yes';
 
     nav.addEventListener('click', function(e){
       const item = e.target.closest('a,button');

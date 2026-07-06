@@ -2050,3 +2050,43 @@ body:not(#home) .hero-mini h1{
 .promo-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .freshly-mart-nav-link{font-weight:800;color:#0f766e!important}
 @media(max-width:768px){.promo-actions{justify-content:center}.freshly-mart-nav-link{display:block}}
+
+
+/* Freshly V3.8.18 - robust footer/bottom cart refix */
+.drawer#cartDrawer,
+#cartDrawer.drawer{
+  z-index:99999!important;
+}
+.drawer#cartDrawer.open,
+#cartDrawer.drawer.open,
+body.freshly-cart-open #cartDrawer{
+  right:0!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+.freshly-bottom-nav [data-open-cart],
+.freshly-bottom-nav [data-nav-key="cart"],
+.freshly-quick-actions [data-open-cart],
+#freshlyMoreMenu [data-open-cart],
+.cart-float[data-open-cart]{
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+  user-select:none!important;
+}
+@media(max-width:760px){
+  #cartDrawer.drawer{
+    width:100vw!important;
+    max-width:100vw!important;
+    right:-100vw!important;
+    left:auto!important;
+    top:auto!important;
+    bottom:0!important;
+    height:86vh!important;
+    border-radius:22px 22px 0 0!important;
+  }
+  #cartDrawer.drawer.open,
+  body.freshly-cart-open #cartDrawer{
+    right:0!important;
+  }
+}
