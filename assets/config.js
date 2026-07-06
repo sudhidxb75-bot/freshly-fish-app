@@ -5,7 +5,7 @@ window.FRESHLY_CONFIG = {
    * Current deployed Apps Script Web App URL.
    * The URL must end with /exec.
    */
-  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbzghIW_wJqUazvrwRf7xWc4P0lfRYQdiB_uin4Ywkw2kfAock2J97_wLU6nwqe6-7fzjg/exec',
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbxznOjwiiAwSZ1tZlRdYzdlj_COdZvkyR6f10Ie-9AXUCM78YOORInRBTgQrr9EeN4o/exec',
 
   // Keep true for live use. If BACKEND_URL is empty, the app shows a setup warning instead of silently using demo data.
   BACKEND_URL_REQUIRED_FOR_LIVE_DATA: true,
